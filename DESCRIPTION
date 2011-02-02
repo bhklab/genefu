@@ -1,0 +1,14 @@
+Package: genefu
+Type: Package
+Title: Relevant Functions for Gene Expression Analysis, Especially in Breast Cancer.
+Version: 1.1.1
+Date: 2011
+Description: R package providing various functions relevant for gene expression analysis with emphasis on breast cancer.
+Author: Benjamin Haibe-Kains, Gianluca Bontempi, John Quackenbush, Christos Sotiriou
+Maintainer: Benjamin Haibe-Kains <bhaibeka@ulb.ac.be>
+Description: This package contains functions implementing various tasks usually required by gene expression analysis, especially in breast cancer studies: gene mapping between different microarray platforms, identification of molecular subtypes, implementation of published gene signatures, gene selection, survival analysis, ...
+Depends: survcomp, amap, mclust, gplots, R (>= 2.5.0)
+Suggests: GeneMeta
+License: GPL (>= 3)
+URL: http://www.ulb.ac.be/di/mlg
+LazyData: yes
