@@ -10,6 +10,7 @@ function(sbt.model, data, annot, do.mapping=FALSE, mapping, do.scale=TRUE, do.pr
 	if(is.list(sbt.model)) {
 		## retrieve model
 		subtype.c <- sbt.model[!is.element(names(sbt.model), c("cutoff.AURKA", "mod"))]
+		model.name <- subtype.c$parameters$variance$modelName
 		cc <- sbt.model$cutoff.AURKA
 		m.mod <- sbt.model$mod
 	} else {
@@ -28,7 +29,7 @@ function(sbt.model, data, annot, do.mapping=FALSE, mapping, do.scale=TRUE, do.pr
 		tt <- sapply(X=m.param[grep(pattern="mean", x=nn)], FUN=function(x) { return(x) })
 		dimnames(tt) <- list(names(m.mod)[1:2], cn)
 		subtype.c$parameters$mean <- tt
-		subtype.c$parameters$variance$modelName <- "EEI"
+		subtype.c$parameters$variance$modelName <- model.name <- m.param$modelname
 		subtype.c$parameters$variance$d <- 2
 		subtype.c$parameters$variance$G <- 3
 		tt <- matrix(0, ncol=2, nrow=2, dimnames=list(names(m.mod)[1:2], names(m.mod)[1:2]))
@@ -80,7 +81,7 @@ function(sbt.model, data, annot, do.mapping=FALSE, mapping, do.scale=TRUE, do.pr
 	}
 	dd <- dd[cc.ix, , drop=FALSE]
 	
-	emclust.ts <- estep(modelName="EEI", data=dd[ , c("ESR1", "ERBB2"), drop=FALSE], parameters=subtype.c$parameters)
+	emclust.ts <- estep(modelName=model.name, data=dd[ , c("ESR1", "ERBB2"), drop=FALSE], parameters=subtype.c$parameters)
 	dimnames(emclust.ts$z) <- list(dimnames(dd)[[1]], cln)
 	class.ts <- map(emclust.ts$z)
 	names(class.ts) <- dimnames(dd)[[1]]
@@ -90,7 +91,7 @@ function(sbt.model, data, annot, do.mapping=FALSE, mapping, do.scale=TRUE, do.pr
 	ps.res <- ps.res2 <- NULL
 	if(do.prediction.strength) {
 		#computation of the prediction strength of the clustering
-		rr3 <- Mclust(data=dd[ , c("ESR1", "ERBB2"), drop=FALSE], modelNames=c("EEI"), G=3)
+		rr3 <- Mclust(data=dd[ , c("ESR1", "ERBB2"), drop=FALSE], modelNames=model.name, G=3)
 		#redefine classification to be coherent with subtypes
 		uclass <- sort(unique(rr3$classification))
 		uclass <- uclass[!is.na(uclass)]
@@ -123,9 +124,9 @@ function(sbt.model, data, annot, do.mapping=FALSE, mapping, do.scale=TRUE, do.pr
 			#use the previously computed model to fit a new model in a supervised manner
 			myclass <- unmap(ncl)
 			dimnames(myclass) <-  list(dimnames(dd)[[1]], sbtn)
-			mclust.tr <- mstep(modelName="EEI", data=dd[ , c("ESR1", "ERBB2"), drop=FALSE], z=myclass)
+			mclust.tr <- mstep(modelName=model.name, data=dd[ , c("ESR1", "ERBB2"), drop=FALSE], z=myclass)
 			dimnames(mclust.tr$z) <- dimnames(myclass)
-			emclust.tr <- estep(modelName = "EEI", data=dd[ , c("ESR1", "ERBB2"), drop=FALSE], parameters=mclust.tr$parameters)
+			emclust.tr <- estep(modelName=model.name, data=dd[ , c("ESR1", "ERBB2"), drop=FALSE], parameters=mclust.tr$parameters)
 			dimnames(emclust.tr$z) <- dimnames(myclass)
 			class.tr <- map(emclust.tr$z)
 			names(class.tr) <- dimnames(dd)[[1]]
@@ -153,7 +154,7 @@ function(sbt.model, data, annot, do.mapping=FALSE, mapping, do.scale=TRUE, do.pr
 	}
 	
 	BIC.res <- NULL
-	if(do.BIC) { BIC.res <- mclustBIC(data=dd[ , c("ESR1", "ERBB2"), drop=FALSE], modelNames=c("EEI"), G=1:10)[ ,"EEI"] }
+	if(do.BIC) { BIC.res <- mclustBIC(data=dd[ , c("ESR1", "ERBB2"), drop=FALSE], modelNames=c(model.name), G=1:10)[ ,model.name] }
 
 	## subtypes
 	sbt[names(class.ts)] <- sbtn[class.ts]
