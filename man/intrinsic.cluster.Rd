@@ -8,7 +8,7 @@ Function to fit a Single Sample Predictor (SSP) as in Perou, Sorlie, Hu, and Par
 This function fits the Single Sample Predictor (SSP) as published in Sorlie et al 2003, Hu et al 2006 and Parker et al 2009. This model is actually a nearest centroid classifier where the centroids representing the breast cancer molecular subtypes are identified through hierarchical clustering using an "intrinsic gene list".
 }
 \usage{
-intrinsic.cluster(data, annot, do.mapping = FALSE, mapping, std = c("none", "scale", "robust"), intrinsicg, number.cluster = 3, mins = 5, method.cor = c("spearman", "pearson"), method.centroids = c("mean", "median", "tukey"), filen, verbose = FALSE)
+intrinsic.cluster(data, annot, do.mapping = FALSE, mapping, std = c("none", "scale", "robust"), rescale.q = 0.02, intrinsicg, number.cluster = 3, mins = 5, method.cor = c("spearman", "pearson"), method.centroids = c("mean", "median", "tukey"), filen, verbose = FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -26,6 +26,9 @@ Matrix with columns "EntrezGene.ID" and "probe" used to force the mapping such t
 }
   \item{std}{
 Standardization of gene expressions: \code{scale} for traditional standardization based on mean and standard deviation, \code{robust} for standardization based on the 0.025 and 0.975 quantiles, \code{none} to keep gene expressions unchanged.
+}
+  \item{rescale.q}{
+	Proportion of expected outliers for (\code{robust}) rescaling the gene expressions.
 }
   \item{intrinsicg}{
 Intrinsic gene lists. May be specified by the user as a matrix wit hat least 2 columns named probe and EntrezGene.ID for the probe names and the corresponding Entrez Gene ids. The intrinsic gene lists published by Sorlie et al. 2003, Hu et al. 2006 and Parker et al. 2009 are stored in \code{ssp2003}, \code{ssp2006} and \code{pam50} respectively.

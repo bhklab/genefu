@@ -12,12 +12,13 @@ function(sbt.model, data, annot, do.mapping=FALSE, mapping, do.scale=TRUE, do.pr
 		subtype.c <- sbt.model[!is.element(names(sbt.model), c("cutoff.AURKA", "mod"))]
 		model.name <- subtype.c$parameters$variance$modelName
 		cc <- sbt.model$cutoff.AURKA
+		mq <- sbt.model$rescale.q
 		m.mod <- sbt.model$mod
 	} else {
 		## read model file
-		rr <- readLines(con=sbt.model, n=9)[-1]
+		rr <- readLines(con=sbt.model, n=11)[-1]
 		nn <- unlist(lapply(X=rr, FUN=function(x) { x <- unlist(strsplit(x=unlist(strsplit(x=x, split=":"))[1], split=" ")); x <- x[length(x)]; return(x); }))
-		m.param <- lapply(X=rr, FUN=function(x) { x <- as.numeric(unlist(strsplit(x=unlist(strsplit(x=x, split=":"))[2], split=" "))); x <- x[!is.na(x)]; return(x)})
+		m.param <- c(list(rr[[1]]), lapply(X=rr[-1], FUN=function(x) { x <- as.numeric(unlist(strsplit(x=unlist(strsplit(x=x, split=":"))[2], split=" "))); x <- x[!is.na(x)]; return(x)}))
 		names(m.param) <- nn
 		cn <- unlist(lapply(strsplit(nn[grep(pattern="mean", x=nn)], split="[.]"), FUN=function(x) { return(x[[2]]) }))
 		m.mod <- read.m.file(sbt.model, comment.char="#")
@@ -39,6 +40,7 @@ function(sbt.model, data, annot, do.mapping=FALSE, mapping, do.scale=TRUE, do.pr
 		subtype.c$parameters$variance$scale <- m.param$scale
 		subtype.c$parameters$variance$shape <- m.param$shape
 		cc <- m.param$cutoff.AURKA
+		mq <- m.param$rescale.q
 	}
 	
 	sbt <- rep(NA, nrow(data))
@@ -58,7 +60,7 @@ function(sbt.model, data, annot, do.mapping=FALSE, mapping, do.scale=TRUE, do.pr
 		## the rescaling needs a large sample size!!!
 		## necessary if we want to validate the classifier using a different dataset
 		## the estimation of survival probabilities depends on the scale of the score
-		dd <- apply(dd, 2, function(x) { return((rescale(x, q=0.05, na.rm=TRUE) - 0.5) * 2) })
+		dd <- apply(dd, 2, function(x) { return((rescale(x, q=mq, na.rm=TRUE) - 0.5) * 2) })
 	}
 	dd2 <- dd
 	

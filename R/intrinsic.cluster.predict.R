@@ -11,6 +11,7 @@ function(sbt.model, data, annot, do.mapping=FALSE, mapping, do.prediction.streng
 		method.cor <- sbt.model$method.cor
 		method.centroids <- sbt.model$method.centroids
 		std <- sbt.model$std
+		mq <- sbt.model$rescale.q
 		mins <- sbt.model$mins
 	} else {
 		## read model file
@@ -21,14 +22,15 @@ function(sbt.model, data, annot, do.mapping=FALSE, mapping, do.prediction.streng
 		rr <- readLines(con=sbt.model)[-1]
 		rr <- rr[sapply(rr, function(x) { return(substr(x=x, start=1, stop=1) == "#") })]
 		nn <- unlist(lapply(X=rr, FUN=function(x) { x <- unlist(strsplit(x=unlist(strsplit(x=x, split=":"))[1], split=" ")); x <- x[length(x)]; return(x); }))
-		rr2 <- unlist(lapply(X=rr[is.element(nn, c("method.cor", "method.centroids", "std", "mins"))], FUN=function(x) { x <- unlist(strsplit(x=unlist(strsplit(x=x, split=":"))[2], split=" ")); x <- x[length(x)]; return(x); }))
+		rr2 <- unlist(lapply(X=rr[is.element(nn, c("method.cor", "method.centroids", "std", "rescale.q", "mins"))], FUN=function(x) { x <- unlist(strsplit(x=unlist(strsplit(x=x, split=":"))[2], split=" ")); x <- x[length(x)]; return(x); }))
 		method.cor <- rr2[nn == "method.cor"]
 		method.centroids <- rr2[nn == "method.centroids"]
 		std <- rr2[nn == "std"]
-		mins <- rr2[nn == "mins"]
-		rr <- rr[!is.element(nn, c("method.cor", "method.centroids", "std", "mins"))]
-		nn <- nn[!is.element(nn, c("method.cor", "method.centroids", "std", "mins"))]
- 		cent <- lapply(X=rr, FUN=function(x) { x <- as.numeric(unlist(strsplit(x=unlist(strsplit(x=x, split=":"))[2], split=" "))); x <- x[!is.na(x)]; return(x)})
+		mq <- as.numeric(rr2[nn == "rescale.q"])
+		mins <- as.numeric(rr2[nn == "mins"])
+		rr <- rr[!is.element(nn, c("method.cor", "method.centroids", "std", "rescale.q", "mins"))]
+		nn <- nn[!is.element(nn, c("method.cor", "method.centroids", "std", "rescale.q", "mins"))]
+		cent <- lapply(X=rr, FUN=function(x) { x <- as.numeric(unlist(strsplit(x=unlist(strsplit(x=x, split=":"))[2], split=" "))); x <- x[!is.na(x)]; return(x)})
 		centroids <- NULL
 		for(i in 1:length(cent)) { centroids <- cbind(centroids, cent[[i]]) }
 		nn <- unlist(lapply(X=strsplit(x=nn, split="centroid."), FUN=function(x) { return(x[[2]]) }))
@@ -104,7 +106,7 @@ function(sbt.model, data, annot, do.mapping=FALSE, mapping, do.prediction.streng
 		if(verbose) { cat("standardization of the gene expressions\n") }
 	}, 
 	"robust"={
-		data <- apply(data, 2, function(x) { return((rescale(x, q=0.05, na.rm=TRUE) - 0.5) * 2) })
+		data <- apply(data, 2, function(x) { return((rescale(x, q=mq, na.rm=TRUE) - 0.5) * 2) })
 		if(verbose) { cat("robust standardization of the gene expressions\n") }
 	}, 
 	"none"={ if(verbose) { cat("no standardization of the gene expressions\n") } })

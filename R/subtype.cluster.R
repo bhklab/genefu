@@ -1,5 +1,5 @@
 `subtype.cluster` <-
-function(module.ESR1, module.ERBB2, module.AURKA, data, annot, do.mapping=FALSE, mapping, do.scale=TRUE, model.name="EEI", do.BIC=FALSE, plot=FALSE, filen, verbose=FALSE) {
+function(module.ESR1, module.ERBB2, module.AURKA, data, annot, do.mapping=FALSE, mapping, do.scale=TRUE, rescale.q=0.02, model.name="EEI", do.BIC=FALSE, plot=FALSE, filen, verbose=FALSE) {
 	require(mclust)
 	if(missing(data) || missing(annot)) { stop("data, and annot parameters must be specified") }
 	if(plot) { require(gplots) }
@@ -15,7 +15,7 @@ function(module.ESR1, module.ERBB2, module.AURKA, data, annot, do.mapping=FALSE,
 		## the rescaling needs a large sample size!!!
 		## necessary if we want to validate the classifier using a different dataset
 		## the estimation of survival probabilities depends on the scale of the score
-		dd <- apply(dd, 2, function(x) { return((rescale(x, q=0.05, na.rm=TRUE) - 0.5) * 2) })
+		dd <- apply(dd, 2, function(x) { return((rescale(x, q=rescale.q, na.rm=TRUE) - 0.5) * 2) })
 	}
 	dd2 <- dd
 	
@@ -41,7 +41,7 @@ function(module.ESR1, module.ERBB2, module.AURKA, data, annot, do.mapping=FALSE,
 	nclass <-  uclass[order(mm, decreasing=TRUE)[1]]
 	mm <- NULL
 	for(i in 1:length(uclass[-nclass])) {
-		mm <- c(mm, median(dd[rr3$classification == uclass[-nclass][i],"ESR1"], na.rm=TRUE) )
+		mm <- c(mm, median(dd[rr3$classification == uclass[-nclass][i],"ESR1"], na.rm=TRUE))
 	}
 	nclass <- c(uclass[-nclass][order(mm, decreasing=TRUE)[2]], nclass, uclass[-nclass][order(mm, decreasing=TRUE)[1]])
 	#nclass contains the new order
@@ -75,7 +75,7 @@ function(module.ESR1, module.ERBB2, module.AURKA, data, annot, do.mapping=FALSE,
 		persp(x = xx, y = yy, z = zz, xlim=myxlim, ylim=myylim, theta=-25, phi=30, expand=0.5, xlab="ESR1", ylab="ERBB2", zlab="Density", col="darkgrey", ticktype="detailed")
 	}
 	
-	#use the previously computed model to fit a new model in a supervised manner
+	## use the previously computed model to fit a new model in a supervised manner
 	myclass <- unmap(rr3$classification)
 	dimnames(myclass)[[1]] <- dimnames(dd)[[1]]
 	mclust.tr <- mstep(modelName=model.name, data=dd[ , c("ESR1", "ERBB2"), drop=FALSE], z=myclass)
@@ -135,9 +135,10 @@ function(module.ESR1, module.ERBB2, module.AURKA, data, annot, do.mapping=FALSE,
 		write(x=sprintf("# shape: %g %g", myshape[1], myshape[2]), append=TRUE, file=paste(filen, "csv", sep="."))
 		mycutoff.AURKA <- cc
 		write(x=sprintf("# cutoff.AURKA: %g", cc), append=TRUE, file=paste(filen, "csv", sep="."))
+		write(x=sprintf("# rescale.q: %g", rescale.q), append=TRUE, file=paste(filen, "csv", sep="."))
 		write(paste("\"", c("module", dimnames(m.mod[[1]])[[2]]), "\"", collapse=",", sep=""), sep="", append=TRUE, file=paste(filen, "csv", sep="."))
 		write.m.file(m.mod, file=paste(filen, "csv", sep="."), col.names=FALSE, append=TRUE)
 	}
 	
-	return(list("model"=c(mclust.tr["parameters"], list("cutoff.AURKA"=cc), list("mod"=m.mod)), "BIC"=cluster.bic, "subtype"=sbt, "subtype.proba"=sbt.proba, "subtype2"=sbt2, "module.scores"=dd2))
+	return(list("model"=c(mclust.tr["parameters"], list("cutoff.AURKA"=cc), list("rescale.q"=rescale.q), list("mod"=m.mod)), "BIC"=cluster.bic, "subtype"=sbt, "subtype.proba"=sbt.proba, "subtype2"=sbt2, "module.scores"=dd2))
 }

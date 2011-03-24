@@ -1,5 +1,5 @@
 `intrinsic.cluster` <-
-function(data, annot, do.mapping=FALSE, mapping, std=c("none", "scale", "robust"), intrinsicg, number.cluster=3, mins=5, method.cor=c("spearman", "pearson"), method.centroids=c("mean", "median", "tukey"), filen, verbose=FALSE) {
+function(data, annot, do.mapping=FALSE, mapping, std=c("none", "scale", "robust"), rescale.q=0.02, intrinsicg, number.cluster=3, mins=5, method.cor=c("spearman", "pearson"), method.centroids=c("mean", "median", "tukey"), filen, verbose=FALSE) {
 	
 	require(amap)
 	if(missing(data) || missing(annot) || missing(intrinsicg)) { stop("data, annot, and intrinsicg parameters must be specified") }
@@ -72,7 +72,7 @@ function(data, annot, do.mapping=FALSE, mapping, std=c("none", "scale", "robust"
 		if(verbose) { cat("standardization of the gene expressions\n") }
 	}, 
 	"robust"={
-		data <- apply(data, 2, function(x) { return((rescale(x, q=0.05, na.rm=TRUE) - 0.5) * 2) })
+		data <- apply(data, 2, function(x) { return((rescale(x, q=rescale.q, na.rm=TRUE) - 0.5) * 2) })
 		if(verbose) { cat("robust standardization of the gene expressions\n") }
 	}, 
 	"none"={ if(verbose) { cat("no standardization of the gene expressions\n") } })
@@ -133,6 +133,7 @@ function(data, annot, do.mapping=FALSE, mapping, std=c("none", "scale", "robust"
 		write(x=sprintf("# method.cor: %s", method.cor), sep="", append=TRUE, file=paste(filen, "csv", sep="."))
 		write(x=sprintf("# method.centroids: %s", method.centroids), sep="", append=TRUE, file=paste(filen, "csv", sep="."))
 		write(x=sprintf("# std: %s", std), sep="", append=TRUE, file=paste(filen, "csv", sep="."))
+		write(x=sprintf("# rescale.q: %s", rescale.q), sep="", append=TRUE, file=paste(filen, "csv", sep="."))
 		write(x=sprintf("# mins: %i", mins), sep="", append=TRUE, file=paste(filen, "csv", sep="."))
 		## centroids
 		mycent <- t(cl.centroids)
@@ -142,5 +143,5 @@ function(data, annot, do.mapping=FALSE, mapping, std=c("none", "scale", "robust"
 		write.table(centroids.map, sep=",", col.names=FALSE, row.names=FALSE, file=paste(filen, "csv", sep="."), append=TRUE)
 	}
 	
-	return(list("model"=list("method.cor"=method.cor, "method.centroids"=method.centroids, "std"=std, "mins"=mins, "centroids"=cl.centroids, "centroids.map"=centroids.map), "subtype"=ncl, "subtype.proba"=nproba, "cor"=ncor))
+	return(list("model"=list("method.cor"=method.cor, "method.centroids"=method.centroids, "std"=std, "rescale.q"=rescale.q,  "mins"=mins, "centroids"=cl.centroids, "centroids.map"=centroids.map), "subtype"=ncl, "subtype.proba"=nproba, "cor"=ncor))
 }

@@ -8,7 +8,7 @@ Function to fit the Subtype Clustering Model
 This function fits the Subtype Clustering Model as published in Desmedt et al. 2008 and Wiarapati et al. 2008. This model is actually a mixture of three Gaussians with equal shape, volume and variance (see \code{EEI} model in \code{\link[mclust]{Mclust}}). This model is adapted to breast cancer and uses ESR1, ERBB2 and AURKA dimensions to identify the molecular subtypes, i.e. ER-/HER2-, HER2+ and ER+/HER2- (Low and High Prolif).
 }
 \usage{
-subtype.cluster(module.ESR1, module.ERBB2, module.AURKA, data, annot, do.mapping = FALSE, mapping, do.scale = TRUE, model.name = "EEI", do.BIC = FALSE, plot = FALSE, filen, verbose = FALSE)
+subtype.cluster(module.ESR1, module.ERBB2, module.AURKA, data, annot, do.mapping = FALSE, mapping, do.scale = TRUE, rescale.q = 0.02, model.name = "EEI", do.BIC = FALSE, plot = FALSE, filen, verbose = FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -35,6 +35,9 @@ Matrix with columns "EntrezGene.ID" and "probe" used to force the mapping such t
 }
   \item{do.scale}{
 \code{TRUE} if the ESR1, ERBB2 and AURKA (module) scores must be rescaled (see \code{\link[genefu]{rescale}}), \code{FALSE} otherwise.
+}
+  \item{rescale.q}{
+	Proportion of expected outliers for rescaling the gene expressions.
 }
   \item{do.BIC}{
 \code{TRUE} if the Bayesian Information Criterion must be computed for number of clusters ranging from 1 to 10, \code{FALSE} otherwise.
