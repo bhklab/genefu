@@ -1,0 +1,91 @@
+%\VignetteIndexEntry{genefu An Introduction (HowTo)}
+%\VignetteDepends{survcomp, mclust}
+%\VignetteSuggests{GeneMeta}
+%\VignetteImports{amap, gplots}
+%\VignetteKeywords{Breast Cancer, Survival Analysis}
+%\VignettePackage{genefu}
+
+%documentclass[12pt, a4paper]{article}
+\documentclass[12pt]{article}
+
+\usepackage{amsmath}
+\usepackage{times}
+\usepackage{hyperref}
+\usepackage[numbers]{natbib}
+\usepackage[american]{babel}
+\usepackage{authblk}
+%\renewcommand\Authfont{\scshape
+\renewcommand\Affilfont{\itshape\small}
+\usepackage{Sweave}
+\renewcommand{\topfraction}{0.85}
+\renewcommand{\textfraction}{0.1}
+%\usepackage{tikz}
+
+
+\textwidth=6.2in
+\textheight=8.5in
+%\parskip=.3cm
+\oddsidemargin=.1in
+\evensidemargin=.1in
+\headheight=-.3in
+
+%------------------------------------------------------------
+% newcommand
+%------------------------------------------------------------
+\newcommand{\scscst}{\scriptscriptstyle}
+\newcommand{\scst}{\scriptstyle}
+\newcommand{\Robject}[1]{{\texttt{#1}}}
+\newcommand{\Rfunction}[1]{{\texttt{#1}}}
+\newcommand{\Rclass}[1]{\textit{#1}}
+\newcommand{\Rpackage}[1]{\textit{#1}}
+\newcommand{\Rexpression}[1]{\texttt{#1}}
+\newcommand{\Rmethod}[1]{{\texttt{#1}}}
+\newcommand{\Rfunarg}[1]{{\texttt{#1}}}
+
+
+
+\begin{document}
+
+%------------------------------------------------------------
+\title{\Rpackage{genefu}: a package for breast cancer gene expression analysis}
+%------------------------------------------------------------
+\author[1,2,3]{Benjamin Haibe-Kains}
+\author[1,5]{Markus Schr\"{o}der}
+\author[1,2]{John Quackenbush}
+%\author[4]{Christine Desmedt}
+\author[4]{Christos Sotiriou}
+\author[3]{Gianluca Bontempi}
+
+
+\affil[1]{Computational Biology and Functional Genomics Laboratory, Dana-Farber Cancer Institute, Harvard School of Public Health}
+\affil[2]{Center for Cancer Computational Biology, Dana-Farber Cancer Institute}
+\affil[3]{Machine Learning Group, Universit\'{e} Libre de Bruxelles}
+\affil[4]{Breast Cancer Translational Research Laboratory, Institut Jules Bordet, Universit\'{e} Libre de Bruxelles}
+\affil[5]{Computational Genomics, Center for Biotechnology, Bielefeld University, Germany}
+
+\SweaveOpts{highlight=TRUE, tidy=TRUE, keep.space=TRUE, keep.blank.space=FALSE, keep.comment=TRUE}
+
+%<<setup,echo=FALSE>>=
+%library(pgfSweave)
+%setCacheDir("cache")
+%options(keep.source=TRUE)
+%@
+
+\maketitle
+\tableofcontents
+
+%------------------------------------------------------------
+\section{Introduction}
+%------------------------------------------------------------ 
+
+The \Rpackage{genefu} package is providing relevant functions for gene expression analysis, especially in breast cancer.
+
+\newpage
+%------------------------------------------------------------
+\section{Session Info}
+%------------------------------------------------------------ 
+<<sessionInfo,echo=FALSE,results=tex>>==
+toLatex(sessionInfo())
+@
+
+\end{document}
