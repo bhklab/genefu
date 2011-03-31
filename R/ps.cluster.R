@@ -11,7 +11,7 @@ function(cl.tr, cl.ts, na.rm=FALSE) {
 	ucltr <- sort(unique(cltr))	
 	uclts <- sort(unique(clts))
 	if(length(ucltr) != length(uclts)) {
-		cat("the number of clusters should be the same\n")
+		message("the number of clusters should be the same")
 		tt <- rep(NA, max(length(ucltr), length(uclts)))
 		names(tt) <- ifelse(length(ucltr) > length(uclts), ucltr, uclts)
 		tt2 <- rep(NA, length(cl.tr))
@@ -19,7 +19,7 @@ function(cl.tr, cl.ts, na.rm=FALSE) {
 		return(list("ps"=0, "ps.cluster"=tt, "ps.individual"=tt2))
 	}
 	if(!all(ucltr == uclts)) { ## the number of clusters is the same but the labels differ
-		cat("the labels of the clusters differ\n")
+		message("the labels of the clusters differ")
 		## keep labels from cl.ts
 		tixtr <- !is.element(ucltr, uclts)
 		tixts <- !is.element(uclts, ucltr)

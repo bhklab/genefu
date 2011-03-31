@@ -29,7 +29,7 @@ function(x, data, annot, do.mapping=FALSE, mapping, size=0, cutoff=NA, signed=TR
 			res <- rep(NA, nrow(data))
 			names(res) <- dimnames(data)[[1]]
 			gf <- c("mapped"=0, "total"=nrow(x))
-			if(verbose) { cat(sprintf("probe candidates: 0/%i\n", nrow(x))) }
+			if(verbose) { message(sprintf("probe candidates: 0/%i", nrow(x))) }
 			return(list("score"=res, "mapping"=gf, "probe"=cbind("probe"=NA, "EntrezGene.ID"=NA, "new.probe"=NA)))
 		}
 		nix <- match(rr$geneid2, mygid)
@@ -54,7 +54,7 @@ function(x, data, annot, do.mapping=FALSE, mapping, size=0, cutoff=NA, signed=TR
 		data <- data[ ,myprobe,drop=FALSE]
 	}
 	if(length(myprobe) == 0) {
-		if(verbose) { cat(sprintf("probe candidates: 0/%i\n", size)) }
+		if(verbose) { message(sprintf("probe candidates: 0/%i", size)) }
 		tt <- rep(NA, nrow(data))
 		names(tt) <- dimnames(data)[[1]]
 		return(list("score"=tt, "mapping"=c("mapped"=0, "total"=nrow(x)), "probe"=cbind("probe"=names(gid1), "EntrezGene.ID"=gid1, "new.probe"=names(gid2))))
@@ -80,7 +80,7 @@ function(x, data, annot, do.mapping=FALSE, mapping, size=0, cutoff=NA, signed=TR
 	gf <- length(myprobe)
 
 	gf <- c("mapped"=gf, "total"=nrow(x))
-	if(verbose) { cat(sprintf("probe candidates: %i/%i\n",gf[1], gf[2])) }
+	if(verbose) { message(sprintf("probe candidates: %i/%i",gf[1], gf[2])) }
 
 	nprobe <- c(probe.candp, probe.candn)
 	myw <- c("p"=length(probe.candp) / length(nprobe), "n"=length(probe.candn) / length(nprobe))

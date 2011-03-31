@@ -20,7 +20,7 @@ function(data, annot, do.mapping=FALSE, mapping, verbose=FALSE) {
 		if(length(rr$geneid1) != gt) { ## some genes are missing
 			res <- rep(NA, nrow(data))
 			names(res) <- dimnames(data)[[1]]
-			if(verbose) { cat(sprintf("probe candidates: %i/%i\n", gm, gt)) }
+			if(verbose) { message(sprintf("probe candidates: %i/%i", gm, gt)) }
 			return(list("score"=res, "risk"=res, "mapping"=mymapping, "probe"=NA))
 		}
 		gid1 <- rr$geneid2
@@ -37,7 +37,7 @@ function(data, annot, do.mapping=FALSE, mapping, verbose=FALSE) {
 		if(nrow(sig2) != ncol(data)) { ## some genes are missing
 			res <- rep(NA, nrow(data))
 			names(res) <- dimnames(data)[[1]]
-			if(verbose) { cat(sprintf("probe candidates: %i/%i\n", ncol(data), gt)) }
+			if(verbose) { message(sprintf("probe candidates: %i/%i", ncol(data), gt)) }
 			return(list("score"=res, "risk"=res, "mapping"=mymapping, "probe"=myprobe))
 		}
 	}

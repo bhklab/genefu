@@ -1,7 +1,6 @@
 `intrinsic.cluster` <-
 function(data, annot, do.mapping=FALSE, mapping, std=c("none", "scale", "robust"), rescale.q=0.02, intrinsicg, number.cluster=3, mins=5, method.cor=c("spearman", "pearson"), method.centroids=c("mean", "median", "tukey"), filen, verbose=FALSE) {
 	
-	require(amap)
 	if(missing(data) || missing(annot) || missing(intrinsicg)) { stop("data, annot, and intrinsicg parameters must be specified") }
 	std <- match.arg(std)
 	method.cor <- match.arg(method.cor)
@@ -64,22 +63,22 @@ function(data, annot, do.mapping=FALSE, mapping, std=c("none", "scale", "robust"
 	if(!is.null(names(intrinsicg))) { centroids.map <- cbind("probe"=dimnames(data)[[2]], "probe.centroids"=names(intrinsicg), "EntrezGene.ID"=as.character(annot[dimnames(data)[[2]], "EntrezGene.ID"])) } else { centroids.map <- cbind("probe"=dimnames(data)[[2]], "probe.centroids"=NA, "EntrezGene.ID"=as.character(annot[dimnames(data)[[2]], "EntrezGene.ID"])) }
 	dimnames(centroids.map)[[1]] <- dimnames(data)[[2]]
 	
-	if(verbose) { cat(sprintf("%i/%i probes are used for clustering\n", gm, gt)) }
+	if(verbose) { message(sprintf("%i/%i probes are used for clustering", gm, gt)) }
 
 	switch(std,
 	"scale"={
 		data <- scale(data, center=TRUE, scale=TRUE)
-		if(verbose) { cat("standardization of the gene expressions\n") }
+		if(verbose) { message("standardization of the gene expressions") }
 	}, 
 	"robust"={
 		data <- apply(data, 2, function(x) { return((rescale(x, q=rescale.q, na.rm=TRUE) - 0.5) * 2) })
-		if(verbose) { cat("robust standardization of the gene expressions\n") }
+		if(verbose) { message("robust standardization of the gene expressions") }
 	}, 
-	"none"={ if(verbose) { cat("no standardization of the gene expressions\n") } })
+	"none"={ if(verbose) { message("no standardization of the gene expressions") } })
 	
 	## compute the clustering and cut the dendrogram
 	## hierarchical clustering with correlation-based distance and average linkage
-	hcl <- hcluster(x=data, method="correlation", link="average")
+	hcl <- amap::hcluster(x=data, method="correlation", link="average")
 	mins.ok <- FALSE
 	nbc <- number.cluster
 	while(!mins.ok) { ## until each cluster contains at least mins samples

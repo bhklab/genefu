@@ -20,7 +20,7 @@ function(data, annot, do.mapping=FALSE, mapping, std=c("none", "scale", "robust"
 			res <- rep(NA, nrow(data))
 			names(res) <- dimnames(data)[[1]]
 			gf <- c("mapped"=0, "total"=gt)
-			if(verbose) { cat(sprintf("probe candidates: 0/%i\n", gt)) }
+			if(verbose) { message(sprintf("probe candidates: 0/%i", gt)) }
 			return(list("score"=res, "risk"=res, "mapping"=gf, "probe"=NA))
 		}
 		gid1 <- rr$geneid2
@@ -39,19 +39,19 @@ function(data, annot, do.mapping=FALSE, mapping, std=c("none", "scale", "robust"
 		myprobe <- NA
 	}
 
-	if(verbose && gm != gt) { cat(sprintf("%i/%i probes are used to compute the score", gm, gt)) }
+	if(verbose && gm != gt) { message(sprintf("%i/%i probes are used to compute the score", gm, gt)) }
 	
 	## scaling
 	switch(std,
 	"scale"={
 		data <- scale(data, center=TRUE, scale=TRUE)
-		if(verbose) { cat("standardization of the gene expressions\n") }
+		if(verbose) { message("standardization of the gene expressions") }
 	}, 
 	"robust"={
 		data <- apply(data, 2, function(x) { return((rescale(x, q=0.05, na.rm=TRUE) - 0.5) * 2) })
-		if(verbose) { cat("robust standardization of the gene expressions\n") }
+		if(verbose) { message("robust standardization of the gene expressions") }
 	}, 
-	"none"={ if(verbose) { cat("no standardization of the gene expressions\n") } })
+	"none"={ if(verbose) { message("no standardization of the gene expressions") } })
 
 	score <- apply(X=data, MARGIN=1, FUN=cor, y=sig2[, "average.good.prognosis.profile"], method="spearman", use="complete.obs")
 	score <- -score

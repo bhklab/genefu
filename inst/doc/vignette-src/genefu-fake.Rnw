@@ -1,7 +1,0 @@
-\documentclass[10pt]{article}
-%\VignetteIndexEntry{genefu}
-%\VignetteDepends{genefu}
-%\VignetteKeywords{genefu}
-%\VignettePackage{genefu}
-\begin{document}
-\end{document}

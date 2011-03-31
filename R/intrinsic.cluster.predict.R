@@ -97,19 +97,19 @@ function(sbt.model, data, annot, do.mapping=FALSE, mapping, do.prediction.streng
 		tt <- matrix(NA, ncol=nrow(centroids.map), nrow=nrow(data), dimnames=list(dimnames(data)[[1]], dimnames(centroids.map)[[1]]))
 		return(list("subtype"=ncl, "subtype.proba"=nproba, "cor"=ncor, "prediction.strength"=ps.res, "centroids.map"=centroids.map, "profiles"=tt))
 	}
-	if(verbose) { cat(sprintf("%i/%i probes are used for clustering\n", gm, gt)) }
+	if(verbose) { message(sprintf("%i/%i probes are used for clustering", gm, gt)) }
 
 	#standardization of the gene expressions
 	switch(std,
 	"scale"={
 		data <- scale(data, center=TRUE, scale=TRUE)
-		if(verbose) { cat("standardization of the gene expressions\n") }
+		if(verbose) { message("standardization of the gene expressions") }
 	}, 
 	"robust"={
 		data <- apply(data, 2, function(x) { return((rescale(x, q=mq, na.rm=TRUE) - 0.5) * 2) })
-		if(verbose) { cat("robust standardization of the gene expressions\n") }
+		if(verbose) { message("robust standardization of the gene expressions") }
 	}, 
-	"none"={ if(verbose) { cat("no standardization of the gene expressions\n") } })
+	"none"={ if(verbose) { message("no standardization of the gene expressions") } })
 	
 	## apply the nearest centroid classifier to classify the samples again
 	ncor <- t(apply(X=data, MARGIN=1, FUN=function(x, y, method.cor) { return(cor(x, y, method=method.cor, use="complete.obs")) }, y=centroids, method.cor=method.cor))
@@ -133,7 +133,7 @@ function(sbt.model, data, annot, do.mapping=FALSE, mapping, do.prediction.streng
 	if(do.prediction.strength) {
 		## compute the clustering and cut the dendrogram
 		## hierarchical clustering with correlation-based distance and average linkage
-		hcl <- hcluster(x=data, method="correlation", link="average")
+		hcl <- amap::hcluster(x=data, method="correlation", link="average")
 		mins.ok <- stop.ok <- FALSE
 		nbc <- number.cluster2
 		nclust.best <- 1

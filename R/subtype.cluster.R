@@ -2,7 +2,6 @@
 function(module.ESR1, module.ERBB2, module.AURKA, data, annot, do.mapping=FALSE, mapping, do.scale=TRUE, rescale.q=0.02, model.name="EEI", do.BIC=FALSE, plot=FALSE, filen, verbose=FALSE) {
 	require(mclust)
 	if(missing(data) || missing(annot)) { stop("data, and annot parameters must be specified") }
-	if(plot) { require(gplots) }
 	
 	sbtn <- c("ER-/HER2-", "HER2+", "ER+/HER2-")
 	sbtn2 <- c("ER-/HER2-", "HER2+", "ER+/HER2- High Prolif", "ER+/HER2- Low Prolif")
@@ -102,7 +101,7 @@ function(module.ESR1, module.ERBB2, module.AURKA, data, annot, do.mapping=FALSE,
 	if(plot) {
 		## plot the clusters
 		mclust2Dplot(data=dd[ , c("ESR1", "ERBB2"), drop=FALSE], what="classification", classification=class.tr, parameters=mclust.tr$parameters, colors=c("darkred", "darkgreen", "darkblue"), xlim=myxlim, ylim=myylim)
-		smartlegend(x="left", y="top", col=c("darkred", "darkgreen", "darkblue"), legend=sbtn, pch=.Mclust$classPlotSymbols[1:length(uclass)], bty="n", bg="white")
+		gplots::smartlegend(x="left", y="top", col=c("darkred", "darkgreen", "darkblue"), legend=sbtn, pch=.Mclust$classPlotSymbols[1:length(uclass)], bty="n", bg="white")
 		## plot the clusters with luminals A and B
 		mycol <- mypch <- sbt2
 		mycol[sbt2 == sbtn2[1]] <- "darkred"
@@ -115,7 +114,7 @@ function(module.ESR1, module.ERBB2, module.AURKA, data, annot, do.mapping=FALSE,
 		mypch <- as.numeric(mypch)
 		names(mycol) <- names(mypch) <- names(sbt2)
 		plot(x=dd[ , "ESR1"], y=dd[ , "ERBB2"], xlim=myxlim, ylim=myylim, xlab="ESR1", ylab="ERBB2", col=mycol[dimnames(dd)[[1]]], pch=mypch[dimnames(dd)[[1]]])
-		smartlegend(x="left", y="top", col=c("darkred", "darkgreen", "darkorange", "darkviolet"), legend=sbtn2, pch=c(17, 0, 10, 10), bty="n", bg="white")
+		gplots::smartlegend(x="left", y="top", col=c("darkred", "darkgreen", "darkorange", "darkviolet"), legend=sbtn2, pch=c(17, 0, 10, 10), bty="n", bg="white")
 	}
 	
 	if(!missing(filen)) {

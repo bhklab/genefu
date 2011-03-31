@@ -2,7 +2,6 @@
 function(sbt.model, data, annot, do.mapping=FALSE, mapping, do.scale=TRUE, do.prediction.strength=FALSE, do.BIC=FALSE, plot=FALSE, verbose=FALSE) {
 	require(mclust)
 	if(missing(data) || missing(annot)) { stop("data, and annot parameters must be specified") }
-	if(plot) { require(gplots) }
 	
 	sbtn <- c("ER-/HER2-", "HER2+", "ER+/HER2-")
 	sbtn2 <- c("ER-/HER2-", "HER2+", "ER+/HER2- High Prolif", "ER+/HER2- Low Prolif")
@@ -186,7 +185,7 @@ function(sbt.model, data, annot, do.mapping=FALSE, mapping, do.scale=TRUE, do.pr
 		mypch <- as.numeric(mypch)
 		names(mycol) <- names(mypch) <- names(sbt2)
 		plot(x=dd[ , "ESR1"], y=dd[ , "ERBB2"], xlim=myxlim, ylim=myylim, xlab="ESR1", ylab="ERBB2", col=mycol[dimnames(dd)[[1]]], pch=mypch[dimnames(dd)[[1]]])
-		smartlegend(x="left", y="top", col=c("darkred", "darkgreen", "darkorange", "darkviolet"), legend=sbtn2, pch=c(17, 0, 10, 10), bg="white")
+		gplots::smartlegend(x="left", y="top", col=c("darkred", "darkgreen", "darkorange", "darkviolet"), legend=sbtn2, pch=c(17, 0, 10, 10), bg="white")
 	}
 
 	return(list("subtype"=sbt, "subtype.proba"=sbt.proba, "prediction.strength"=ps.res, "BIC"=BIC.res, "subtype2"=sbt2, "prediction.strength2"=ps.res2, "module.scores"=dd2, "mapping"=mymap))

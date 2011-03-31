@@ -12,7 +12,7 @@ function (x, sep="_", verbose=FALSE) {
 	retval <- retval + 1
 	x[duplix] <- paste(duplin, retval, sep=sep)
 
-	if (verbose) { cat(sprintf("%i duplicated names\n", length(duplin))) }
+	if (verbose) { message(sprintf("%i duplicated names", length(duplin))) }
 	
 	return (list(new.x=x, duplicated.x=duplin))
 }

@@ -4,7 +4,7 @@ function(datas, annots, do.mapping=FALSE, mapping, verbose=FALSE) {
 	## do the mapping (or not) and collect the set of unique features
 	datas2 <- annots2 <- comid <- NULL
 	for(k in 1:length(datas)) {
-		if(verbose) { cat(sprintf("%s\n", names(datas)[k])) }
+		if(verbose) { message(sprintf("%s", names(datas)[k])) }
 		if(do.mapping) {
 			gid <- as.numeric(as.character(annots[[k]][ ,"EntrezGene.ID"]))
 			names(gid) <- dimnames(annots[[k]])[[1]]

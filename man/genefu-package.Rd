@@ -13,8 +13,8 @@ Various functions relevant for gene expression analysis with emphasis on breast 
 Package: \tab genefu\cr
 Type: \tab Package\cr
 Version: \tab 1.1.3\cr
-Date: \tab 2011-03-24\cr
-License: \tab GPL-3\cr
+Date: \tab 2011-03-31\cr
+License: \tab Artistic-2.0\cr
 }
 }
 
@@ -40,11 +40,15 @@ Former labs:
 \url{http://www.bordet.be/en/services/medical/array/practical.htm}
 
 
-\bold{Maintainer}: Benjamin Haibe-Kains
+\bold{Maintainer}: \bold{Benjamin Haibe-Kains}
 
 \email{bhaibeka@jimmy.harvard.edu}
 
 \email{bhaibeka@ulb.ac.be}
+
+\bold{Markus Schroeder}
+
+\email{mschroed@jimmy.harvard.edu}
 }
 %\references{}
 \keyword{ clustering }

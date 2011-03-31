@@ -45,7 +45,7 @@ function(geneid1, data1, geneid2, data2, verbose=FALSE) {
 	datat <- data1[ ,gg.uniq,drop=FALSE]
 	## data for duplicated gene ids
 	if(length(gid.dupl) > 0) {
-		if(verbose) { cat("\ndataset1 duplicates...\n") }
+		if(verbose) { message("\ndataset1 duplicates...") }
 		## compute the standard deviation with a penalization on the number of missing values
 		## this should avoid selecting the most variant probe with a lotof missing values
 		pena <- apply(X=data1[ , gg.dupl, drop=FALSE], MARGIN=2, FUN=function(x) { return(sum(is.na(x))) })
@@ -79,7 +79,7 @@ function(geneid1, data1, geneid2, data2, verbose=FALSE) {
 		datat <- data2[ ,gg.uniq,drop=FALSE]
 		## data for duplicated gene ids
 		if(length(gid.dupl) > 0) {
-			if(verbose) { cat("\ndataset2 duplicates...\n") }
+			if(verbose) { message("\ndataset2 duplicates...") }
 			## compute the standard deviation with a penalization on the number of missing values
 			## this should avoid selecting the most variant probe with a lotof missing values
 			pena <- apply(X=data2[ , gg.dupl, drop=FALSE], MARGIN=2, FUN=function(x) { return(sum(is.na(x))) })
