@@ -8,7 +8,8 @@ Function to estimate whether two dependent correlations differ
 This function tests for statistical differences between two dependent correlations using the formula provided on page 56 of Cohen & Cohen (1983). The function returns a t-value, the DF and the p-value.
 }
 \usage{
-cordiff.dep(r.x1y, r.x2y, r.x1x2, n, alternative = c("two.sided", "less", "greater"))
+cordiff.dep(r.x1y, r.x2y, r.x1x2, n,
+  alternative = c("two.sided", "less", "greater"))
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -60,7 +61,11 @@ x2 <- data.vdx[ ,"205225_at"]
 y <- data.vdx[ ,"212022_s_at"]
 ## is MKI67 significantly more correlated to AURKA than ESR1?
 cc.ix <- complete.cases(x1, x2, y)
-cordiff.dep(r.x1y=abs(cor(x=x1[cc.ix], y=y[cc.ix], use="everything", method="pearson")), r.x2y=abs(cor(x=x2[cc.ix], y=y[cc.ix], use="everything", method="pearson")), r.x1x2=abs(cor(x=x1[cc.ix], y=x2[cc.ix], use="everything", method="pearson")), n=sum(cc.ix), alternative="greater")
+cordiff.dep(r.x1y=abs(cor(x=x1[cc.ix], y=y[cc.ix], use="everything",
+  method="pearson")), r.x2y=abs(cor(x=x2[cc.ix], y=y[cc.ix],
+  use="everything", method="pearson")), r.x1x2=abs(cor(x=x1[cc.ix],
+  y=x2[cc.ix], use="everything", method="pearson")), n=sum(cc.ix),
+  alternative="greater")
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

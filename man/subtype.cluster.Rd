@@ -8,7 +8,9 @@ Function to fit the Subtype Clustering Model
 This function fits the Subtype Clustering Model as published in Desmedt et al. 2008 and Wiarapati et al. 2008. This model is actually a mixture of three Gaussians with equal shape, volume and variance (see \code{EEI} model in \code{\link[mclust]{Mclust}}). This model is adapted to breast cancer and uses ESR1, ERBB2 and AURKA dimensions to identify the molecular subtypes, i.e. ER-/HER2-, HER2+ and ER+/HER2- (Low and High Prolif).
 }
 \usage{
-subtype.cluster(module.ESR1, module.ERBB2, module.AURKA, data, annot, do.mapping = FALSE, mapping, do.scale = TRUE, rescale.q = 0.02, model.name = "EEI", do.BIC = FALSE, plot = FALSE, filen, verbose = FALSE)
+subtype.cluster(module.ESR1, module.ERBB2, module.AURKA, data, annot,
+  do.mapping = FALSE, mapping, do.scale = TRUE, rescale.q = 0.02,
+  model.name = "EEI", do.BIC = FALSE, plot = FALSE, filen, verbose = FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -90,7 +92,9 @@ data(vdx)
 ## load gene modules
 data(mod1)
 ## fit a Subtype Clustering Model
-scmod1.vdx <- subtype.cluster(module.ESR1=mod1$ESR1, module.ERBB2=mod1$ERBB2, module.AURKA=mod1$AURKA, data=data.vdx, annot=annot.vdx, do.mapping=FALSE, do.scale=TRUE, plot=TRUE, verbose=TRUE)
+scmod1.vdx <- subtype.cluster(module.ESR1=mod1$ESR1, module.ERBB2=mod1$ERBB2,
+  module.AURKA=mod1$AURKA, data=data.vdx, annot=annot.vdx, do.mapping=FALSE,
+  do.scale=TRUE, plot=TRUE, verbose=TRUE)
 str(scmod1.vdx, max.level=1)
 table(scmod1.vdx$subtype2)
 ## example with gene mapping
@@ -99,7 +103,9 @@ data(nki)
 ## load gene modules
 data(mod1)
 ## fit a Subtype Clustering Model
-scmod1.nki <- subtype.cluster(module.ESR1=mod1$ESR1, module.ERBB2=mod1$ERBB2, module.AURKA=mod1$AURKA, data=data.nki, annot=annot.nki, do.mapping=TRUE, do.scale=TRUE, plot=TRUE, verbose=TRUE)
+scmod1.nki <- subtype.cluster(module.ESR1=mod1$ESR1, module.ERBB2=mod1$ERBB2,
+  module.AURKA=mod1$AURKA, data=data.nki, annot=annot.nki, do.mapping=TRUE,
+  do.scale=TRUE, plot=TRUE, verbose=TRUE)
 str(scmod1.nki, max.level=1)
 table(scmod1.nki$subtype2)
 }

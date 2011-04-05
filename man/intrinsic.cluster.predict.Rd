@@ -8,7 +8,8 @@ Function to identify breast cancer molecular subtypes using the Single Sample Pr
 This function identifies the breast cancer molecular subtypes using a Single Sample Predictor (SSP) fitted by \code{\link[genefu]{intrinsic.cluster}}.
 }
 \usage{
-intrinsic.cluster.predict(sbt.model, data, annot, do.mapping = FALSE, mapping, do.prediction.strength = FALSE, verbose = FALSE)
+intrinsic.cluster.predict(sbt.model, data, annot, do.mapping = FALSE,
+  mapping, do.prediction.strength = FALSE, verbose = FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -75,7 +76,9 @@ data(ssp2003)
 ## load NKI data
 data(nki)
 ## SSP2003 applied on NKI
-ssp2003.nki <- intrinsic.cluster.predict(sbt.model=ssp2003, data=data.nki, annot=annot.nki, do.mapping=TRUE, do.prediction.strength=FALSE, verbose=TRUE)
+ssp2003.nki <- intrinsic.cluster.predict(sbt.model=ssp2003,
+  data=data.nki, annot=annot.nki, do.mapping=TRUE,
+  do.prediction.strength=FALSE, verbose=TRUE)
 table(ssp2003.nki$subtype)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

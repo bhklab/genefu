@@ -59,7 +59,10 @@ Benjamin Haibe-Kains
 ## load NKI dataset
 data(NKI)
 ## compute St Gallen predictions
-st.gallen(size=demo.nki[ ,"size"], grade=demo.nki[ ,"grade"], node=demo.nki[ ,"node"], her2.neu=sample(x=0:1, size=nrow(demo.nki), replace=TRUE), age=demo.nki[ ,"age"], vascular.inv=sample(x=0:1, size=nrow(demo.nki), replace=TRUE), na.rm=TRUE)
+st.gallen(size=demo.nki[ ,"size"], grade=demo.nki[ ,"grade"],
+  node=demo.nki[ ,"node"], her2.neu=sample(x=0:1, size=nrow(demo.nki),
+  replace=TRUE), age=demo.nki[ ,"age"], vascular.inv=sample(x=0:1,
+  size=nrow(demo.nki), replace=TRUE), na.rm=TRUE)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

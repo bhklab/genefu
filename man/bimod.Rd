@@ -8,7 +8,8 @@ Function to identify bimodality for gene expression or signature score
 This function fits a mixture of two Gaussians to identify bimodality. Useful to identify ER of HER2 status of breast tumors using ESR1 and ERBB2 expressions respectively.
 }
 \usage{
-bimod(x, data, annot, do.mapping = FALSE, mapping, model = c("E", "V"), do.scale = TRUE, verbose = FALSE, ...)
+bimod(x, data, annot, do.mapping = FALSE, mapping, model = c("E", "V"), 
+  do.scale = TRUE, verbose = FALSE, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -80,7 +81,8 @@ data(mod1)
 ## retrieve esr1 affy probe and Entrez Gene id 
 esr1 <- mod1$ESR1[1, ,drop=FALSE]
 ## computation of signature scores
-esr1.bimod <- bimod(x=esr1, data=data.nki, annot=annot.nki, do.mapping=TRUE, model="V", verbose=TRUE)
+esr1.bimod <- bimod(x=esr1, data=data.nki, annot=annot.nki, do.mapping=TRUE, 
+  model="V", verbose=TRUE)
 table("ER.IHC"=demo.nki[ ,"er"], "ER.GE"=esr1.bimod$status)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

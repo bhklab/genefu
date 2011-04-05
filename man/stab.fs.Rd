@@ -43,7 +43,8 @@ Benjamin Haibe-Kains
 \examples{
 set.seed(54321)
 ## 100 random selection of 50 features from a set of 10,000 features
-fsets <- lapply(as.list(1:100), function(x, size=50, N=10000) { return(sample(1:N, size, replace=FALSE))} )
+fsets <- lapply(as.list(1:100), function(x, size=50, N=10000) {
+  return(sample(1:N, size, replace=FALSE))} )
 names(fsets) <- paste("fsel", 1:length(fsets), sep=".")
 
 ## Kuncheva index

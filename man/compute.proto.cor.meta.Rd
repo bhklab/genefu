@@ -54,10 +54,12 @@ data(nki)
 ## reduce datasets
 ginter <- intersect(annot.vdx[ ,"EntrezGene.ID"], annot.nki[ ,"EntrezGene.ID"])
 ginter <- ginter[!is.na(ginter)][1:30]
-myx <- unique(c(match(ginter, annot.vdx[ ,"EntrezGene.ID"]), sample(x=1:nrow(annot.vdx), size=20)))
+myx <- unique(c(match(ginter, annot.vdx[ ,"EntrezGene.ID"]),
+  sample(x=1:nrow(annot.vdx), size=20)))
 data2.vdx <- data.vdx[ ,myx]
 annot2.vdx <- annot.vdx[myx, ]
-myx <- unique(c(match(ginter, annot.nki[ ,"EntrezGene.ID"]), sample(x=1:nrow(annot.nki), size=20)))
+myx <- unique(c(match(ginter, annot.nki[ ,"EntrezGene.ID"]),
+  sample(x=1:nrow(annot.nki), size=20)))
 data2.nki <- data.nki[ ,myx]
 annot2.nki <- annot.nki[myx, ]
 ## mapping of datasets
@@ -67,7 +69,8 @@ datas.mapped <- map.datasets(datas=datas, annots=annots, do.mapping=TRUE)
 ## define some prototypes
 protos <- paste("geneid", ginter[1:3], sep=".")
 ## compute meta-estimate of correlation coefficients to the three prototype genes
-probecor <- compute.proto.cor.meta(datas=datas.mapped$datas, proto=protos, method="pearson")
+probecor <- compute.proto.cor.meta(datas=datas.mapped$datas, proto=protos,
+  method="pearson")
 str(probecor)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

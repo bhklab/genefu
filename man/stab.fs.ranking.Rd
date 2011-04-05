@@ -45,15 +45,18 @@ Benjamin Haibe-Kains
 }
 \examples{
 ## 100 random selection of 50 features from a set of 10,000 features
-fsets <- lapply(as.list(1:100), function(x, size=50, N=10000) { return(sample(1:N, size, replace=FALSE))} )
+fsets <- lapply(as.list(1:100), function(x, size=50, N=10000) {
+  return(sample(1:N, size, replace=FALSE))} )
 names(fsets) <- paste("fsel", 1:length(fsets), sep=".")
 
 ## Kuncheva index
-stab.fs.ranking(fsets=fsets, sizes=c(1, 10, 20, 30, 40, 50), N=10000, method="kuncheva")
+stab.fs.ranking(fsets=fsets, sizes=c(1, 10, 20, 30, 40, 50),
+  N=10000, method="kuncheva")
 ## close to 0 as expected for a random feature selection
 
 ## Davis index
-stab.fs.ranking(fsets=fsets, sizes=c(1, 10, 20, 30, 40, 50), N=10000, method="davis", penalty=1)
+stab.fs.ranking(fsets=fsets, sizes=c(1, 10, 20, 30, 40, 50),
+  N=10000, method="davis", penalty=1)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

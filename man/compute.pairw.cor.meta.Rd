@@ -51,10 +51,12 @@ data(nki)
 ## reduce datasets
 ginter <- intersect(annot.vdx[ ,"EntrezGene.ID"], annot.nki[ ,"EntrezGene.ID"])
 ginter <- ginter[!is.na(ginter)][1:30]
-myx <- unique(c(match(ginter, annot.vdx[ ,"EntrezGene.ID"]), sample(x=1:nrow(annot.vdx), size=20)))
+myx <- unique(c(match(ginter, annot.vdx[ ,"EntrezGene.ID"]),
+  sample(x=1:nrow(annot.vdx), size=20)))
 data2.vdx <- data.vdx[ ,myx]
 annot2.vdx <- annot.vdx[myx, ]
-myx <- unique(c(match(ginter, annot.nki[ ,"EntrezGene.ID"]), sample(x=1:nrow(annot.nki), size=20)))
+myx <- unique(c(match(ginter, annot.nki[ ,"EntrezGene.ID"]),
+  sample(x=1:nrow(annot.nki), size=20)))
 data2.nki <- data.nki[ ,myx]
 annot2.nki <- annot.nki[myx, ]
 ## mapping of datasets
