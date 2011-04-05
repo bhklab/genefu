@@ -63,7 +63,8 @@ data(sig.ggi)
 ## load NKI dataset
 data(nki)
 ## compute relapse score
-ggi.nki <- ggi(data=data.nki, annot=annot.nki, do.mapping=TRUE, hg=demo.nki[ ,"grade"])
+ggi.nki <- ggi(data=data.nki, annot=annot.nki, do.mapping=TRUE,
+  hg=demo.nki[ ,"grade"])
 table(ggi.nki$risk)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

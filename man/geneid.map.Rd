@@ -61,7 +61,8 @@ data(sig.ggi)
 ggi.gid <- sig.ggi[ ,"EntrezGene.ID"]
 names(ggi.gid) <- as.character(sig.ggi[ ,"probe"])
 ## mapping through Entrez Gene ids of NKI and GGI signature
-res <- geneid.map(geneid1=nki.gid, data1=data.nki, geneid2=ggi.gid, verbose=FALSE)
+res <- geneid.map(geneid1=nki.gid, data1=data.nki,
+  geneid2=ggi.gid, verbose=FALSE)
 str(res)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

@@ -8,7 +8,9 @@ Box plot of group of values with corresponding jittered points
 This function allows for display a boxplot with jittered points.
 }
 \usage{
-boxplotplus2(x, .jit = 0.25, .las = 1, .ylim, box.col = "lightgrey", pt.col = "blue", pt.cex = 0.5, pt.pch = 16, med.line = FALSE, med.col = "goldenrod", ...)
+boxplotplus2(x, .jit = 0.25, .las = 1, .ylim, box.col = "lightgrey",
+  pt.col = "blue", pt.cex = 0.5, pt.pch = 16, med.line = FALSE,
+  med.col = "goldenrod", ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -70,7 +72,9 @@ Christos Hatzis
 }
 \examples{
 dd <- list("G1"=runif(20), "G2"=rexp(30) * -1.1, "G3"=rnorm(15) * 1.3)
-boxplotplus2(x=dd, .las=3, .jit=0.75, .ylim=c(-3,3), pt.cex=0.75, pt.col=c(rep("darkred", 20), rep("darkgreen", 30), rep("darkblue", 15)), pt.pch=c(0, 9, 17))
+boxplotplus2(x=dd, .las=3, .jit=0.75, .ylim=c(-3,3), pt.cex=0.75,
+  pt.col=c(rep("darkred", 20), rep("darkgreen", 30), rep("darkblue", 15)),
+  pt.pch=c(0, 9, 17))
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

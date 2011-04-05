@@ -8,7 +8,9 @@ Function to identify breast cancer molecular subtypes using the Subtype Clusteri
 This function identifies the breast cancer molecular subtypes using a Subtype Clustering Model fitted by \code{\link[genefu]{subtype.cluster}}.
 }
 \usage{
-subtype.cluster.predict(sbt.model, data, annot, do.mapping = FALSE, mapping, do.scale = TRUE, do.prediction.strength = FALSE, do.BIC = FALSE, plot = FALSE, verbose = FALSE)
+subtype.cluster.predict(sbt.model, data, annot, do.mapping = FALSE,
+  mapping, do.scale = TRUE, do.prediction.strength = FALSE,
+  do.BIC = FALSE, plot = FALSE, verbose = FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -81,7 +83,9 @@ data(scmod1)
 ## load NKI data
 data(nki)
 ## Subtype Clustering Model fitted on VDX and applied on NKI
-scmod1.nki <- subtype.cluster.predict(sbt.model=scmod1, data=data.nki, annot=annot.nki, do.mapping=TRUE, do.scale=TRUE, do.prediction.strength=FALSE, do.BIC=FALSE, plot=TRUE, verbose=TRUE)
+scmod1.nki <- subtype.cluster.predict(sbt.model=scmod1, data=data.nki,
+  annot=annot.nki, do.mapping=TRUE, do.scale=TRUE,
+  do.prediction.strength=FALSE, do.BIC=FALSE, plot=TRUE, verbose=TRUE)
 table(scmod1.nki$subtype)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

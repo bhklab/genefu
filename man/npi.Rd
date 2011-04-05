@@ -53,7 +53,8 @@ Benjamin Haibe-Kains
 ## load NKI dataset
 data(nki)
 ## compute NPI score and risk classification
-npi(size=demo.nki[ ,"size"], grade=demo.nki[ ,"grade"], node=ifelse(demo.nki[ ,"node"] == 0, 1, 3), na.rm=TRUE)
+npi(size=demo.nki[ ,"size"], grade=demo.nki[ ,"grade"],
+  node=ifelse(demo.nki[ ,"node"] == 0, 1, 3), na.rm=TRUE)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

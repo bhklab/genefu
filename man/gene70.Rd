@@ -8,7 +8,8 @@ Function to compute the 70 genes prognosis profile (GENE70) as published by van'
 This function computes signature scores and risk classifications from gene expression values following the algorithm used for the 70 genes prognosis profile (GENE70) as published by van't Veer et al. 2002.
 }
 \usage{
-gene70(data, annot, do.mapping = FALSE, mapping, std = c("none", "scale", "robust"), verbose = FALSE)
+gene70(data, annot, do.mapping = FALSE, mapping,
+  std = c("none", "scale", "robust"), verbose = FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -65,7 +66,8 @@ data(nki)
 ## compute relapse score
 rs.nki <- gene70(data=data.nki)
 table(rs.nki$risk)
-## note that the discrepancies compared to the original publication are closed to the official cutoff, raising doubts on its exact value
+## note that the discrepancies compared to the original publication
+## are closed to the official cutoff, raising doubts on its exact value.
 ## computation of the signature scores on a different microarray platform
 ## load VDX dataset
 data(vdx)

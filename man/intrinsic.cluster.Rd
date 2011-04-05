@@ -8,7 +8,10 @@ Function to fit a Single Sample Predictor (SSP) as in Perou, Sorlie, Hu, and Par
 This function fits the Single Sample Predictor (SSP) as published in Sorlie et al 2003, Hu et al 2006 and Parker et al 2009. This model is actually a nearest centroid classifier where the centroids representing the breast cancer molecular subtypes are identified through hierarchical clustering using an "intrinsic gene list".
 }
 \usage{
-intrinsic.cluster(data, annot, do.mapping = FALSE, mapping, std = c("none", "scale", "robust"), rescale.q = 0.02, intrinsicg, number.cluster = 3, mins = 5, method.cor = c("spearman", "pearson"), method.centroids = c("mean", "median", "tukey"), filen, verbose = FALSE)
+intrinsic.cluster(data, annot, do.mapping = FALSE, mapping,
+  std = c("none", "scale", "robust"), rescale.q = 0.02, intrinsicg,
+  number.cluster = 3, mins = 5, method.cor = c("spearman", "pearson"),
+  method.centroids = c("mean", "median", "tukey"), filen, verbose = FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -89,7 +92,11 @@ data(ssp2003)
 data(nki)
 ## load VDX data
 data(vdx)
-ssp2003.nki <- intrinsic.cluster(data=data.nki, annot=annot.nki, do.mapping=TRUE, std="robust", intrinsicg=ssp2003$centroids.map[ ,c("probe", "EntrezGene.ID")], number.cluster=5, mins=5, method.cor="spearman", method.centroids="mean", verbose=TRUE)
+ssp2003.nki <- intrinsic.cluster(data=data.nki, annot=annot.nki,
+  do.mapping=TRUE, std="robust",
+  intrinsicg=ssp2003$centroids.map[ ,c("probe", "EntrezGene.ID")],
+  number.cluster=5, mins=5, method.cor="spearman",
+  method.centroids="mean", verbose=TRUE)
 str(ssp2003.nki, max.level=1)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

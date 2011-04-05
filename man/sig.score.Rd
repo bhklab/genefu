@@ -8,7 +8,8 @@ Function to compute signature scores as linear combination of gene expressions
 This function computes a signature score from a gene list (aka gene signature), i.e. a signed average as published in Sotiriou et al. 2006 and Haibe-Kains et al. 2009.
 }
 \usage{
-sig.score(x, data, annot, do.mapping = FALSE, mapping, size = 0, cutoff = NA, signed = TRUE, verbose = FALSE)
+sig.score(x, data, annot, do.mapping = FALSE, mapping, size = 0,
+  cutoff = NA, signed = TRUE, verbose = FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -71,9 +72,11 @@ data(nki)
 ## load GGI signature
 data(sig.ggi)
 ## make of ggi signature a gene list
-ggi.gl <- cbind(sig.ggi[ ,c("probe", "EntrezGene.ID")], "coefficient"=ifelse(sig.ggi[ ,"grade"] == 1, -1, 1))
+ggi.gl <- cbind(sig.ggi[ ,c("probe", "EntrezGene.ID")],
+  "coefficient"=ifelse(sig.ggi[ ,"grade"] == 1, -1, 1))
 ## computation of signature scores
-ggi.score <- sig.score(x=ggi.gl, data=data.nki, annot=annot.nki, do.mapping=TRUE, signed=TRUE, verbose=TRUE)
+ggi.score <- sig.score(x=ggi.gl, data=data.nki, annot=annot.nki,
+  do.mapping=TRUE, signed=TRUE, verbose=TRUE)
 str(ggi.score)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

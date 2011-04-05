@@ -39,10 +39,12 @@ Benjamin Haibe-Kains
 }
 \examples{
 ## read the seven gene modules as published in Desmedt et al 2008
-genemods <- read.m.file(system.file("extdata/desmedt2008_genemodules.csv", package = "genefu"))
+genemods <- read.m.file(system.file("extdata/desmedt2008_genemodules.csv",
+  package = "genefu"))
 str(genemods, max.level=1)
 ## read the three subtype signtaures from GENIUS
-geniusm <- read.m.file(system.file("extdata/haibekains2009_sig_genius.csv", package = "genefu"))
+geniusm <- read.m.file(system.file("extdata/haibekains2009_sig_genius.csv",
+  package = "genefu"))
 str(geniusm, max.level=1)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

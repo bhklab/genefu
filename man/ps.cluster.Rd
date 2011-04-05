@@ -53,11 +53,17 @@ data(ssp2003)
 ## load NKI data
 data(nki)
 ## SP2003 fitted on NKI
-ssp2003.2nki <- intrinsic.cluster(data=data.nki, annot=annot.nki, do.mapping=TRUE, std="robust", intrinsicg=ssp2003$centroids.map[ ,c("probe", "EntrezGene.ID")], number.cluster=5, mins=5, method.cor="spearman", method.centroids="mean", verbose=TRUE)
+ssp2003.2nki <- intrinsic.cluster(data=data.nki, annot=annot.nki,
+  do.mapping=TRUE, std="robust",
+  intrinsicg=ssp2003$centroids.map[ ,c("probe", "EntrezGene.ID")],
+  number.cluster=5, mins=5, method.cor="spearman",
+  method.centroids="mean", verbose=TRUE)
 ## SP2003 published in Sorlie et al 2003 and applied in VDX
-ssp2003.nki <- intrinsic.cluster.predict(sbt.model=ssp2003, data=data.nki, annot=annot.nki, do.mapping=TRUE, verbose=TRUE)
+ssp2003.nki <- intrinsic.cluster.predict(sbt.model=ssp2003,
+  data=data.nki, annot=annot.nki, do.mapping=TRUE, verbose=TRUE)
 ## prediction strength of sp2003 clustering model
-ps.cluster(cl.tr=ssp2003.2nki$subtype, cl.ts=ssp2003.nki$subtype, na.rm = FALSE)
+ps.cluster(cl.tr=ssp2003.2nki$subtype, cl.ts=ssp2003.nki$subtype,
+  na.rm = FALSE)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

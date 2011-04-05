@@ -19,7 +19,7 @@ License: \tab Artistic-2.0\cr
 }
 
 \author{
-Benjamin Haibe-Kains
+\bold{Benjamin Haibe-Kains}
 
 - Computational Biology and Functional Genomics, Dana-Farber Cancer Institute, Boston, MA, USA
 
