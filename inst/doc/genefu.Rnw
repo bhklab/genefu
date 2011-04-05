@@ -51,10 +51,9 @@
 %------------------------------------------------------------
 \author[1,2,3]{Benjamin Haibe-Kains}
 \author[1,5]{Markus Schr\"{o}der}
-\author[1,2]{John Quackenbush}
-%\author[4]{Christine Desmedt}
 \author[4]{Christos Sotiriou}
 \author[3]{Gianluca Bontempi}
+\author[1,2]{John Quackenbush}
 
 
 \affil[1]{Computational Biology and Functional Genomics Laboratory, Dana-Farber Cancer Institute, Harvard School of Public Health}

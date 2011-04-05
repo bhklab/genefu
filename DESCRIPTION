@@ -4,7 +4,7 @@ Title: Relevant Functions for Gene Expression Analysis, Especially in Breast Can
 Version: 1.1.3
 Date: 2011-03-31
 Description: R package providing various functions relevant for gene expression analysis with emphasis on breast cancer.
-Author: Benjamin Haibe-Kains, Markus Schroeder, Aedin Culhane, Gianluca Bontempi, John Quackenbush, Christos Sotiriou
+Author: Benjamin Haibe-Kains, Markus Schroeder, Aedin Culhane, Gianluca Bontempi, Christos Sotiriou, John Quackenbush
 Maintainer: Benjamin Haibe-Kains <bhaibeka@jimmy.harvard.edu>, Markus Schroeder <mschroed@jimmy.harvard.edu>
 Description: This package contains functions implementing various tasks usually required by gene expression analysis, especially in breast cancer studies: gene mapping between different microarray platforms, identification of molecular subtypes, implementation of published gene signatures, gene selection, survival analysis, ...
 Depends: survcomp, mclust
