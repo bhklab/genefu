@@ -27,7 +27,7 @@ In order to rescale gene expressions, \code{q = 0.05} yielded comparable scales 
 }
 \value{
 %%  ~Describe the value returned
-Vector of rescaled values.
+Vector of rescaled values with two attributes \code{q1} and \code{q1} containing the values of the lower and the upper quantiles respectively.
 }
 %%\references{
 %% ~put references to the literature/web site here ~
@@ -46,7 +46,7 @@ Benjamin Haibe-Kains
 }
 \examples{
 ## load VDX dataset
-data(data.vdx)
+data(vdx)
 ## load NKI dataset
 data(nki)
 ## example of rescaling for ESR1 expression

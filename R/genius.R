@@ -7,11 +7,11 @@ function(data, annot, do.mapping=FALSE, mapping, do.scale=TRUE) {
 	usbt <- unique(sbt.id$subtype)
 	usbt <- sort(usbt[!is.na(usbt)])
 	pred.sbtclassif <- NULL
-	for(i in 1:length(usbt)) {
-		myx <- sbt.id$subtype == usbt[i] & !is.na(sbt.id$subtype)
+	for(ii in 1:length(usbt)) {
+		myx <- sbt.id$subtype == usbt[ii] & !is.na(sbt.id$subtype)
 		
 		#compute the score from model
-		score <- sig.score(x=sig.genius[[i]][ , c("probe", "EntrezGene.ID",  "coefficient")], data=data, annot=annot, do.mapping=do.mapping,  mapping=mapping, verbose=FALSE)$score
+		score <- sig.score(x=sig.genius[[ii]][ , c("probe", "EntrezGene.ID",  "coefficient")], data=data, annot=annot, do.mapping=do.mapping,  mapping=mapping, verbose=FALSE)$score
 		if(do.scale) {
 			#the rescaling needs a large sample size!
 			#necessary if we want to validate the classifier using a different dataset
@@ -24,8 +24,8 @@ function(data, annot, do.mapping=FALSE, mapping, do.scale=TRUE) {
 	names(pred.sbtclassif) <- names(sig.genius)
 	#combine classifications
 	cc <- NULL
-	for(i in 1:length(pred.sbtclassif)) {
-		cc <- cbind(cc, pred.sbtclassif[[i]])
+	for(j in 1:length(pred.sbtclassif)) {
+		cc <- cbind(cc, pred.sbtclassif[[j]])
 	}
 	ww <- sbt.id$subtype.proba
 	combine.pred <- apply(ww * cc, 1, sum)

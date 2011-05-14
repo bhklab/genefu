@@ -1,5 +1,5 @@
 `subtype.cluster` <-
-function(module.ESR1, module.ERBB2, module.AURKA, data, annot, do.mapping=FALSE, mapping, do.scale=TRUE, rescale.q=0.02, model.name="EEI", do.BIC=FALSE, plot=FALSE, filen, verbose=FALSE) {
+function(module.ESR1, module.ERBB2, module.AURKA, data, annot, do.mapping=FALSE, mapping, do.scale=TRUE, rescale.q=0.05, model.name="EEI", do.BIC=FALSE, plot=FALSE, filen, verbose=FALSE) {
 	require(mclust)
 	if(missing(data) || missing(annot)) { stop("data, and annot parameters must be specified") }
 	
@@ -9,13 +9,16 @@ function(module.ESR1, module.ERBB2, module.AURKA, data, annot, do.mapping=FALSE,
 	sig.erbb2 <- sig.score(x=module.ERBB2, data=data, annot=annot, do.mapping=do.mapping, mapping=mapping, verbose=FALSE)
 	sig.aurka <- sig.score(x=module.AURKA, data=data, annot=annot, do.mapping=do.mapping, mapping=mapping, verbose=FALSE)
 	dd <- cbind("ESR1"=sig.esr1$score, "ERBB2"=sig.erbb2$score, "AURKA"=sig.aurka$score)
+	rnn <- rownames(dd)
 	m.mod <- list("ESR1"=cbind("probe"=as.character(sig.esr1$probe[ ,"new.probe"]), "EntrezGene.ID"=as.character(sig.esr1$probe[ ,"EntrezGene.ID"]), "coefficient"=module.ESR1[match(sig.esr1$probe[ ,"probe"], module.ESR1[ ,"probe"]), "coefficient"]), "ERBB2"=cbind("probe"=as.character(sig.erbb2$probe[ ,"new.probe"]), "EntrezGene.ID"=as.character(sig.erbb2$probe[ ,"EntrezGene.ID"]), "coefficient"=module.ERBB2[match(sig.erbb2$probe[ ,"probe"], module.ERBB2[ ,"probe"]), "coefficient"]), "AURKA"=cbind("probe"=as.character(sig.aurka$probe[ ,"new.probe"]), "EntrezGene.ID"=as.character(sig.aurka$probe[ ,"EntrezGene.ID"]), "coefficient"=module.AURKA[match(sig.aurka$probe[ ,"probe"], module.AURKA[ ,"probe"]), "coefficient"]))
 	if(do.scale) {
 		## the rescaling needs a large sample size!!!
 		## necessary if we want to validate the classifier using a different dataset
 		## the estimation of survival probabilities depends on the scale of the score
 		dd <- apply(dd, 2, function(x) { return((rescale(x, q=rescale.q, na.rm=TRUE) - 0.5) * 2) })
+		rownames(dd) <- rnn
 	}
+	
 	dd2 <- dd
 	
 	cc.ix <- complete.cases(dd[ , c("ESR1", "ERBB2"), drop=FALSE])

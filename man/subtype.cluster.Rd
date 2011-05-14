@@ -9,7 +9,7 @@ This function fits the Subtype Clustering Model as published in Desmedt et al. 2
 }
 \usage{
 subtype.cluster(module.ESR1, module.ERBB2, module.AURKA, data, annot,
-  do.mapping = FALSE, mapping, do.scale = TRUE, rescale.q = 0.02,
+  do.mapping = FALSE, mapping, do.scale = TRUE, rescale.q = 0.05,
   model.name = "EEI", do.BIC = FALSE, plot = FALSE, filen, verbose = FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
