@@ -36,9 +36,10 @@ The Welch's version of the t test is implemented in this function, therefore ass
 \value{
 A numeric vector of six values that are the difference between the two weighted means, the value of the t statistic, the sample size of class 1, the sample size of class 2, the degree of freedom and the corresponding p-value.
 }
-%%\references{
-%% ~put references to the literature/web site here ~
-%%}
+\references{
+\url{http://en.wikipedia.org/wiki/T_test}
+\url{http://www.nicebread.de/blog/files/fc02e1635792cb0f2b3cbd1f7e6c580b-10.php}
+}
 \author{
 Benjamin Haibe-Kains
 }

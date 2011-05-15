@@ -1,5 +1,5 @@
 `intrinsic.cluster` <-
-function(data, annot, do.mapping=FALSE, mapping, std=c("none", "scale", "robust"), rescale.q=0.02, intrinsicg, number.cluster=3, mins=5, method.cor=c("spearman", "pearson"), method.centroids=c("mean", "median", "tukey"), filen, verbose=FALSE) {
+function(data, annot, do.mapping=FALSE, mapping, std=c("none", "scale", "robust"), rescale.q=0.05, intrinsicg, number.cluster=3, mins=5, method.cor=c("spearman", "pearson"), method.centroids=c("mean", "median", "tukey"), filen, verbose=FALSE) {
 	
 	if(missing(data) || missing(annot) || missing(intrinsicg)) { stop("data, annot, and intrinsicg parameters must be specified") }
 	std <- match.arg(std)

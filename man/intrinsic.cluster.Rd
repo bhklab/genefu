@@ -9,7 +9,7 @@ This function fits the Single Sample Predictor (SSP) as published in Sorlie et a
 }
 \usage{
 intrinsic.cluster(data, annot, do.mapping = FALSE, mapping,
-  std = c("none", "scale", "robust"), rescale.q = 0.02, intrinsicg,
+  std = c("none", "scale", "robust"), rescale.q = 0.05, intrinsicg,
   number.cluster = 3, mins = 5, method.cor = c("spearman", "pearson"),
   method.centroids = c("mean", "median", "tukey"), filen, verbose = FALSE)
 }

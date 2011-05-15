@@ -28,9 +28,8 @@ If \code{w} is missing then all elements of \code{x} are given the same weight, 
 \value{
 A numeric vector of two values that are the weighted mean and weighted variance respectively.
 }
-%%\references{
-%% ~put references to the literature/web site here ~
-%%}
+\references{
+\url{http://en.wikipedia.org/wiki/Weighted_variance#Weighted_sample_variance}}
 \author{
 Benjamin Haibe-Kains
 }
