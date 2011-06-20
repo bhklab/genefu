@@ -9,7 +9,7 @@ This function identifies the breast cancer molecular subtypes using a Subtype Cl
 }
 \usage{
 subtype.cluster.predict(sbt.model, data, annot, do.mapping = FALSE,
-  mapping, do.scale = TRUE, do.prediction.strength = FALSE,
+  mapping, do.prediction.strength = FALSE,
   do.BIC = FALSE, plot = FALSE, verbose = FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
@@ -28,9 +28,6 @@ Matrix of annotations with at least one column named "EntrezGene.ID", dimnames b
 }
   \item{mapping}{
 Matrix with columns "EntrezGene.ID" and "probe" used to force the mapping such that the probes are not selected based on  their variance.
-}
-  \item{do.scale}{
-\code{TRUE} if the ESR1, ERBB2 and AURKA (module) scores must be rescaled (see \code{\link[genefu]{rescale}}), \code{FALSE} otherwise.
 }
   \item{do.prediction.strength}{
 \code{TRUE} if the prediction strength must be computed (Tibshirani and Walther 2005), \code{FALSE} otherwise.
@@ -84,7 +81,7 @@ data(scmod1)
 data(nki)
 ## Subtype Clustering Model fitted on VDX and applied on NKI
 scmod1.nki <- subtype.cluster.predict(sbt.model=scmod1, data=data.nki,
-  annot=annot.nki, do.mapping=TRUE, do.scale=TRUE,
+  annot=annot.nki, do.mapping=TRUE,
   do.prediction.strength=FALSE, do.BIC=FALSE, plot=TRUE, verbose=TRUE)
 table(scmod1.nki$subtype)
 }

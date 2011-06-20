@@ -1,5 +1,5 @@
 `subtype.cluster.predict` <-
-function(sbt.model, data, annot, do.mapping=FALSE, mapping, do.scale=TRUE, do.prediction.strength=FALSE, do.BIC=FALSE, plot=FALSE, verbose=FALSE) {
+function(sbt.model, data, annot, do.mapping=FALSE, mapping, do.prediction.strength=FALSE, do.BIC=FALSE, plot=FALSE, verbose=FALSE) {
 	require(mclust)
 	if(missing(data) || missing(annot)) { stop("data, and annot parameters must be specified") }
 	
@@ -41,7 +41,7 @@ function(sbt.model, data, annot, do.mapping=FALSE, mapping, do.scale=TRUE, do.pr
 		cc <- m.param$cutoff.AURKA
 		mq <- m.param$rescale.q
 	}
-	
+	do.scale <- ifelse(is.na(mq), FALSE, TRUE)
 	sbt <- rep(NA, nrow(data))
 	names(sbt) <- dimnames(data)[[1]]
 	sbt.proba <- matrix(NA, nrow(data), ncol=3, dimnames=list(dimnames(data)[[1]], sbtn))

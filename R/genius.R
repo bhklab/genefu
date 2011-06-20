@@ -2,7 +2,7 @@
 function(data, annot, do.mapping=FALSE, mapping, do.scale=TRUE) {
 	
 	## predict breast cancer molecular subtypes
-	sbt.id <- subtype.cluster.predict(sbt.model=scmod1, data=data, annot=annot, do.mapping=do.mapping, mapping=mapping, do.scale=do.scale, do.prediction.strength=FALSE, do.BIC=FALSE, plot=FALSE, verbose=FALSE)
+	sbt.id <- subtype.cluster.predict(sbt.model=scmod1, data=data, annot=annot, do.mapping=do.mapping, mapping=mapping, do.prediction.strength=FALSE, do.BIC=FALSE, plot=FALSE, verbose=FALSE)
 	
 	usbt <- unique(sbt.id$subtype)
 	usbt <- sort(usbt[!is.na(usbt)])

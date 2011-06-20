@@ -17,7 +17,7 @@ function(module.ESR1, module.ERBB2, module.AURKA, data, annot, do.mapping=FALSE,
 		## the estimation of survival probabilities depends on the scale of the score
 		dd <- apply(dd, 2, function(x) { return((rescale(x, q=rescale.q, na.rm=TRUE) - 0.5) * 2) })
 		rownames(dd) <- rnn
-	}
+	} else { rescale.q <- NA }
 	
 	dd2 <- dd
 	
