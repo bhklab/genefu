@@ -53,10 +53,10 @@ Benjamin Haibe-Kains
 ## load GGI signature
 data(sig.pik3cags)
 ## load NKI dataset
-data(nki)
+data(nkis)
 ## compute relapse score
-pik3cags.nki <- pik3cags(data=data.nki, annot=annot.nki, do.mapping=TRUE)
-head(pik3cags.nki)
+pik3cags.nkis <- pik3cags(data=data.nkis, annot=annot.nkis, do.mapping=TRUE)
+head(pik3cags.nkis)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

@@ -56,10 +56,10 @@ Benjamin Haibe-Kains
 }
 \examples{
 ## load NKI dataset
-data(nki)
+data(nkis)
 ## compute GENIUS risk scores based on GENIUS model fitted on VDX dataset
-genius.nki <- genius(data=data.nki, annot=annot.nki, do.mapping=TRUE)
-str(genius.nki)
+genius.nkis <- genius(data=data.nkis, annot=annot.nkis, do.mapping=TRUE)
+str(genius.nkis)
 ## the performance of GENIUS overall risk score predictions are not optimal
 ## since only part of the NKI dataset was used
 }

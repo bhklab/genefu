@@ -38,7 +38,7 @@ Benjamin Haibe-Kains
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link[genefu]{stab.fs.ranking}}
+\code{\link[genefu]{stab.fs.rankisng}}
 }
 \examples{
 set.seed(54321)

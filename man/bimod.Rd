@@ -59,7 +59,7 @@ Wirapati P, Sotiriou C, Kunkel S, Farmer P, Pradervand S, Haibe-Kains B, Desmedt
 
 Fraley C and Raftery E (2002) "Model-Based Clustering, Discriminant Analysis, and Density Estimation", \emph{Journal of American Statistical Asscoiation}, \bold{97}(458):611--631.
 
-Wang J, Wen S, Symmans FW, Pusztai L and Coombes KR (2009) "The bimodality index: a criterion for discovering and ranking bimodal signatures from cancer gene expression profiling data", \emph{Cancer Informatics}, \bold{7}:199--216.
+Wang J, Wen S, Symmans FW, Pusztai L and Coombes KR (2009) "The bimodality index: a criterion for discovering and rankisng bimodal signatures from cancer gene expression profiling data", \emph{Cancer Informatics}, \bold{7}:199--216.
 }
 \author{
 Benjamin Haibe-Kains
@@ -75,15 +75,15 @@ Benjamin Haibe-Kains
 }
 \examples{
 ## load NKI data
-data(nki)
+data(nkis)
 ## load gene modules from Desmedt et al. 2008
 data(mod1)
 ## retrieve esr1 affy probe and Entrez Gene id 
 esr1 <- mod1$ESR1[1, ,drop=FALSE]
 ## computation of signature scores
-esr1.bimod <- bimod(x=esr1, data=data.nki, annot=annot.nki, do.mapping=TRUE, 
+esr1.bimod <- bimod(x=esr1, data=data.nkis, annot=annot.nkis, do.mapping=TRUE, 
   model="V", verbose=TRUE)
-table("ER.IHC"=demo.nki[ ,"er"], "ER.GE"=esr1.bimod$status)
+table("ER.IHC"=demo.nkis[ ,"er"], "ER.GE"=esr1.bimod$status)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

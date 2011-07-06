@@ -56,10 +56,10 @@ Benjamin Haibe-Kains
 ## load TAMR13 signature
 data(sig.tamr13)
 ## load VDX dataset
-data(vdx)
+data(vdxs)
 ## compute relapse score
-tamr13.vdx <- tamr13(data=data.vdx, annot=annot.vdx, do.mapping=FALSE)
-summary(tamr13.vdx$score)
+tamr13.vdxs <- tamr13(data=data.vdxs, annot=annot.vdxs, do.mapping=FALSE)
+summary(tamr13.vdxs$score)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

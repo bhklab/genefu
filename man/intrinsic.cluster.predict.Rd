@@ -74,12 +74,12 @@ Benjamin Haibe-Kains
 ## load SSP fitted in Sorlie et al. 2003
 data(ssp2003)
 ## load NKI data
-data(nki)
+data(nkis)
 ## SSP2003 applied on NKI
-ssp2003.nki <- intrinsic.cluster.predict(sbt.model=ssp2003,
-  data=data.nki, annot=annot.nki, do.mapping=TRUE,
+ssp2003.nkis <- intrinsic.cluster.predict(sbt.model=ssp2003,
+  data=data.nkis, annot=annot.nkis, do.mapping=TRUE,
   do.prediction.strength=FALSE, verbose=TRUE)
-table(ssp2003.nki$subtype)
+table(ssp2003.nkis$subtype)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

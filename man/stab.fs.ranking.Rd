@@ -1,18 +1,18 @@
-\name{stab.fs.ranking}
-\alias{stab.fs.ranking}
+\name{stab.fs.rankisng}
+\alias{stab.fs.rankisng}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Function to quantify stability of feature ranking.
+Function to quantify stability of feature rankisng.
 }
 \description{
-This function computes several indexes to quantify feature ranking stability for several number of selected features. This is usually estimated through perturbation of the original dataset by generating multiple sets of selected features.
+This function computes several indexes to quantify feature rankisng stability for several number of selected features. This is usually estimated through perturbation of the original dataset by generating multiple sets of selected features.
 }
 \usage{
-stab.fs.ranking(fsets, sizes, N, method = c("kuncheva", "davis"), ...)
+stab.fs.rankisng(fsets, sizes, N, method = c("kuncheva", "davis"), ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{fsets}{ list or matrix of sets of selected features (in rows), each ranking must have the same size }
+  \item{fsets}{ list or matrix of sets of selected features (in rows), each rankisng must have the same size }
   \item{sizes}{ Number of top-ranked features for which the stability index must be computed
 }
   \item{N}{ total number of features on which feature selection is performed }
@@ -26,7 +26,7 @@ Kuncheva index (\code{kuncheva}) lays in [-1, 1], An index of -1 means no inters
 
 Davis index (\code{davis}) lays in [0,1], With a pnalty term equal to 0, an index of 0 means no intersection between sets of selected features and +1 means that all the same features are always selected. A penalty of 1 is usually used so that a feature selection performed with no or all features has a Davis stability index equals to 0. None estimate of the expected Davis stability index of a random feature selection was published.
 }
-\value{ A vector of numeric that are stability indices for each size of the sets of selected features given the rankings
+\value{ A vector of numeric that are stability indices for each size of the sets of selected features given the rankisngs
 }
 \references{
 Davis CA, Gerick F, Hintermair V, Friedel CC, Fundel K, Kuffner R, Zimmer R (2006) "Reliable gene signatures for microarray classification: assessment of stability and performance", \emph{Bioinformatics}, \bold{22}(19):356-2363.
@@ -50,12 +50,12 @@ fsets <- lapply(as.list(1:100), function(x, size=50, N=10000) {
 names(fsets) <- paste("fsel", 1:length(fsets), sep=".")
 
 ## Kuncheva index
-stab.fs.ranking(fsets=fsets, sizes=c(1, 10, 20, 30, 40, 50),
+stab.fs.rankisng(fsets=fsets, sizes=c(1, 10, 20, 30, 40, 50),
   N=10000, method="kuncheva")
 ## close to 0 as expected for a random feature selection
 
 ## Davis index
-stab.fs.ranking(fsets=fsets, sizes=c(1, 10, 20, 30, 40, 50),
+stab.fs.rankisng(fsets=fsets, sizes=c(1, 10, 20, 30, 40, 50),
   N=10000, method="davis", penalty=1)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

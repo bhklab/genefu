@@ -68,14 +68,14 @@ Benjamin Haibe-Kains
 %%}
 \examples{
 ## load NKI data
-data(nki)
+data(nkis)
 ## load GGI signature
 data(sig.ggi)
 ## make of ggi signature a gene list
 ggi.gl <- cbind(sig.ggi[ ,c("probe", "EntrezGene.ID")],
   "coefficient"=ifelse(sig.ggi[ ,"grade"] == 1, -1, 1))
 ## computation of signature scores
-ggi.score <- sig.score(x=ggi.gl, data=data.nki, annot=annot.nki,
+ggi.score <- sig.score(x=ggi.gl, data=data.nkis, annot=annot.nkis,
   do.mapping=TRUE, signed=TRUE, verbose=TRUE)
 str(ggi.score)
 }

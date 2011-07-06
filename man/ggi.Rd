@@ -61,11 +61,11 @@ Benjamin Haibe-Kains
 ## load GGI signature
 data(sig.ggi)
 ## load NKI dataset
-data(nki)
+data(nkis)
 ## compute relapse score
-ggi.nki <- ggi(data=data.nki, annot=annot.nki, do.mapping=TRUE,
-  hg=demo.nki[ ,"grade"])
-table(ggi.nki$risk)
+ggi.nkis <- ggi(data=data.nkis, annot=annot.nkis, do.mapping=TRUE,
+  hg=demo.nkis[ ,"grade"])
+table(ggi.nkis$risk)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

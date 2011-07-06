@@ -88,26 +88,26 @@ Benjamin Haibe-Kains
 \examples{
 ## example without gene mapping
 ## load VDX data
-data(vdx)
+data(vdxs)
 ## load gene modules
 data(mod1)
 ## fit a Subtype Clustering Model
-scmod1.vdx <- subtype.cluster(module.ESR1=mod1$ESR1, module.ERBB2=mod1$ERBB2,
-  module.AURKA=mod1$AURKA, data=data.vdx, annot=annot.vdx, do.mapping=FALSE,
+scmod1.vdxs <- subtype.cluster(module.ESR1=mod1$ESR1, module.ERBB2=mod1$ERBB2,
+  module.AURKA=mod1$AURKA, data=data.vdxs, annot=annot.vdxs, do.mapping=FALSE,
   do.scale=TRUE, plot=TRUE, verbose=TRUE)
-str(scmod1.vdx, max.level=1)
-table(scmod1.vdx$subtype2)
+str(scmod1.vdxs, max.level=1)
+table(scmod1.vdxs$subtype2)
 ## example with gene mapping
 ## load NKI data
-data(nki)
+data(nkis)
 ## load gene modules
 data(mod1)
 ## fit a Subtype Clustering Model
-scmod1.nki <- subtype.cluster(module.ESR1=mod1$ESR1, module.ERBB2=mod1$ERBB2,
-  module.AURKA=mod1$AURKA, data=data.nki, annot=annot.nki, do.mapping=TRUE,
+scmod1.nkis <- subtype.cluster(module.ESR1=mod1$ESR1, module.ERBB2=mod1$ERBB2,
+  module.AURKA=mod1$AURKA, data=data.nkis, annot=annot.nkis, do.mapping=TRUE,
   do.scale=TRUE, plot=TRUE, verbose=TRUE)
-str(scmod1.nki, max.level=1)
-table(scmod1.nki$subtype2)
+str(scmod1.nkis, max.level=1)
+table(scmod1.nkis$subtype2)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

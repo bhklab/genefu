@@ -56,24 +56,24 @@ Benjamin Haibe-Kains
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link[genefu]{nki}}
+\code{\link[genefu]{nkis}}
 }
 \examples{
 ## load GENE70 signature
 data(sig.gene70)
 ## load NKI dataset
-data(nki)
+data(nkis)
 ## compute relapse score
-rs.nki <- gene70(data=data.nki)
-table(rs.nki$risk)
+rs.nkis <- gene70(data=data.nkis)
+table(rs.nkis$risk)
 ## note that the discrepancies compared to the original publication
 ## are closed to the official cutoff, raising doubts on its exact value.
 ## computation of the signature scores on a different microarray platform
 ## load VDX dataset
-data(vdx)
+data(vdxs)
 ## compute relapse score
-rs.vdx <- gene70(data=data.vdx, annot=annot.vdx, do.mapping=TRUE)
-table(rs.vdx$risk)
+rs.vdxs <- gene70(data=data.vdxs, annot=annot.vdxs, do.mapping=TRUE)
+table(rs.vdxs$risk)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

@@ -89,15 +89,15 @@ Benjamin Haibe-Kains
 ## load SSP signature published in Sorlie et al. 2003
 data(ssp2003)
 ## load NKI data
-data(nki)
+data(nkis)
 ## load VDX data
-data(vdx)
-ssp2003.nki <- intrinsic.cluster(data=data.nki, annot=annot.nki,
+data(vdxs)
+ssp2003.nkis <- intrinsic.cluster(data=data.nkis, annot=annot.nkis,
   do.mapping=TRUE, std="robust",
   intrinsicg=ssp2003$centroids.map[ ,c("probe", "EntrezGene.ID")],
   number.cluster=5, mins=5, method.cor="spearman",
   method.centroids="mean", verbose=TRUE)
-str(ssp2003.nki, max.level=1)
+str(ssp2003.nkis, max.level=1)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

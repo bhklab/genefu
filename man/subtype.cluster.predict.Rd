@@ -78,12 +78,12 @@ Benjamin Haibe-Kains
 ## load Subtype Clustering Model fitted on VDX
 data(scmod1)
 ## load NKI data
-data(nki)
+data(nkis)
 ## Subtype Clustering Model fitted on VDX and applied on NKI
-scmod1.nki <- subtype.cluster.predict(sbt.model=scmod1, data=data.nki,
-  annot=annot.nki, do.mapping=TRUE,
+scmod1.nkis <- subtype.cluster.predict(sbt.model=scmod1, data=data.nkis,
+  annot=annot.nkis, do.mapping=TRUE,
   do.prediction.strength=FALSE, do.BIC=FALSE, plot=TRUE, verbose=TRUE)
-table(scmod1.nki$subtype)
+table(scmod1.nkis$subtype)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
