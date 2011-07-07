@@ -59,7 +59,7 @@ Wirapati P, Sotiriou C, Kunkel S, Farmer P, Pradervand S, Haibe-Kains B, Desmedt
 
 Fraley C and Raftery E (2002) "Model-Based Clustering, Discriminant Analysis, and Density Estimation", \emph{Journal of American Statistical Asscoiation}, \bold{97}(458):611--631.
 
-Wang J, Wen S, Symmans FW, Pusztai L and Coombes KR (2009) "The bimodality index: a criterion for discovering and rankisng bimodal signatures from cancer gene expression profiling data", \emph{Cancer Informatics}, \bold{7}:199--216.
+Wang J, Wen S, Symmans FW, Pusztai L and Coombes KR (2009) "The bimodality index: a criterion for discovering and ranking bimodal signatures from cancer gene expression profiling data", \emph{Cancer Informatics}, \bold{7}:199--216.
 }
 \author{
 Benjamin Haibe-Kains
