@@ -1,11 +1,11 @@
-`stab.fs.rankisng` <-
+`stab.fs.ranking` <-
 function(fsets, sizes, N, method=c("kuncheva", "davis"), ...) {
 	
 	####################
 	## internal functions
 	####################
 	
-	kuncheva.stab.rankisng <- function(fsets, N, x) {
+	kuncheva.stab.ranking <- function(fsets, N, x) {
 		ss <- x
 		fsets <- fsets[ , 1:ss, drop=FALSE]
 		kk <- nrow(fsets)
@@ -27,7 +27,7 @@ function(fsets, sizes, N, method=c("kuncheva", "davis"), ...) {
 		return((2 * stab.res) / (kk * (kk - 1)))	
 	}
 	
-	davis.stab.rankisng <- function(fsets, N, x, penalty=1) {
+	davis.stab.ranking <- function(fsets, N, x, penalty=1) {
 		ss <- x
 		fsets <- fsets[ , 1:ss, drop=FALSE]
 		kk <- nrow(fsets)
@@ -51,14 +51,14 @@ function(fsets, sizes, N, method=c("kuncheva", "davis"), ...) {
 	
 	switch(method,
 		"kuncheva"={
-			stab <- unlist(sapply(X=sizes, FUN=kuncheva.stab.rankisng, fsets=fsets, N=N))
+			stab <- unlist(sapply(X=sizes, FUN=kuncheva.stab.ranking, fsets=fsets, N=N))
 		}, 
 		"davis"={
-			 stab <- unlist(sapply(X=sizes, FUN=davis.stab.rankisng, fsets=fsets, N=N, ...))
+			 stab <- unlist(sapply(X=sizes, FUN=davis.stab.ranking, fsets=fsets, N=N, ...))
 		})
 		names(stab) <- paste("size", sizes, sep=".")
 		return(stab)
 }
 
 ## k <- 100; fsets <- NULL; for(i in 1:k) { fsets <- c(fsets, list(sample(paste("feature", 1:1000, sep=".")))) }; names(fsets) <- paste("rand", 1:k, sep=".")
-## stab.fs.rankisng(fsets=fsets, sizes=1:10, method="kuncheva", penalty=1)
+## stab.fs.ranking(fsets=fsets, sizes=1:10, method="kuncheva", penalty=1)
