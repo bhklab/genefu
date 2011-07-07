@@ -271,7 +271,7 @@ res <- res[myx, , drop=FALSE]
 ddemot <- ddemot[myx, , drop=FALSE]
 @
 
-To compare the risk score performances, we compute the concordance index\footnote{The same analysis could be performed with D index and hazard ratio by using the functions \Rfunction{D.index} and \Rfunction{hazard.ratio} from the \Rpackage{survcomp} respectively:
+To compare the risk score performances, we compute the concordance index\footnote{The same analysis could be performed with D index and hazard ratio by using the functions \Rfunction{D.index} and \Rfunction{hazard.ratio} from the \Rpackage{survcomp} respectively}:
 <<cindexComputation>>=
 cc.res <- complete.cases(res)
 datasetList <- c("MAINZ","TRANSBIG","UPP","UNT","NKI")
@@ -351,6 +351,7 @@ xtable(printPV, digits=c(0, rep(-1,ncol(printPV))))
 
 The following five figures represent the risk score performances measured by the concordance index for NPI, AURKA, GGI and GENIUS. The last figure represents the overall estimates.
 <<forestplotNPI,fig=TRUE>>=
+par(mfrow=c(2,2))
 datasetListF <- c("MAINZ","TRANSBIG","UPP","UNT","NKI", NA, "Overall")
 myspace <- "   "
 
@@ -360,68 +361,64 @@ tt <- rbind(resMatrix[["NPI"]][1:5,],
           "Overall"=resMatrix[["NPI"]][6,])
 
 tt <- as.data.frame(tt)
-labeltext <- cbind(c("Dataset", datasetListF),c(rep(myspace,length(datasetListF)+1)))
-bs <- rep(0.5, nrow(labeltext))
+labeltext <- cbind(c("Dataset", datasetListF))
 
 r.mean <- c(NA,tt$cindex)
 r.lower <- c(NA,tt$lower)
 r.upper <- c(NA,tt$upper)
 
-forestplot.surv(labeltext=labeltext, mean=r.mean, lower=r.lower, upper=r.upper, zero=0.5, align=c("l"), graphwidth=unit(2, "inches"), x.ticks=seq(0.4,0.9,0.1), col=meta.colors(box="royalblue",line="darkblue",zero="firebrick",summary="black"),box.size=bs, clip=c(0.35,0.9), is.summary=c(rep(FALSE,7),TRUE), xlab="NPI Concordance Index")
-@
-
-<<forestplotAURKA,fig=TRUE,echo=FALSE>>=
+metaplot.surv(mn=r.mean, lower=r.lower, upper=r.upper, labels=labeltext, xlim=c(0.4,0.9), boxsize=0.5, zero=0.5, col=meta.colors(box="royalblue",line="darkblue",zero="firebrick"), main="NPI Concordance Index")
+#@
+#
+#<<forestplotAURKA,fig=TRUE,echo=FALSE>>=
 ## AURKA Forestplot
 tt <- rbind(resMatrix[["AURKA"]][1:5,],
           "NA"=NA,
           "Overall"=resMatrix[["AURKA"]][6,])
 
 tt <- as.data.frame(tt)
-labeltext <- cbind(c("Dataset", datasetListF),c(rep(myspace,length(datasetListF)+1)))
-bs <- rep(0.5, nrow(labeltext))
+labeltext <- cbind(c("Dataset", datasetListF))
 
 r.mean <- c(NA,tt$cindex)
 r.lower <- c(NA,tt$lower)
 r.upper <- c(NA,tt$upper)
 
-forestplot.surv(labeltext=labeltext, mean=r.mean, lower=r.lower, upper=r.upper, zero=0.5, align=c("l"), graphwidth=unit(2, "inches"), x.ticks=seq(0.4,0.9,0.1), col=meta.colors(box="royalblue",line="darkblue",zero="firebrick",summary="black"),box.size=bs, clip=c(0.4,0.9), is.summary=c(rep(FALSE,7),TRUE), xlab="AURKA Concordance Index")
-@
-
-<<forestplotGGI,fig=TRUE,echo=FALSE>>=
+metaplot.surv(mn=r.mean, lower=r.lower, upper=r.upper, labels=labeltext, xlim=c(0.4,0.9), boxsize=0.5, zero=0.5, col=meta.colors(box="royalblue",line="darkblue",zero="firebrick"), main="AURKA Concordance Index")
+#@
+#
+#<<forestplotGGI,fig=TRUE,echo=FALSE>>=
 ## GGI Forestplot
 tt <- rbind(resMatrix[["GGI"]][1:5,],
           "NA"=NA,
           "Overall"=resMatrix[["GGI"]][6,])
 
 tt <- as.data.frame(tt)
-labeltext <- cbind(c("Dataset", datasetListF),c(rep(myspace,length(datasetListF)+1)))
-bs <- rep(0.5, nrow(labeltext))
+labeltext <- cbind(c("Dataset", datasetListF))
 
 r.mean <- c(NA,tt$cindex)
 r.lower <- c(NA,tt$lower)
 r.upper <- c(NA,tt$upper)
 
-forestplot.surv(labeltext=labeltext, mean=r.mean, lower=r.lower, upper=r.upper, zero=0.5, align=c("l"), graphwidth=unit(2, "inches"), x.ticks=seq(0.4,0.9,0.1), col=meta.colors(box="royalblue",line="darkblue",zero="firebrick",summary="black"),box.size=bs, clip=c(0.4,0.9), is.summary=c(rep(FALSE,7),TRUE), xlab="GGI Concordance Index")
-@
-
-<<forestplotGENIUS,fig=TRUE,echo=FALSE>>=
+metaplot.surv(mn=r.mean, lower=r.lower, upper=r.upper, labels=labeltext, xlim=c(0.4,0.9), boxsize=0.5, zero=0.5, col=meta.colors(box="royalblue",line="darkblue",zero="firebrick"), main="GGI Concordance Index")
+#@
+#
+#<<forestplotGENIUS,fig=TRUE,echo=FALSE>>=
 ## GENIUS Forestplot
 tt <- rbind(resMatrix[["GENIUS"]][1:5,],
           "NA"=NA,
           "Overall"=resMatrix[["GENIUS"]][6,])
 
 tt <- as.data.frame(tt)
-labeltext <- cbind(c("Dataset", datasetListF),c(rep(myspace,length(datasetListF)+1)))
-bs <- rep(0.5, nrow(labeltext))
+labeltext <- cbind(c("Dataset", datasetListF))
 
 r.mean <- c(NA,tt$cindex)
 r.lower <- c(NA,tt$lower)
 r.upper <- c(NA,tt$upper)
 
-forestplot.surv(labeltext=labeltext, mean=r.mean, lower=r.lower, upper=r.upper, zero=0.5, align=c("l"), graphwidth=unit(2, "inches"), x.ticks=seq(0.4,0.9,0.1), col=meta.colors(box="royalblue",line="darkblue",zero="firebrick",summary="black"),box.size=bs, clip=c(0.4,1), is.summary=c(rep(FALSE,7),TRUE), xlab="GENIUS Concordance Index")
+metaplot.surv(mn=r.mean, lower=r.lower, upper=r.upper, labels=labeltext, xlim=c(0.4,0.9), boxsize=0.5, zero=0.5, col=meta.colors(box="royalblue",line="darkblue",zero="firebrick"), main="GENIUS Concordance Index")
 @
 
-<<forestplotOverall,fig=TRUE,echo=FALSE>>=
+<<forestplotOverall,fig=TRUE,height=5,echo=FALSE>>=
 ## Overall Forestplot
 mybigspace <- "       "
 tt <- rbind("OverallN"=resMatrix[["NPI"]][6,],
@@ -430,15 +427,13 @@ tt <- rbind("OverallN"=resMatrix[["NPI"]][6,],
           "OverallG"=resMatrix[["GENIUS"]][6,])
 
 tt <- as.data.frame(tt)
-labeltext <- cbind(c("Risk Prediction","NPI","AURKA","GGI","GENIUS"),
-                      c("",rep(mybigspace,4)),c("",rep(mybigspace,4)),c("",rep(mybigspace,4)))
-bs <- rep(0.5, nrow(labeltext))
+labeltext <- cbind(c("Risk Prediction","NPI","AURKA","GGI","GENIUS"))
 
 r.mean <- c(NA,tt$cindex)
 r.lower <- c(NA,tt$lower)
 r.upper <- c(NA,tt$upper)
 
-forestplot.surv(labeltext=labeltext, mean=r.mean, lower=r.lower, upper=r.upper, zero=0.5, align=c("l"), graphwidth=unit(1, "inches"), x.ticks=seq(0.45,0.75,0.1), col=meta.colors(box="royalblue", line="darkblue", zero="firebrick", summary=c(NA,"darkgreen","orange","purple","darkred")), box.size=bs, clip=c(0.4,0.9), is.summary=c(rep(TRUE,4)), xlab="Overall Concordance Index")
+metaplot.surv(mn=r.mean, lower=r.lower, upper=r.upper, labels=labeltext, xlim=c(0.45,0.75), boxsize=0.5, zero=0.5, col=meta.colors(box="royalblue",line="darkblue",zero="firebrick"), main="Overall Concordance Index")
 @
 
 In order to assess the difference between the risk scores, we compute the concordance indices with their p-values and compare the estimates with the \Rfunction{cindex.comp.meta} with a paired student t test.
