@@ -46,18 +46,18 @@ Benjamin Haibe-Kains
 }
 \examples{
 ## load VDX dataset
-data(vdx)
+data(vdxs)
 ## load NKI dataset
-data(nki)
+data(nkis)
 ## example of rescaling for ESR1 expression
 par(mfrow=c(2,2))
-hist(data.vdx[ ,"205225_at"], xlab="205225_at", breaks=20,
+hist(data.vdxs[ ,"205225_at"], xlab="205225_at", breaks=20,
   main="ESR1 in VDX")
-hist(data.nki[ ,"NM_000125"], xlab="NM_000125", breaks=20,
+hist(data.nkis[ ,"NM_000125"], xlab="NM_000125", breaks=20,
   main="ESR1 in NKI")
-hist((rescale(x=data.vdx[ ,"205225_at"], q=0.05) - 0.5) * 2,
+hist((rescale(x=data.vdxs[ ,"205225_at"], q=0.05) - 0.5) * 2,
   xlab="205225_at", breaks=20, main="ESR1 in VDX\nrescaled")
-hist((rescale(x=data.nki[ ,"NM_000125"], q=0.05) - 0.5) * 2,
+hist((rescale(x=data.nkis[ ,"NM_000125"], q=0.05) - 0.5) * 2,
   xlab="NM_000125", breaks=20, main="ESR1 in NKI\nrescaled")
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

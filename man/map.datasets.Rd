@@ -54,23 +54,23 @@ Benjamin Haibe-Kains
 %%}
 \examples{
 ## load VDX dataset
-data(vdx)
+data(vdxs)
 ## load NKI dataset
-data(nki)
+data(nkis)
 ## reduce datasets
-ginter <- intersect(annot.vdx[ ,"EntrezGene.ID"], annot.nki[ ,"EntrezGene.ID"])
+ginter <- intersect(annot.vdxs[ ,"EntrezGene.ID"], annot.nkis[ ,"EntrezGene.ID"])
 ginter <- ginter[!is.na(ginter)][1:30]
-myx <- unique(c(match(ginter, annot.vdx[ ,"EntrezGene.ID"]),
-  sample(x=1:nrow(annot.vdx), size=20)))
-data2.vdx <- data.vdx[ ,myx]
-annot2.vdx <- annot.vdx[myx, ]
-myx <- unique(c(match(ginter, annot.nki[ ,"EntrezGene.ID"]),
-  sample(x=1:nrow(annot.nki), size=20)))
-data2.nki <- data.nki[ ,myx]
-annot2.nki <- annot.nki[myx, ]
+myx <- unique(c(match(ginter, annot.vdxs[ ,"EntrezGene.ID"]),
+  sample(x=1:nrow(annot.vdxs), size=20)))
+data2.vdxs <- data.vdxs[ ,myx]
+annot2.vdxs <- annot.vdxs[myx, ]
+myx <- unique(c(match(ginter, annot.nkis[ ,"EntrezGene.ID"]),
+  sample(x=1:nrow(annot.nkis), size=20)))
+data2.nkis <- data.nkis[ ,myx]
+annot2.nkis <- annot.nkis[myx, ]
 ## mapping of datasets
-datas <- list("VDX"=data2.vdx,"NKI"=data2.nki)
-annots <- list("VDX"=annot2.vdx, "NKI"=annot2.nki)
+datas <- list("VDX"=data2.vdxs,"NKI"=data2.nkis)
+annots <- list("VDX"=annot2.vdxs, "NKI"=annot2.nkis)
 datas.mapped <- map.datasets(datas=datas, annots=annots, do.mapping=TRUE)
 str(datas.mapped, max.level=2)
 }

@@ -54,11 +54,11 @@ Benjamin Haibe-Kains
 }
 \examples{
 ## load VDX dataset
-data(vdx)
+data(vdxs)
 ## retrieve ESR1, AURKA and MKI67 gene expressions
-x1 <- data.vdx[ ,"208079_s_at"]
-x2 <- data.vdx[ ,"205225_at"]
-y <- data.vdx[ ,"212022_s_at"]
+x1 <- data.vdxs[ ,"208079_s_at"]
+x2 <- data.vdxs[ ,"205225_at"]
+y <- data.vdxs[ ,"212022_s_at"]
 ## is MKI67 significantly more correlated to AURKA than ESR1?
 cc.ix <- complete.cases(x1, x2, y)
 cordiff.dep(r.x1y=abs(cor(x=x1[cc.ix], y=y[cc.ix], use="everything",

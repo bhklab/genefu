@@ -55,10 +55,10 @@ Benjamin Haibe-Kains
 ## load GENE70 signature
 data(sig.oncotypedx)
 ## load NKI dataset
-data(nki)
+data(nkis)
 ## compute relapse score
-rs.nki <- oncotypedx(data=data.nki, annot=annot.nki, do.mapping=TRUE)
-table(rs.nki$risk)
+rs.nkis <- oncotypedx(data=data.nkis, annot=annot.nkis, do.mapping=TRUE)
+table(rs.nkis$risk)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

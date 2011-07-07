@@ -53,15 +53,15 @@ It is mandatory that the names of \code{geneid1} and \code{geneid2} must be the 
 %%}
 \examples{
 ## load NKI data
-data(nki)
-nki.gid <- annot.nki[ ,"EntrezGene.ID"]
-names(nki.gid) <- dimnames(annot.nki)[[1]]
+data(nkis)
+nkis.gid <- annot.nkis[ ,"EntrezGene.ID"]
+names(nkis.gid) <- dimnames(annot.nkis)[[1]]
 ## load GGI signature
 data(sig.ggi)
 ggi.gid <- sig.ggi[ ,"EntrezGene.ID"]
 names(ggi.gid) <- as.character(sig.ggi[ ,"probe"])
 ## mapping through Entrez Gene ids of NKI and GGI signature
-res <- geneid.map(geneid1=nki.gid, data1=data.nki,
+res <- geneid.map(geneid1=nkis.gid, data1=data.nkis,
   geneid2=ggi.gid, verbose=FALSE)
 str(res)
 }

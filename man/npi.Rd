@@ -51,10 +51,10 @@ Benjamin Haibe-Kains
 }
 \examples{
 ## load NKI dataset
-data(nki)
+data(nkis)
 ## compute NPI score and risk classification
-npi(size=demo.nki[ ,"size"], grade=demo.nki[ ,"grade"],
-  node=ifelse(demo.nki[ ,"node"] == 0, 1, 3), na.rm=TRUE)
+npi(size=demo.nkis[ ,"size"], grade=demo.nkis[ ,"grade"],
+  node=ifelse(demo.nkis[ ,"node"] == 0, 1, 3), na.rm=TRUE)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

@@ -47,10 +47,10 @@ Benjamin Haibe-Kains
 ## load GENE76 signature
 data(sig.gene76)
 ## load VDX dataset
-data(vdx)
+data(vdxs)
 ## compute relapse score
-rs.vdx <- gene76(data=data.vdx, er=demo.vdx[ ,"er"])
-table(rs.vdx$risk)
+rs.vdxs <- gene76(data=data.vdxs, er=demo.vdxs[ ,"er"])
+table(rs.vdxs$risk)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

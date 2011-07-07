@@ -75,15 +75,15 @@ Benjamin Haibe-Kains
 }
 \examples{
 ## load NKI data
-data(nki)
+data(nkis)
 ## load gene modules from Desmedt et al. 2008
 data(mod1)
 ## retrieve esr1 affy probe and Entrez Gene id 
 esr1 <- mod1$ESR1[1, ,drop=FALSE]
 ## computation of signature scores
-esr1.bimod <- bimod(x=esr1, data=data.nki, annot=annot.nki, do.mapping=TRUE, 
+esr1.bimod <- bimod(x=esr1, data=data.nkis, annot=annot.nkis, do.mapping=TRUE, 
   model="V", verbose=TRUE)
-table("ER.IHC"=demo.nki[ ,"er"], "ER.GE"=esr1.bimod$status)
+table("ER.IHC"=demo.nkis[ ,"er"], "ER.GE"=esr1.bimod$status)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
