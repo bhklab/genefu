@@ -1,6 +1,6 @@
 %\VignetteIndexEntry{genefu An Introduction (HowTo)}
 %\VignetteDepends{survcomp, mclust}
-%\VignetteSuggests{GeneMeta}
+%\VignetteSuggests{GeneMeta, breastCancerVDX, breastCancerMAINZ, breastCancerTRANSBIG, breastCancerUPP, breastCancerUNT, breastCancerNKI}
 %\VignetteImports{amap, gplots}
 %\VignetteKeywords{Breast Cancer, Survival Analysis}
 %\VignettePackage{genefu}
