@@ -1,12 +1,12 @@
 `map.datasets` <-
-function(datas, annots, do.mapping=FALSE, mapping, verbose=FALSE) {
+function(datas, annots, do.mapping=FALSE, mapping.coln="EntrezGene.ID", mapping, verbose=FALSE) {
 	if((length(datas) != length(annots)) || !all(names(datas) == names(annots))) { stop("discordance between lists of datasets and annotations!") }
 	## do the mapping (or not) and collect the set of unique features
 	datas2 <- annots2 <- comid <- NULL
 	for(k in 1:length(datas)) {
 		if(verbose) { message(sprintf("%s", names(datas)[k])) }
 		if(do.mapping) {
-			gid <- as.numeric(as.character(annots[[k]][ ,"EntrezGene.ID"]))
+			gid <- as.character(annots[[k]][ ,mapping.coln])
 			names(gid) <- dimnames(annots[[k]])[[1]]
 			ugid <- unique(gid)
 			ugid <- ugid[!is.na(ugid)]
