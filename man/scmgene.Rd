@@ -7,7 +7,9 @@ Subtype Clustering Model using only ESR1, ERBB2 and AURKA genes for identificati
 \description{
 List of parameters defining the Subtype Clustering Model as published in Wirapati et al 2009 and Desmedt et al 2008 but using single genes instead of gene modules. 
 }
-\usage{data(scmgene)}
+\usage{
+data(scmgene)
+}
 \format{
 List of parameters for SCMGENE:
 \describe{

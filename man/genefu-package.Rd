@@ -6,7 +6,7 @@
 Relevant Functions for Gene Expression Analysis, Especially in Breast Cancer.
 }
 \description{
-Various functions relevant for gene expression analysis with emphasis on breast cancer.
+This package contains functions implementing various tasks usually required by gene expression analysis, especially in breast cancer studies: gene mapping between different microarray platforms, identification of molecular subtypes, implementation of published gene signatures, gene selection, survival analysis, ...
 }
 \details{
 \tabular{ll}{

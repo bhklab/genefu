@@ -65,8 +65,9 @@ Name of the csv file where the subtype clustering model must be stored.
   \item{model }{Subtype Clustering Model (mixture of three Gaussians), like \code{\link[genefu]{scmgene}}, \code{\link[genefu]{scmod1}} and \code{\link[genefu]{scmod2}} when this function is used on VDX dataset (Wang et al. 2005 and Minn et al. 2007) with the gene modules published in the two references cited below.}
   \item{BIC }{Bayesian Information Criterion for the Subtype Clustering Model with number of clusters ranging from 1 to 10.}
   \item{subtype }{Subtypes identified by the Subtype Clustering Model. Subtypes can be either "ER-/HER2-", "HER2+" or "ER+/HER2-".}
-  \item{subtype.proba }{Probabilities  to belong to each subtype estimated by the Subtype Clustering Model.}
+  \item{subtype.proba }{Probabilities to belong to each subtype estimated by the Subtype Clustering Model.}
   \item{subtype2 }{Subtypes identified by the Subtype Clustering Model using AURKA to discriminate low and high proliferative tumors. Subtypes can be either "ER-/HER2-", "HER2+", "ER+/HER2- High Prolif" or "ER+/HER2- Low Prolif".}
+  \item{subtype.proba2 }{Probabilities to belong to each subtype (including discrimination between lowly and highly proliferative ER+/HER2- tumors, see \code{subtype2}) estimated by the Subtype Clustering Model.}
   \item{module.scores }{Matrix containing ESR1, ERBB2 and AURKA module scores.}
 }
 \references{

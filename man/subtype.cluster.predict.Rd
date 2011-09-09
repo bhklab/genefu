@@ -51,6 +51,7 @@ Matrix with columns "EntrezGene.ID" and "probe" used to force the mapping such t
   \item{prediction.strength }{Prediction strength for \code{subtypes}.}
   \item{BIC }{Bayesian Information Criterion for the Subtype Clustering Model with number of clusters ranging from 1 to 10.}
   \item{subtype2 }{Subtypes identified by the Subtype Clustering Model using AURKA to discriminate low and high proliferative tumors. Subtypes can be either "ER-/HER2-", "HER2+", "ER+/HER2- High Prolif" or "ER+/HER2- Low Prolif".}
+  \item{subtype.proba2 }{Probabilities to belong to each subtype (including discrimination between lowly and highly proliferative ER+/HER2- tumors, see \code{subtype2}) estimated by the Subtype Clustering Model.}
   \item{prediction.strength2 }{Prediction strength for \code{subtypes2}.}
   \item{module.scores }{Matrix containing ESR1, ERBB2 and AURKA module scores.}
   \item{mapping }{Mapping if necessary (list of matrices with 3 columns: probe, EntrezGene.ID and new.probe).}

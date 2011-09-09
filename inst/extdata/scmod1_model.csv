@@ -7,7 +7,8 @@
 # pro: 0.287791 0.156977 0.555233
 # scale: 0.0622682
 # shape: 0.990242 1.00985
-# cutoff.AURKA: -0.288223
+# gaussian.AURKA.mean: -0.235935
+# gaussian.AURKA.sigma: 0.246174
 # rescale.q: 0.05
 "module","probe","EntrezGene.ID","coefficient"
 "ESR1","205225_at","2099","1"
