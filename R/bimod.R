@@ -13,13 +13,13 @@ function(x, data, annot, do.mapping=FALSE, mapping, model=c("E", "V"), do.scale=
 	
 	if(sum(cc.ix) >= 10) {	
 		#How many Gaussians?
-		rr <- Mclust(data=dd[cc.ix], modelNames=model, G=1:10)
+		rr <- mclust::Mclust(data=dd[cc.ix], modelNames=model, G=1:10)
 		oo <- order(rr$BIC, decreasing=TRUE)[1]
 		if(oo != 2) { warning(sprintf("%i is the most likely number of Gaussians!", oo)) }
 		mybic <- rr$BIC
 
 		#Only 2 Gaussians
-		rr2 <- Mclust(data=dd[cc.ix], modelNames=model, G=2)
+		rr2 <- mclust::Mclust(data=dd[cc.ix], modelNames=model, G=2)
 		if(is.null(rr2[[1]])) { ## EM algorithm did not converge
 			return(list("status"=mystatus, "status1.proba"=mystatus.proba, "gaussians"=res, "BIC"=rr$BIC, "x"=dd))
 		}

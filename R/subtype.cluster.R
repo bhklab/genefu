@@ -18,7 +18,7 @@ function(module.ESR1, module.ERBB2, module.AURKA, data, annot, do.mapping=FALSE,
 		dd <- apply(dd, 2, function(x) { return((rescale(x, q=rescale.q, na.rm=TRUE) - 0.5) * 2) })
 		rownames(dd) <- rnn
 	} else { rescale.q <- NA }
-	
+	rownames(dd) <- rownames(data)
 	dd2 <- dd
 	
 	cc.ix <- complete.cases(dd[ , c("ESR1", "ERBB2"), drop=FALSE])
@@ -27,11 +27,11 @@ function(module.ESR1, module.ERBB2, module.AURKA, data, annot, do.mapping=FALSE,
 
 	if(do.BIC) {
 		## save the BIC values for the all the methods and a number of clusters from 1 to 10
-		cluster.bic <- Mclust(data=dd[ , c("ESR1", "ERBB2"), drop=FALSE], modelNames=model.name, G=1:10)$BIC
+		cluster.bic <- mclust::Mclust(data=dd[ , c("ESR1", "ERBB2"), drop=FALSE], modelNames=model.name, G=1:10)$BIC
 	} else { cluster.bic <- NA }
 
 	#identify the 3 subtypes
-	rr3 <- Mclust(data=dd[ , c("ESR1", "ERBB2"), drop=FALSE], modelNames=model.name, G=3)
+	rr3 <- mclust::Mclust(data=dd[ , c("ESR1", "ERBB2"), drop=FALSE], modelNames=model.name, G=3)
 	#redefine classification to be coherent with subtypes
 	uclass <- sort(unique(rr3$classification))
 	uclass <- uclass[!is.na(uclass)]
@@ -84,7 +84,7 @@ function(module.ESR1, module.ERBB2, module.AURKA, data, annot, do.mapping=FALSE,
 	dimnames(mclust.tr$z) <- dimnames(myclass)
 	emclust.tr <- estep(modelName=model.name, data=dd[ , c("ESR1", "ERBB2"), drop=FALSE], parameters=mclust.tr$parameters)
 	dimnames(emclust.tr$z) <- dimnames(myclass)
-	class.tr <- map(emclust.tr$z)
+	class.tr <- mclust::map(emclust.tr$z, warn=FALSE)
 	names(class.tr) <- dimnames(dd)[[1]]
 	dimnames(mclust.tr$parameters$mean)[[2]] <- names(mclust.tr$parameters$pro) <- dimnames(mclust.tr$z)[[2]]
 
@@ -96,7 +96,7 @@ function(module.ESR1, module.ERBB2, module.AURKA, data, annot, do.mapping=FALSE,
 	sbt.proba[dimnames(emclust.tr$z)[[1]], ] <- emclust.tr$z
 	## discriminate between luminal A and B using AURKA
 	## since proliferation is a continuum we fit a Gaussian using AURKA expression of the ER+/HER2- tumors
-	tt <- Mclust(dd2[complete.cases(sbt, dd2[ , "AURKA"]) & sbt == sbtn[3], "AURKA"], modelNames="E", G=1)
+	tt <- mclust::Mclust(dd2[complete.cases(sbt, dd2[ , "AURKA"]) & sbt == sbtn[3], "AURKA"], modelNames="E", G=1)
 	gauss.prolif <- c("mean"=tt$parameters$mean, "sigma"=tt$parameters$variance$sigmasq)
 	sbt2 <- sbt
 	sbt2[sbt == sbtn[3]] <- NA
@@ -117,8 +117,8 @@ function(module.ESR1, module.ERBB2, module.AURKA, data, annot, do.mapping=FALSE,
 	
 	if(plot) {
 		## plot the clusters
-		mclust2Dplot(data=dd[ , c("ESR1", "ERBB2"), drop=FALSE], what="classification", classification=class.tr, parameters=mclust.tr$parameters, colors=c("darkred", "darkgreen", "darkblue"), xlim=myxlim, ylim=myylim)
-		gplots::smartlegend(x="left", y="top", col=c("darkred", "darkgreen", "darkblue"), legend=sbtn, pch=.Mclust$classPlotSymbols[1:length(uclass)], bty="n", bg="white")
+		mclust::mclust2Dplot(data=dd[ , c("ESR1", "ERBB2"), drop=FALSE], what="classification", classification=class.tr, parameters=mclust.tr$parameters, colors=c("darkred", "darkgreen", "darkblue"), xlim=myxlim, ylim=myylim)
+		legend(x="topleft", col=c("darkred", "darkgreen", "darkblue"), legend=sbtn, pch=.Mclust$classPlotSymbols[1:length(uclass)], bty="n")
 		## plot the clusters with luminals A and B
 		mycol <- mypch <- sbt2
 		mycol[sbt2 == sbtn2[1]] <- "darkred"
@@ -131,7 +131,7 @@ function(module.ESR1, module.ERBB2, module.AURKA, data, annot, do.mapping=FALSE,
 		mypch <- as.numeric(mypch)
 		names(mycol) <- names(mypch) <- names(sbt2)
 		plot(x=dd[ , "ESR1"], y=dd[ , "ERBB2"], xlim=myxlim, ylim=myylim, xlab="ESR1", ylab="ERBB2", col=mycol[dimnames(dd)[[1]]], pch=mypch[dimnames(dd)[[1]]])
-		gplots::smartlegend(x="left", y="top", col=c("darkred", "darkgreen", "darkorange", "darkviolet"), legend=sbtn2, pch=c(17, 0, 10, 10), bty="n", bg="white")
+		legend(x="topleft", col=c("darkred", "darkgreen", "darkorange", "darkviolet"), legend=sbtn2, pch=c(17, 0, 10, 10), bty="n")
 	}
 	
 	if(!missing(filen)) {

@@ -10,7 +10,7 @@ Description: This package contains functions implementing various tasks usually 
 biocViews: DifferentialExpression, GeneExpression, Visualization, Clustering, Classification
 Depends: survcomp, mclust
 Suggests: GeneMeta, breastCancerVDX, breastCancerMAINZ, breastCancerTRANSBIG, breastCancerUPP, breastCancerUNT, breastCancerNKI
-Imports: amap, gplots
+Imports: amap
 License: Artistic-2.0
 URL: http://compbio.dfci.harvard.edu
 LazyData: yes

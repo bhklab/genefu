@@ -1,4 +1,3 @@
 importFrom(amap, hcluster)
-importFrom(gplots, smartlegend)
 
 exportPattern("^[^\\.]")
