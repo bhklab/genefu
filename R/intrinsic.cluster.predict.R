@@ -93,7 +93,7 @@ function(sbt.model, data, annot, do.mapping=FALSE, mapping, do.prediction.streng
 		names(ncl) <- dimnames(data)[[1]]
 		nproba <- ncor <- matrix(NA, nrow=nrow(data), ncol=ncol(centroids), dimnames=list(dimnames(data)[[1]], name.cluster))
 		ps.res <- NULL
-		if(do.prediction.strength) { ps.res <- list("ps"=NA, "ps.cluster"=ncor[ , 1], "ps.individual"=ncl)}
+		if(do.prediction.strength) { ps.res <- list("ps"=NA, "ps.cluster"=ncor[ , 1], "ps.individual"=ncl) }
 		tt <- matrix(NA, ncol=nrow(centroids.map), nrow=nrow(data), dimnames=list(dimnames(data)[[1]], dimnames(centroids.map)[[1]]))
 		return(list("subtype"=ncl, "subtype.proba"=nproba, "cor"=ncor, "prediction.strength"=ps.res, "centroids.map"=centroids.map, "profiles"=tt))
 	}

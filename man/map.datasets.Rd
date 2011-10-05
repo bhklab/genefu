@@ -8,7 +8,7 @@ Function to map a list of datasets through EntrezGene IDs in order to get the un
 This function maps a list of datasets through EntrezGene IDs in order to get the union of the genes. 
 }
 \usage{
-map.datasets(datas, annots, do.mapping = FALSE, mapping, verbose = FALSE)
+map.datasets(datas, annots, do.mapping = FALSE, mapping.coln = "EntrezGene.ID", mapping, verbose = FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -20,6 +20,9 @@ List of matrices of annotations with at least one column named "EntrezGene.ID", 
 }
   \item{do.mapping}{
 \code{TRUE} if the mapping through Entrez Gene ids must be performed (in case of ambiguities, the most variant probe is kept for each gene), \code{FALSE} otherwise.
+}
+  \item{mapping.coln}{
+Name of the column containing the biological annotation to be used to map the different datasets, default is "EntrezGene.ID".
 }
   \item{mapping}{
 Matrix with columns "EntrezGene.ID" and "probe.x" used to force the mapping such that the probes of platform x are not selected based on their variance.

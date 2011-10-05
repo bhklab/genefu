@@ -27,7 +27,7 @@ function(geneid1, data1, geneid2, data2, verbose=FALSE) {
 	
 	geneid.common <- intersect(geneid1[gix1], geneid2[gix2])
 	if(length(geneid.common) == 0) {
-		warning("no Entrez GeneID in common!")
+		warning("no gene ids in common!")
 		return(list("geneid1"=NA, "data1"=NA, "geneid2"=NA, "data2"=NA))
 	}
 	
@@ -47,7 +47,7 @@ function(geneid1, data1, geneid2, data2, verbose=FALSE) {
 	if(length(gid.dupl) > 0) {
 		if(verbose) { message("\ndataset1 duplicates...") }
 		## compute the standard deviation with a penalization on the number of missing values
-		## this should avoid selecting the most variant probe with a lotof missing values
+		## this should avoid selecting the most variant probe with a lot of missing values
 		pena <- apply(X=data1[ , gg.dupl, drop=FALSE], MARGIN=2, FUN=function(x) { return(sum(is.na(x))) })
 		pena <- log((nrow(data1) + 1) / (pena + 1)) + 1
 		#pena <- 1
