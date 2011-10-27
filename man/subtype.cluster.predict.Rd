@@ -73,15 +73,15 @@ Benjamin Haibe-Kains
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link[genefu]{subtype.cluster}}, \code{\link[genefu]{scmod1}}, \code{\link[genefu]{scmod2}}
+\code{\link[genefu]{subtype.cluster}}, \code{\link[genefu]{scmod1.robust}}, \code{\link[genefu]{scmod2.robust}}
 }
 \examples{
 ## load Subtype Clustering Model fitted on VDX
-data(scmod1)
+data(scmod1.robust)
 ## load NKI data
 data(nkis)
 ## Subtype Clustering Model fitted on VDX and applied on NKI
-scmod1.nkis <- subtype.cluster.predict(sbt.model=scmod1, data=data.nkis,
+scmod1.nkis <- subtype.cluster.predict(sbt.model=scmod1.robust, data=data.nkis,
   annot=annot.nkis, do.mapping=TRUE,
   do.prediction.strength=FALSE, do.BIC=FALSE, plot=TRUE, verbose=TRUE)
 table(scmod1.nkis$subtype)

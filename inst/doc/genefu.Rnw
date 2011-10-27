@@ -1,5 +1,5 @@
 %\VignetteIndexEntry{genefu An Introduction (HowTo)}
-%\VignetteDepends{survcomp, mclust, xtable}
+%\VignetteDepends{survcomp, mclust}
 %\VignetteSuggests{GeneMeta, breastCancerVDX, breastCancerMAINZ, breastCancerTRANSBIG, breastCancerUPP, breastCancerUNT, breastCancerNKI}
 %\VignetteImports{amap}
 %\VignetteKeywords{Breast Cancer, Survival Analysis}
@@ -237,7 +237,7 @@ for(i in 1:length(dn)) {
   ## AURKA
   ## if affy platform consider the probe published in Desmedt et al., CCR, 2008
   if(dn.platform[i] == "affy") { domap <- FALSE } else { domap <- TRUE }
-  modt <- scmgene$mod$AURKA
+  modt <- scmgene.robust$mod$AURKA
   ## if agilent platform consider the probe published in Desmedt et al., CCR, 2008
   if(dn.platform[i] == "agilent") {
     domap <- FALSE

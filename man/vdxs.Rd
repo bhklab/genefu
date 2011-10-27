@@ -8,19 +8,19 @@
 Gene expression, annotations and clinical data from Wang et al. 2005 and Minn et al 2007
 }
 \description{
-This dataset contains (part of) the gene xpression, annotations and clinical data as published in Wang et al. 2005 and Minn et al 2007.
+This dataset contains (part of) the gene expression, annotations and clinical data as published in Wang et al. 2005 and Minn et al 2007.
 }
 \usage{data(vdxs)}
 \format{
 \code{\link[genefu]{vdxs}} is a dataset containing three matrices:
  \describe{
     \item{data.vdxs}{Matrix containing gene expressions as measured by Affymetrix hgu133a technology (single-channel, oligonucleotides}
-    \item{annot.vdxs}{Matrix containing annotations of Agilent microarray platform}
+    \item{annot.vdxs}{Matrix containing annotations of ffymetrix hgu133a microarray platform}
     \item{demo.vdxs}{Clinical information of the breast cancer patients whose tumors were hybridized}
 }
 }
 \details{
-This dataset represent only partially the one published by Wang et al. 2005 and Minn et al 2007. Indeed only part of the patients (150) and gene expressions (914) are contained in \code{\link[genefu]{data.vdxs}}.
+This dataset represent only partially the one published by Wang et al. 2005 and Minn et al 2007. Indeed only part of the patients (150) and gene expressions (966) are contained in \code{\link[genefu]{data.vdxs}}.
 }
 \source{
 \url{http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE2034}

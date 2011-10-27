@@ -1,5 +1,5 @@
-\name{scmod2}
-\alias{scmod2}
+\name{scmod2.robust}
+\alias{scmod2.robust}
 \docType{data}
 \title{
 Subtype Clustering Model using ESR1, ERBB2 and AURKA modules for identification of breast cancer molecular subtypes (Wirapati et al 2008)
@@ -7,7 +7,7 @@ Subtype Clustering Model using ESR1, ERBB2 and AURKA modules for identification 
 \description{
 List of parameters defining the Subtype Clustering Model as published in Wirapati et al 2008. 
 }
-\usage{data(scmod2)}
+\usage{data(scmod2.robust)}
 \format{
 List of parameters for SCMOD2:
 \describe{
@@ -26,7 +26,7 @@ List of parameters for SCMOD2:
 Wirapati P, Sotiriou C, Kunkel S, Farmer P, Pradervand S, Haibe-Kains B, Desmedt C, Ignatiadis M, Sengstag T, Schutz F, Goldstein DR, Piccart MJ and Delorenzi M (2008) "Meta-analysis of Gene-Expression Profiles in Breast Cancer: Toward a Unified Understanding of Breast Cancer Sub-typing and Prognosis Signatures", \emph{Breast Cancer Research}, \bold{10}(4):R65.
 }
 \examples{
-data(scmod2)
-str(scmod2, max.level=1)
+data(scmod2.robust)
+str(scmod2.robust, max.level=1)
 }
 \keyword{data}

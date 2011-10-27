@@ -62,7 +62,7 @@ Name of the csv file where the subtype clustering model must be stored.
 \value{
 %%  ~Describe the value returned
 %%  If it is a LIST, use
-  \item{model }{Subtype Clustering Model (mixture of three Gaussians), like \code{\link[genefu]{scmgene}}, \code{\link[genefu]{scmod1}} and \code{\link[genefu]{scmod2}} when this function is used on VDX dataset (Wang et al. 2005 and Minn et al. 2007) with the gene modules published in the two references cited below.}
+  \item{model }{Subtype Clustering Model (mixture of three Gaussians), like \code{\link[genefu]{scmgene.robust}}, \code{\link[genefu]{scmod1.robust}} and \code{\link[genefu]{scmod2.robust}} when this function is used on expO dataset (International Genomics Consortium) with the gene modules published in the two references cited below.}
   \item{BIC }{Bayesian Information Criterion for the Subtype Clustering Model with number of clusters ranging from 1 to 10.}
   \item{subtype }{Subtypes identified by the Subtype Clustering Model. Subtypes can be either "ER-/HER2-", "HER2+" or "ER+/HER2-".}
   \item{subtype.proba }{Probabilities to belong to each subtype estimated by the Subtype Clustering Model.}
@@ -84,20 +84,21 @@ Benjamin Haibe-Kains
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link[genefu]{subtype.cluster.predict}}, \code{\link[genefu]{intrinsic.cluster}},  \code{\link[genefu]{intrinsic.cluster.predict}}, \code{\link[genefu]{scmod1}}, \code{\link[genefu]{scmod2}}
+\code{\link[genefu]{subtype.cluster.predict}}, \code{\link[genefu]{intrinsic.cluster}},  \code{\link[genefu]{intrinsic.cluster.predict}}, \code{\link[genefu]{scmod1.robust}}, \code{\link[genefu]{scmod2.robust}}
 }
 \examples{
 ## example without gene mapping
-## load VDX data
-data(vdxs)
+## load expO data
+data(expos)
 ## load gene modules
 data(mod1)
 ## fit a Subtype Clustering Model
-scmod1.vdxs <- subtype.cluster(module.ESR1=mod1$ESR1, module.ERBB2=mod1$ERBB2,
-  module.AURKA=mod1$AURKA, data=data.vdxs, annot=annot.vdxs, do.mapping=FALSE,
+scmod1.expos <- subtype.cluster(module.ESR1=mod1$ESR1, module.ERBB2=mod1$ERBB2,
+  module.AURKA=mod1$AURKA, data=data.expos, annot=annot.expos, do.mapping=FALSE,
   do.scale=TRUE, plot=TRUE, verbose=TRUE)
-str(scmod1.vdxs, max.level=1)
-table(scmod1.vdxs$subtype2)
+str(scmod1.expos, max.level=1)
+table(scmod1.expos$subtype2)
+
 ## example with gene mapping
 ## load NKI data
 data(nkis)

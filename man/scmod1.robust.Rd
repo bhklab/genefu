@@ -1,17 +1,15 @@
-\name{scmgene}
-\alias{scmgene}
+\name{scmod1.robust}
+\alias{scmod1.robust}
 \docType{data}
 \title{
-Subtype Clustering Model using only ESR1, ERBB2 and AURKA genes for identification of breast cancer molecular subtypes
+Subtype Clustering Model using ESR1, ERBB2 and AURKA modules for identification of breast cancer molecular subtypes (Desmedt et al 2008)
 }
 \description{
-List of parameters defining the Subtype Clustering Model as published in Wirapati et al 2009 and Desmedt et al 2008 but using single genes instead of gene modules. 
+List of parameters defining the Subtype Clustering Model as published in Desmedt et al 2008. 
 }
-\usage{
-data(scmgene)
-}
+\usage{data(scmod1.robust)}
 \format{
-List of parameters for SCMGENE:
+List of parameters for SCMOD1:
 \describe{
 \item{\code{parameters} }{List of parameters for the mixture of three Gaussians (ER-/HER2-, HER2+ and ER+/HER2-) that define the Subtype Clustering Model. The structure is the same than for an \code{\link[mclust]{Mclust}} object.}
 \item{\code{cutoff.AURKA} }{Cutoff for AURKA module score in order to identify ER+/HER2- High Proliferation (aka Luminal B) tumors and ER+/HER2- Low Proliferation (aka Luminal A) tumors. }
@@ -28,7 +26,7 @@ List of parameters for SCMGENE:
 Desmedt C, Haibe-Kains B, Wirapati P, Buyse M, Larsimont D, Bontempi G, Delorenzi M, Piccart M, and Sotiriou C (2008) "Biological processes associated with breast cancer clinical outcome depend on the molecular subtypes", \emph{Clinical Cancer Research}, \bold{14}(16):5158--5165.
 }
 \examples{
-data(scmgene)
-str(scmgene, max.level=1)
+data(scmod1.robust)
+str(scmod1.robust, max.level=1)
 }
 \keyword{data}
