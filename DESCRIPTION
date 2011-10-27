@@ -1,8 +1,8 @@
 Package: genefu
 Type: Package
 Title: Relevant Functions for Gene Expression Analysis, Especially in Breast Cancer.
-Version: 1.3.8
-Date: 2011-09-09
+Version: 1.3.9
+Date: 2011-11-01
 Author: Benjamin Haibe-Kains, Markus Schroeder, Gianluca Bontempi, Christos Sotiriou, John Quackenbush
 Maintainer: Benjamin Haibe-Kains <bhaibeka@jimmy.harvard.edu>, Markus Schroeder <mschroed@jimmy.harvard.edu>
 Description: This package contains functions implementing various tasks usually required by gene expression analysis, especially in breast cancer studies: gene mapping between different microarray platforms, identification of molecular subtypes, implementation of published gene signatures, gene selection, survival analysis, ...

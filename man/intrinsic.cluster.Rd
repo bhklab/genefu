@@ -61,7 +61,7 @@ Name of the csv file where the subtype clustering model must be stored.
 \value{
 %%  ~Describe the value returned
 %%  If it is a LIST, use
-\item{model }{Subtype Clustering Model (mixture of three Gaussians), like \code{\link[genefu]{scmgene}}, \code{\link[genefu]{scmod1}} and \code{\link[genefu]{scmod2}} when this function is used on VDX dataset (Wang et al. 2005 and Minn et al. 2007) with the gene modules published in the two references cited below.}
+\item{model }{Single Sample Predictor}
 \item{subtype }{Subtypes identified by the SSP. For published intrinsic gene lists, subtypes can be either "Basal", "Her2", "LumA", "LumB" or "Normal".}
 \item{subtype.proba }{Probabilities  to belong to each subtype estimated from the correlations to each centroid.}
 \item{cor }{Correlation coefficient to each centroid.}
