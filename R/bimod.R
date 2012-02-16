@@ -28,7 +28,7 @@ function(x, data, annot, do.mapping=FALSE, mapping, model=c("E", "V"), do.scale=
 		res[3, ] <- rr2$parameters$pro
 		
 		## bimodality index (BI)
-		smd <- abs(res[1, 2] - res[1, 1]) / sqrt((res[2, 2]^2 + res[2, 1]^2) / 2)
+		smd <- abs(res[1, 2] - res[1, 1]) / sqrt((res[2, 2] + res[2, 1]) / 2)
 		bi <- sqrt(res[3, 2] * (1 - res[3, 2])) * smd
 
 		#classification
