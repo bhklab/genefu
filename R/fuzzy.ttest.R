@@ -11,7 +11,7 @@ function(x, w1, w2, alternative=c("two.sided", "less", "greater"), check.w=TRUE,
 		w2 <- w2[ii]
 		x <- x[ii] 
 	}
-	if(check.w && !all(w1 >= 0 & w1 <= 1) || !all(w2 >= 0 & w2 <= 1) || (!all((w1 + w2) >= 0) && !all((w1 + w2) <= 1))) { stop("weights and their sum should lay in [0, 1]!") }
+	if(check.w && (!all(w1 >= 0 & w1 <= 1) || !all(w2 >= 0 & w2 <= 1) || (!all((w1 + w2) >= 0) && !all((w1 + w2) <= 1)))) { stop("weights and their sum should lay in [0, 1]!") }
 	tt <- weighted.meanvar(x=x, w=w1, na.rm=na.rm)
 	x1.w <- tt[1]
 	var1.w <- tt[2]
