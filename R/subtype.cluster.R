@@ -1,6 +1,6 @@
 `subtype.cluster` <-
 function(module.ESR1, module.ERBB2, module.AURKA, data, annot, do.mapping=FALSE, mapping, do.scale=TRUE, rescale.q=0.05, model.name="EEI", do.BIC=FALSE, plot=FALSE, filen, verbose=FALSE) {
-	require(mclust)
+	#require(mclust)
 	if(missing(data) || missing(annot)) { stop("data, and annot parameters must be specified") }
 	
 	sbtn <- c("ER-/HER2-", "HER2+", "ER+/HER2-")
@@ -80,9 +80,9 @@ function(module.ESR1, module.ERBB2, module.AURKA, data, annot, do.mapping=FALSE,
 	## use the previously computed model to fit a new model in a supervised manner
 	myclass <- unmap(rr3$classification)
 	dimnames(myclass)[[1]] <- dimnames(dd)[[1]]
-	mclust.tr <- mstep(modelName=model.name, data=dd[ , c("ESR1", "ERBB2"), drop=FALSE], z=myclass)
+	mclust.tr <- mclust::mstep(modelName=model.name, data=dd[ , c("ESR1", "ERBB2"), drop=FALSE], z=myclass)
 	dimnames(mclust.tr$z) <- dimnames(myclass)
-	emclust.tr <- estep(modelName=model.name, data=dd[ , c("ESR1", "ERBB2"), drop=FALSE], parameters=mclust.tr$parameters)
+	emclust.tr <- mclust::estep(modelName=model.name, data=dd[ , c("ESR1", "ERBB2"), drop=FALSE], parameters=mclust.tr$parameters)
 	dimnames(emclust.tr$z) <- dimnames(myclass)
 	class.tr <- mclust::map(emclust.tr$z, warn=FALSE)
 	names(class.tr) <- dimnames(dd)[[1]]

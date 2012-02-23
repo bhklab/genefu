@@ -1,6 +1,6 @@
 `bimod` <-
 function(x, data, annot, do.mapping=FALSE, mapping, model=c("E", "V"), do.scale=TRUE, verbose=FALSE, ...) {
-	require(mclust)
+	#require(mclust)
 	model <- match.arg(model)
 	dd <- sig.score(x=x, data=data, annot=annot, do.mapping=do.mapping, mapping=mapping, verbose=verbose, ...)$score
 	if(do.scale) { dd <- (rescale(x=dd, q=0.05, na.rm=TRUE) - 0.5) * 2 }
