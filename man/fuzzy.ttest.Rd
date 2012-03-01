@@ -8,7 +8,7 @@ Function to compute the weighted mean and weighted variance of 'x'
 This function allows for computing the weighted mean and weighted variance of a vector of continuous values.
 }
 \usage{
-fuzzy.ttest(x, w1, w2, alternative=c("two.sided", "less", "greater"), na.rm = FALSE)
+fuzzy.ttest(x, w1, w2, alternative=c("two.sided", "less", "greater"), check.w = TRUE, na.rm = FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -23,6 +23,9 @@ a numerical vector of weights of the same length as \code{x} giving the weights 
 }
   \item{alternative}{
 a character string specifying the alternative hypothesis, must be one of "two.sided" (default), "greater" or "less".  You can specify just the initial letter.
+}
+  \item{check.w}{
+\code{TRUE} if weights should be checked such that 0 <= w <= 1 and (w1[i] + w2[i]) < 1 for 1 <= i <= length(x), \code{FALSE} otherwise. Beware that weights greater than one may inflate over-optimistically resulting p-values, use with caution.
 }
   \item{na.rm}{
 \code{TRUE} if missing values should be removed, \code{FALSE} otherwise.

@@ -1,5 +1,5 @@
 %\VignetteIndexEntry{genefu An Introduction (HowTo)}
-%\VignetteDepends{survcomp, mclust}
+%\VignetteDepends{survcomp, mclust, rmeta, Biobase, xtable}
 %\VignetteSuggests{GeneMeta, breastCancerVDX, breastCancerMAINZ, breastCancerTRANSBIG, breastCancerUPP, breastCancerUNT, breastCancerNKI}
 %\VignetteImports{amap}
 %\VignetteKeywords{Breast Cancer, Survival Analysis}
@@ -47,18 +47,19 @@
 %------------------------------------------------------------
 \title{\Rpackage{genefu}: a package for breast cancer gene expression analysis}
 %------------------------------------------------------------
-\author[1,2,3]{Benjamin Haibe-Kains}
-\author[1,5]{Markus Schr\"{o}der}
-\author[4]{Christos Sotiriou}
-\author[3]{Gianluca Bontempi}
-\author[1,2]{John Quackenbush}
+\author[1]{Benjamin Haibe-Kains}
+\author[2]{Markus Schr\"{o}der}
+\author[3]{Christos Sotiriou}
+\author[4]{Gianluca Bontempi}
+\author[5,6]{John Quackenbush}
 
 
-\affil[1]{Computational Biology and Functional Genomics Laboratory, Dana-Farber Cancer Institute, Harvard School of Public Health}
-\affil[2]{Center for Cancer Computational Biology, Dana-Farber Cancer Institute}
-\affil[3]{Machine Learning Group, Universit\'{e} Libre de Bruxelles}
-\affil[4]{Breast Cancer Translational Research Laboratory, Institut Jules Bordet, Universit\'{e} Libre de Bruxelles}
-\affil[5]{Computational Genomics, Center for Biotechnology, Bielefeld University, Germany}
+\affil[1]{Bioinformatics and Computational Genomics Laboratory, Institut de Recherches Cliniques de Montr\'{e}al}
+\affil[2]{Computational Genomics, Center for Biotechnology, Bielefeld University, Germany}
+\affil[3]{Breast Cancer Translational Research Laboratory, Institut Jules Bordet, Universit\'{e} Libre de Bruxelles}
+\affil[4]{Machine Learning Group, Universit\'{e} Libre de Bruxelles}
+\affil[5]{Computational Biology and Functional Genomics Laboratory, Dana-Farber Cancer Institute, Harvard School of Public Health}
+\affil[6]{Center for Cancer Computational Biology, Dana-Farber Cancer Institute}
 
 \SweaveOpts{highlight=TRUE, tidy=TRUE, keep.space=TRUE, keep.blank.space=FALSE, keep.comment=TRUE}
 
@@ -86,9 +87,9 @@ The \Rpackage{genefu} package is providing relevant functions for gene expressio
 %------------------------------------------------------------ 
 For computing the risk scores, estimates of the performance of the risk scores, combining the estimates and comparing the estimates we have to load the \Rpackage{genefu} and \Rpackage{survcomp} packages into the workspace. We also load the \Rpackage{xtable} package to display results insight this document.
 <<loadPackages,results=hide>>=
-library(survcomp)
 library(genefu)
 library(xtable)
+library(rmeta)
 @
 
 The five data sets that we use in the case study are publicly available as experimental data packages on Bioconductor.org. In particular we used:

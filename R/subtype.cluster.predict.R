@@ -1,6 +1,6 @@
 `subtype.cluster.predict` <-
 function(sbt.model, data, annot, do.mapping=FALSE, mapping, do.prediction.strength=FALSE, do.BIC=FALSE, plot=FALSE, verbose=FALSE) {
-	require(mclust)
+	#require(mclust)
 	if(missing(data) || missing(annot)) { stop("data, and annot parameters must be specified") }
 	
 	sbtn <- c("ER-/HER2-", "HER2+", "ER+/HER2-")
@@ -83,7 +83,7 @@ function(sbt.model, data, annot, do.mapping=FALSE, mapping, do.prediction.streng
 	}
 	dd <- dd[cc.ix, , drop=FALSE]
 	
-	emclust.ts <- estep(modelName=model.name, data=dd[ , c("ESR1", "ERBB2"), drop=FALSE], parameters=subtype.c$parameters)
+	emclust.ts <- mclust::estep(modelName=model.name, data=dd[ , c("ESR1", "ERBB2"), drop=FALSE], parameters=subtype.c$parameters)
 	dimnames(emclust.ts$z) <- list(dimnames(dd)[[1]], cln)
 	class.ts <- mclust::map(emclust.ts$z, warn=FALSE)
 	names(class.ts) <- dimnames(dd)[[1]]
@@ -137,9 +137,9 @@ function(sbt.model, data, annot, do.mapping=FALSE, mapping, do.prediction.streng
 				## use the previously computed model to fit a new model in a supervised manner
 				myclass <- unmap(ncl)
 				dimnames(myclass) <-  list(dimnames(dd)[[1]], sbtn)
-				mclust.tr <- mstep(modelName=model.name, data=dd[ , c("ESR1", "ERBB2"), drop=FALSE], z=myclass)
+				mclust.tr <- mclust::mstep(modelName=model.name, data=dd[ , c("ESR1", "ERBB2"), drop=FALSE], z=myclass)
 				dimnames(mclust.tr$z) <- dimnames(myclass)
-				emclust.tr <- estep(modelName=model.name, data=dd[ , c("ESR1", "ERBB2"), drop=FALSE], parameters=mclust.tr$parameters)
+				emclust.tr <- mclust::estep(modelName=model.name, data=dd[ , c("ESR1", "ERBB2"), drop=FALSE], parameters=mclust.tr$parameters)
 				dimnames(emclust.tr$z) <- dimnames(myclass)
 				class.tr <- mclust::map(emclust.tr$z, warn=FALSE)
 				names(class.tr) <- dimnames(dd)[[1]]
@@ -189,7 +189,7 @@ function(sbt.model, data, annot, do.mapping=FALSE, mapping, do.prediction.streng
 	
 	BIC.res <- NULL
 	if(do.BIC) { 
-		if(nrow(dd) >= 10) { BIC.res <- mclustBIC(data=dd[ , c("ESR1", "ERBB2"), drop=FALSE], modelNames=c(model.name), G=1:10)[ ,model.name] } else { warning("at least 10 observations are required to compute the BIC!") }
+		if(nrow(dd) >= 10) { BIC.res <- mclust::mclustBIC(data=dd[ , c("ESR1", "ERBB2"), drop=FALSE], modelNames=c(model.name), G=1:10)[ ,model.name] } else { warning("at least 10 observations are required to compute the BIC!") }
 	}
 
 	## subtypes

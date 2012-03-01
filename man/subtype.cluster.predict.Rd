@@ -76,15 +76,25 @@ Benjamin Haibe-Kains
 \code{\link[genefu]{subtype.cluster}}, \code{\link[genefu]{scmod1.robust}}, \code{\link[genefu]{scmod2.robust}}
 }
 \examples{
-## load Subtype Clustering Model fitted on VDX
-data(scmod1.robust)
+## without mapping (affy hgu133a or plus2 only)
+## load VDX data
+data(vdxs)
+## Subtype Clustering Model fitted on EXPO and applied on VDX
+sbt.vdxs <- subtype.cluster.predict(sbt.model=scmgene.robust, data=data.vdxs, 
+  annot=annot.vdxs, do.mapping=FALSE, do.prediction.strength=FALSE, 
+  do.BIC=FALSE, plot=TRUE, verbose=TRUE)
+table(sbt.vdxs$subtype)
+table(sbt.vdxs$subtype2)
+
+## with mapping
 ## load NKI data
 data(nkis)
-## Subtype Clustering Model fitted on VDX and applied on NKI
-scmod1.nkis <- subtype.cluster.predict(sbt.model=scmod1.robust, data=data.nkis,
-  annot=annot.nkis, do.mapping=TRUE,
-  do.prediction.strength=FALSE, do.BIC=FALSE, plot=TRUE, verbose=TRUE)
-table(scmod1.nkis$subtype)
+## Subtype Clustering Model fitted on EXPO and applied on NKI
+sbt.nkis <- subtype.cluster.predict(sbt.model=scmgene.robust, data=data.nkis, 
+  annot=annot.nkis, do.mapping=TRUE, do.prediction.strength=FALSE, 
+  do.BIC=FALSE, plot=TRUE, verbose=TRUE)
+table(sbt.nkis$subtype)
+table(sbt.nkis$subtype2)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

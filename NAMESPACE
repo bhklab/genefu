@@ -1,3 +1,4 @@
+importFrom(mclust, Mclust, estep, mstep, mclustBIC, mclust2Dplot, mvn2plot, map)
 importFrom(amap, hcluster)
 
 exportPattern("^[^\\.]")
