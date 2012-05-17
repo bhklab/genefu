@@ -4,8 +4,8 @@ function(data, annot, gmap=c("entrezgene", "ensembl_gene_id", "hgnc_symbol", "un
     if(do.mapping) {
         if(!is.element(gmap, colnames(annot))) { stop("gmap is not a column of annot!") }
         if(verbose) { message("the most variant probe is selected for each gene") }
-        sigOvcTCGA <- sigOvcTCGA[order(sigOvcTCGA[ ,"p.value"], decreasing=TRUE), ,drop=FALSE]
-        sigt <- sigOvcTCGA[!duplicated(sigOvcTCGA[ ,gmap]), ,drop=FALSE]
+        sigt <- sigOvcTCGA[order(sigOvcTCGA[ ,"p.value"], decreasing=TRUE), ,drop=FALSE]
+        sigt <- sigt[!duplicated(sigt[ ,gmap]), ,drop=FALSE]
         gid2 <- sigt[ ,gmap]
         names(gid2) <- rownames(sigt)
         gid1 <- annot[ ,gmap]
