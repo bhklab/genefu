@@ -1,6 +1,5 @@
-`pik3cags` <-
+`ovcTCGA` <-
 function(data, annot, gmap=c("entrezgene", "ensembl_gene_id", "hgnc_symbol", "unigene"), do.mapping=FALSE, verbose=FALSE) {
-
     gmap <- match.arg(gmap)
     if(do.mapping) {
         if(!is.element(gmap, colnames(annot))) { stop("gmap is not a column of annot!") }
@@ -14,7 +13,12 @@ function(data, annot, gmap=c("entrezgene", "ensembl_gene_id", "hgnc_symbol", "un
         rr <- geneid.map(geneid1=gid1, data1=data, geneid2=gid2)
         data <- rr$data1
         annot <- annot[colnames(data), ,drop=FALSE]
+        sigt <- sigt[names(rr$geneid2), ,drop=FALSE]
+        pold <- colnames(data)
+        pold2 <- rownames(sigt)
         colnames(data) <- rownames(annot) <- rownames(sigt) <- paste("geneid", annot[ ,gmap], sep=".")
+        mymapping <- c("mapped"=nrow(sigt), "total"=nrow(sigOvcTCGA))
+        myprobe <- data.frame("probe"=pold, "gene.map"=annot[ ,gmap], "new.probe"=pold2)
     } else {
         gix <- intersect(rownames(sigOvcTCGA), colnames(data))
         if(length(gix) < 2) { stop("data do not contain enough gene from the ovcTCGA signature!") }
@@ -24,9 +28,8 @@ function(data, annot, gmap=c("entrezgene", "ensembl_gene_id", "hgnc_symbol", "un
         myprobe <- data.frame("probe"=gix, "gene.map"=annot[ ,gmap], "new.probe"=gix)
         sigt <- sigOvcTCGA[gix, ,drop=FALSE]
     }
-    myprobe <- data.frame("probe"=pold, )
     pscore <- apply(data, 1, function(x, y) { return(t.test(x ~ y)$statistic) }, y=as.numeric(sigt[ ,"beta"] < 0))
-	prisk <- pscore >= 0
+	prisk <- as.numeric(pscore >= 0)
 	names(prisk) <- names(pscore) <- rownames(data)
-	return (list("score"=pscore, "risk"=prisk, "mapping"=, "probe"=))
+	return (list("score"=pscore, "risk"=prisk, "mapping"=mymapping, "probe"=myprobe))
 }

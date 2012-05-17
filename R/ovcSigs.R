@@ -13,8 +13,7 @@ function(sigs=c("bentink2012_angiogenic", "crijns2009_sig", "yoshihara2010_sig",
             gene.an <- gene.an[!is.na(gene.an[ , ss]) & !duplicated(gene.an[ , ss]) & is.element(gene.an[ , ss], gid), , drop=FALSE]
             annot <- data.frame(matrix(NA, nrow=nrow(sig), ncol=ncol(gene.an), dimnames=list(gid, colnames(gene.an))))
             annot[match(gene.an[ , ss], gid), colnames(gene.an)] <- gene.an
-            colnames(annot)[colnames(annot) == ss] <- "probe"
-            annot <- data.frame(annot, "weight"=as.numeric(sig[ ,"weights"]))
+            annot <- data.frame("probe"=gid, annot, "weight"=as.numeric(sig[ ,"weights"]))
             sigOvcAngiogenic <- annot
             #save(list="sigAngiogenic", compress=TRUE, file=file.path(system.file(package="genefu"), "data", "sigAngiogenic.rda"))
             save(list="sigOvcAngiogenic", compress=TRUE, file="sigOvcAngiogenic.rda")
@@ -27,8 +26,7 @@ function(sigs=c("bentink2012_angiogenic", "crijns2009_sig", "yoshihara2010_sig",
             gene.an <- gene.an[!is.na(gene.an[ , ss]) & !duplicated(gene.an[ , ss]) & is.element(gene.an[ , ss], gid), , drop=FALSE]
             annot <- data.frame(matrix(NA, nrow=nrow(sig), ncol=ncol(gene.an), dimnames=list(gid, colnames(gene.an))))
             annot[match(gene.an[ , ss], gid), colnames(gene.an)] <- gene.an
-            colnames(annot)[colnames(annot) == ss] <- "probe"
-            annot <- data.frame(annot, "weight"=as.numeric(sig[ ,"weight"]))
+            annot <- data.frame("probe"=gid, annot, "weight"=as.numeric(sig[ ,"weight"]))
             sigOvcCrijns <- annot
             save(list="sigOvcCrijns", compress=TRUE, file="sigOvcCrijns.rda")
         },
@@ -40,8 +38,7 @@ function(sigs=c("bentink2012_angiogenic", "crijns2009_sig", "yoshihara2010_sig",
             gene.an <- gene.an[!is.na(gene.an[ , ss]) & !duplicated(gene.an[ , ss]) & is.element(gene.an[ , ss], gid), , drop=FALSE]
             annot <- data.frame(matrix(NA, nrow=nrow(sig), ncol=ncol(gene.an), dimnames=list(gid, colnames(gene.an))))
             annot[match(gene.an[ , ss], gid), colnames(gene.an)] <- gene.an
-            colnames(annot)[colnames(annot) == ss] <- "probe"
-            annot <- data.frame(annot, "weight"=as.numeric(sig[ ,"weight"]))
+            annot <- data.frame("probe"=gid, annot, "weight"=as.numeric(sig[ ,"weight"]))
             sigOvcYoshihara <- annot
             save(list="sigOvcYoshihara", compress=TRUE, file="sigOvcYoshihara.rda")
         },
@@ -53,8 +50,7 @@ function(sigs=c("bentink2012_angiogenic", "crijns2009_sig", "yoshihara2010_sig",
             gene.an <- gene.an[!is.na(gene.an[ , ss]) & !duplicated(gene.an[ , ss]) & is.element(gene.an[ , ss], gid), , drop=FALSE]
             annot <- data.frame(matrix(NA, nrow=nrow(sig), ncol=ncol(gene.an), dimnames=list(gid, colnames(gene.an))))
             annot[match(gene.an[ , ss], gid), colnames(gene.an)] <- gene.an
-            colnames(annot)[colnames(annot) == ss] <- "probe"
-            annot <- data.frame(annot, "weight"=sig[ ,"weight"])
+            annot <- data.frame("probe"=gid, annot, "weight"=sig[ ,"weight"])
             sigOvcSpentzos <- annot
             save(list="sigOvcSpentzos", compress=TRUE, file="sigOvcSpentzos.rda")
         },
@@ -64,10 +60,9 @@ function(sigs=c("bentink2012_angiogenic", "crijns2009_sig", "yoshihara2010_sig",
             gene.an <- biomaRt::getBM(attributes=c(ss, "hgnc_symbol", "ensembl_gene_id", "unigene", "description", "chromosome_name", "start_position", "end_position", "strand", "band"), filters=ss, values=sort(unique(gid)), mart=ensembl.db)
             gene.an[gene.an == "" | gene.an == " "] <- NA
             gene.an <- gene.an[!is.na(gene.an[ , ss]) & !duplicated(gene.an[ , ss]) & is.element(gene.an[ , ss], gid), , drop=FALSE]
-            annot <- data.frame(matrix(NA, nrow=nrow(sig), ncol=ncol(gene.an), dimnames=list(gid, colnames(gene.an))))
+            annot <- data.frame(matrix(NA, nrow=nrow(sig), ncol=ncol(gene.an), dimnames=list(paste("geneid", gid, sep="."), colnames(gene.an))))
             annot[match(gene.an[ , ss], gid), colnames(gene.an)] <- gene.an
-            colnames(annot)[colnames(annot) == ss] <- "probe"
-            annot <- data.frame(annot, sig[ ,c("Gene.set", "beta", "p.value")])
+            annot <- data.frame("probe"=gid, annot, sig[ ,c("Gene.set", "beta", "p.value")])
             sigOvcTCGA <- annot
             save(list="sigOvcTCGA", compress=TRUE, file="sigOvcTCGA.rda")
         })
