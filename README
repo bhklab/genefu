@@ -1,4 +1,1 @@
 R package providing various functions relevant for gene expression analysis with emphasis on breast and ovarian cancers.
-
-require(devtools)
-install_github("genefu", username="bhaibeka", branch="master")

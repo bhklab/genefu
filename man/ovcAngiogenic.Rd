@@ -16,7 +16,7 @@ ovcAngiogenic(data, annot, hgs, gmap = c("entrezgene", "ensembl_gene_id", "hgnc_
 Matrix of gene expressions with samples in rows and probes in columns, dimnames being properly defined.
 }
   \item{annot}{
-Matrix of annotations with at least one column named "EntrezGene.ID", dimnames being properly defined.
+Matrix of annotations with one column named as gmap, dimnames being properly defined.
 }
   \item{hgs}{
 vector of booleans with TRUE represents the ovarian cancer patients who have a high grade, late stage, serous tumor, FALSE otherwise. This is particularly important for properly rescaling the data. If \code{hgs} is missing, all the patients will be used to rescale the subtype score.
@@ -60,11 +60,11 @@ Benjamin Haibe-Kains
 \code{\link[genefu]{sigOvcAngiogenic}}
 }
 \examples{
-## load GGI signature
+## load the ovcAngiogenic signature
 data(sigOvcAngiogenic)
 ## load NKI dataset
 data(nkis)
-colnames(annot.nkis)[colnames(annot.nkis) %in% "EntrezGene.ID"] <- "entrezgene"
+colnames(annot.nkis)[is.element(colnames(annot.nkis), "EntrezGene.ID")] <- "entrezgene"
 ## compute relapse score
 ovcAngiogenic.nkis <- ovcAngiogenic(data=data.nkis, annot=annot.nkis, gmap="entrezgene", do.mapping=TRUE)
 table(ovcAngiogenic.nkis$risk)

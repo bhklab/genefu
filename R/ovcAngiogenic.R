@@ -18,14 +18,14 @@ function(data, annot, hgs, gmap=c("entrezgene", "ensembl_gene_id", "hgnc_symbol"
         pold <- colnames(data)
         pold2 <- rownames(sigt)
         colnames(data) <- rownames(annot) <- rownames(sigt) <- paste("geneid", annot[ ,gmap], sep=".")
-        mymapping <- c("mapped"=nrow(sigt), "total"=nrow(sigOvcTCGA))
+        mymapping <- c("mapped"=nrow(sigt), "total"=nrow(sigOvcAngiogenic))
         myprobe <- data.frame("probe"=pold, "gene.map"=annot[ ,gmap], "new.probe"=pold2)
     } else {
         gix <- intersect(rownames(sigOvcAngiogenic), colnames(data))
         if(length(gix) < 2) { stop("data do not contain enough gene from the ovcTCGA signature!") }
         data <- data[ ,gix,drop=FALSE]
         annot <- annot[gix, ,drop=FALSE]
-        mymapping <- c("mapped"=length(gix), "total"=nrow(sigOvcTCGA))
+        mymapping <- c("mapped"=length(gix), "total"=nrow(sigOvcAngiogenic))
         myprobe <- data.frame("probe"=gix, "gene.map"=annot[ ,gmap], "new.probe"=gix)
         sigt <- sigOvcAngiogenic[gix, ,drop=FALSE]
     }
@@ -33,7 +33,6 @@ function(data, annot, hgs, gmap=c("entrezgene", "ensembl_gene_id", "hgnc_symbol"
     ss <- genefu::sig.score(x=data.frame("probe"=colnames(data), "EntrezGene.ID"=annot[ ,gmap], "coefficient"=sigt[ ,"weight"]), data=data, annot=annot, do.mapping=FALSE, signed=TRUE)$score
     ## rescale only with the high grade, late stage, serous (hgs) patients
     rr <- genefu::rescale(ss[hgs], q=0.05, na.rm=TRUE)
-    ## rescale the whole dataset
     ## rescale the whole dataset
     pscore <- ((ss - attributes(rr)$q1) / (attributes(rr)$q2 - attributes(rr)$q1) - 0.5) * 2
     emclust.ts <- mclust::estep(modelName="E", data=pscore, parameters=modelOvcAngioganic)

@@ -20,25 +20,30 @@ function(sigs=c("bentink2012_angiogenic", "crijns2009_sig", "yoshihara2010_sig",
         },
         "crijns2009_sig"={
             ss <- "hgnc_symbol"
-            gid <- as.character(sig[ ,"gene.symbol"])
+            gid <- as.character(sig[ ,"Gene.Id"])
             gene.an <- biomaRt::getBM(attributes=c(ss, "entrezgene", "ensembl_gene_id", "unigene", "description", "chromosome_name", "start_position", "end_position", "strand", "band"), filters=ss, values=sort(unique(gid)), mart=ensembl.db)
             gene.an[gene.an == "" | gene.an == " "] <- NA
             gene.an <- gene.an[!is.na(gene.an[ , ss]) & !duplicated(gene.an[ , ss]) & is.element(gene.an[ , ss], gid), , drop=FALSE]
             annot <- data.frame(matrix(NA, nrow=nrow(sig), ncol=ncol(gene.an), dimnames=list(gid, colnames(gene.an))))
             annot[match(gene.an[ , ss], gid), colnames(gene.an)] <- gene.an
-            annot <- data.frame("probe"=gid, annot, "weight"=as.numeric(sig[ ,"weight"]))
+            annot <- data.frame("probe"=gid, annot, "weight"=as.numeric(sig[ ,"Weights"]))
             sigOvcCrijns <- annot
             save(list="sigOvcCrijns", compress=TRUE, file="sigOvcCrijns.rda")
         },
         "yoshihara2010_sig"={
-            ss <- "hgnc_symbol"
-            gid <- as.character(sig[ ,"gene.symbol"])
+            ss <- "refseq_mrna"
+            gid <- as.character(sig[ ,"GenBank"])
             gene.an <- biomaRt::getBM(attributes=c(ss, "entrezgene", "ensembl_gene_id", "unigene", "description", "chromosome_name", "start_position", "end_position", "strand", "band"), filters=ss, values=sort(unique(gid)), mart=ensembl.db)
             gene.an[gene.an == "" | gene.an == " "] <- NA
             gene.an <- gene.an[!is.na(gene.an[ , ss]) & !duplicated(gene.an[ , ss]) & is.element(gene.an[ , ss], gid), , drop=FALSE]
             annot <- data.frame(matrix(NA, nrow=nrow(sig), ncol=ncol(gene.an), dimnames=list(gid, colnames(gene.an))))
             annot[match(gene.an[ , ss], gid), colnames(gene.an)] <- gene.an
-            annot <- data.frame("probe"=gid, annot, "weight"=as.numeric(sig[ ,"weight"]))
+            gene.an <- biomaRt::getBM(attributes=c(ss, "hgnc_symbol"), filters=ss, values=sort(unique(gid)), mart=ensembl.db)
+            gene.an[gene.an == "" | gene.an == " "] <- NA
+            gene.an <- gene.an[!is.na(gene.an[ , ss]) & !duplicated(gene.an[ , ss]) & is.element(gene.an[ , ss], gid), , drop=FALSE]
+            annot2 <- data.frame(matrix(NA, nrow=nrow(sig), ncol=ncol(gene.an), dimnames=list(gid, colnames(gene.an))))
+            annot2[match(gene.an[ , ss], gid), colnames(gene.an)] <- gene.an
+            annot <- data.frame("probe"=gid, annot2[ ,-1,drop=FALSE], annot, "weight"=as.numeric(sig[ ,"beta_ridge"]))
             sigOvcYoshihara <- annot
             save(list="sigOvcYoshihara", compress=TRUE, file="sigOvcYoshihara.rda")
         },
