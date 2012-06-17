@@ -42,8 +42,8 @@ function(data, annot, hgs, gmap=c("entrezgene", "ensembl_gene_id", "hgnc_symbol"
     sbt.ts <- class.ts
     sbt.ts[class.ts == 1] <- "Angiogenic"
     sbt.ts[class.ts == 2] <- "nonAngiogenic"
-    sbts <- data.frame("subtype. Angiogenic.score"=pscore, "subtype.Angiogenic"=sbt.ts, emclust.ts$z)
-    prisk <- as.numeric(pscore <= 0.5)
+    sbts <- data.frame("subtype.score"=pscore, "subtype"=sbt.ts, emclust.ts$z)
+    prisk <- as.numeric(sbts[ ,"subtype"] == "Angiogenic")
 	names(prisk) <- names(pscore) <- rownames(data)
 	return (list("score"=pscore, "risk"=prisk, "mapping"=mymapping, "probe"=myprobe, "subtype"=sbts))
 }

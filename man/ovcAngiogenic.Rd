@@ -68,7 +68,6 @@ colnames(annot.nkis)[is.element(colnames(annot.nkis), "EntrezGene.ID")] <- "entr
 ## compute relapse score
 ovcAngiogenic.nkis <- ovcAngiogenic(data=data.nkis, annot=annot.nkis, gmap="entrezgene", do.mapping=TRUE)
 table(ovcAngiogenic.nkis$risk)
-
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

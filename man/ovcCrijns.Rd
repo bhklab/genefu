@@ -8,7 +8,7 @@ Function to compute the subtype scores and risk classifications for the prognost
 This function computes subtype scores and risk classifications from gene expression values using teh weights published by Crijns et al.
 }
 \usage{
-ovcCrijns(data, annot, hgs, gmap = c("entrezgene", "ensembl_gene_id", "hgnc_symbol", "unigene", "refseq_mrna"), do.mapping = FALSE, verbose = FALSE)
+ovcCrijns(data, annot, hgs, gmap = c("entrezgene", "ensembl_gene_id", "hgnc_symbol", "unigene"), do.mapping = FALSE, verbose = FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
