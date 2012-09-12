@@ -65,9 +65,9 @@ function(module.ESR1, module.ERBB2, module.AURKA, data, annot, do.mapping=FALSE,
 			myylim <- range(dd[ , "ERBB2"])
 		}
 		## plot the mixture of Gaussians of the model
-		xx <- grid1(50, range=myxlim) 
-		yy <- grid1(50, range=myylim)
-		xxyy <- grid2(xx,yy)
+		xx <- mclust:::grid1(50, range=myxlim) 
+		yy <- mclust:::grid1(50, range=myylim)
+		xxyy <- mclust:::grid2(xx,yy)
 		#density
 		xyDens <- dens(modelName = rr3$modelName, data = xxyy, parameters = rr3$parameters)
 		xyDens <- matrix(xyDens, nrow = length(xx), ncol = length(yy))
@@ -118,7 +118,7 @@ function(module.ESR1, module.ERBB2, module.AURKA, data, annot, do.mapping=FALSE,
 	if(plot) {
 		## plot the clusters
 		mclust::mclust2Dplot(data=dd[ , c("ESR1", "ERBB2"), drop=FALSE], what="classification", classification=class.tr, parameters=mclust.tr$parameters, colors=c("darkred", "darkgreen", "darkblue"), xlim=myxlim, ylim=myylim)
-		legend(x="topleft", col=c("darkred", "darkgreen", "darkblue"), legend=sbtn, pch=.Mclust$classPlotSymbols[1:length(uclass)], bty="n")
+		legend(x="topleft", col=c("darkred", "darkgreen", "darkblue"), legend=sbtn, pch=mclust.options()$classPlotSymbols[1:length(uclass)], bty="n")
 		## plot the clusters with luminals A and B
 		mycol <- mypch <- sbt2
 		mycol[sbt2 == sbtn2[1]] <- "darkred"
