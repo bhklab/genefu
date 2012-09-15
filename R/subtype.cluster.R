@@ -65,11 +65,11 @@ function(module.ESR1, module.ERBB2, module.AURKA, data, annot, do.mapping=FALSE,
 			myylim <- range(dd[ , "ERBB2"])
 		}
 		## plot the mixture of Gaussians of the model
-		xx <- grid1(50, range=myxlim) 
-		yy <- grid1(50, range=myylim)
-		xxyy <- grid2(xx,yy)
+		xx <- mclust:::grid1(50, range=myxlim) 
+		yy <- mclust:::grid1(50, range=myylim)
+		xxyy <- mclust:::grid2(xx,yy)
 		#density
-		xyDens <- dens(modelName = rr3$modelName, data = xxyy, parameters = rr3$parameters)
+		xyDens <- mclust::dens(modelName = rr3$modelName, data = xxyy, parameters = rr3$parameters)
 		xyDens <- matrix(xyDens, nrow = length(xx), ncol = length(yy))
 		par(pty = "s") 
 		zz <- xyDens
