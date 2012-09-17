@@ -1,0 +1,194 @@
+Gene set,gene.symbol,Name,Entrez Id,Title,beta,p-value
+poor,OR3A1,OR3A1,4994,"olfactory receptor, family 3, subfamily A, member 1",0.616406687,0.000117851
+poor,HIF3A,HIF3A,64344,"hypoxia inducible factor 3, alpha subunit",0.571211196,0.000128902
+poor,MARK4,MARK4,57787,MAP/microtubule affinity-regulating kinase 4,0.947888873,0.000274796
+poor,CWC25,CCDC49,54883,coiled-coil domain containing 49,0.974809848,0.000324804
+poor,PLXNA1,PLXNA1,5361,plexin A1,0.845719942,0.000366623
+poor,MED25,MED25,81857,mediator complex subunit 25,1.147899562,0.000412847
+poor,DCP2,DCP2,167227,DCP2 decapping enzyme homolog (S. cerevisiae),0.729026434,0.000496836
+poor,TNFSF11,TNFSF11,8600,"tumor necrosis factor (ligand) superfamily, member 11",0.493166984,0.000663237
+poor,KPNA3,KPNA3,3839,karyopherin alpha 3 (importin alpha 4),0.543993135,0.000673912
+poor,B4GALT5,B4GALT5,9334,"UDP-Gal:betaGlcNAc beta 1,4- galactosyltransferase, polypeptide 5",0.616723789,0.000685743
+poor,CTNNBL1,CTNNBL1,56259,"catenin, beta like 1",0.566993731,0.000816818
+poor,PAK4,PAK4,10298,p21 protein (Cdc42/Rac)-activated kinase 4,0.601547647,0.000821308
+poor,MUC4,MUC4,4585,"mucin 4, cell surface associated",0.343729929,0.000858727
+poor,GAGE1,GAGE1,2543,G antigen 1,1.984937692,0.000862686
+poor,CALB1,CALB1,793,"calbindin 1, 28kDa",0.192013267,0.000944895
+poor,MLL4,MLL4,9757,myeloid/lymphoid or mixed-lineage leukemia 4,0.886070378,0.000961637
+poor,DLGAP4,DLGAP4,22839,"discs, large (Drosophila) homolog-associated protein 4",0.608494253,0.001009985
+poor,SUPT5H,SUPT5H,6829,suppressor of Ty 5 homolog (S. cerevisiae),0.529334611,0.001083908
+poor,ATP5SL,FLJ10241,55101,ATP5S-like,0.701812924,0.001096201
+poor,DBF4B,DBF4B,80174,DBF4 homolog B (S. cerevisiae),1.103178876,0.001127339
+poor,ACTR5,ACTR5,79913,ARP5 actin-related protein 5 homolog (yeast),0.625858876,0.001199345
+poor,CLTCL1,CLTCL1,8218,"clathrin, heavy chain-like 1",0.822338516,0.001278502
+poor,KRT4,KRT4,3851,keratin 4,0.288950897,0.001297199
+poor,KIAA0564,RP11-125A7.3,23078,,0.723654489,0.001383834
+poor,ANXA4,ANXA4,307,annexin A4,0.450686939,0.001492779
+poor,GRB7,GRB7,2886,growth factor receptor-bound protein 7,0.487187656,0.001496161
+poor,SASH1,SASH1,23328,SAM and SH3 domain containing 1,0.58611319,0.00152087
+poor,PERLD1,PERLD1,93210,per1-like domain containing 1,0.66788514,0.001629483
+poor,MTRF1,MTRF1,9617,mitochondrial translational release factor 1,0.648072221,0.001842337
+poor,DHX34,DHX34,9704,DEAH (Asp-Glu-Ala-His) box polypeptide 34,0.989822273,0.001872865
+poor,PHF20,PHF20,51230,PHD finger protein 20,0.78376968,0.002030403
+poor,PDP1,PPM2C,54704,"protein phosphatase 2C, magnesium-dependent, catalytic subunit",0.427553312,0.002078539
+poor,APC,APC,324,adenomatous polyposis coli,0.827087221,0.002111468
+poor,ZFP36,ZFP36,7538,"zinc finger protein 36, C3H type, homolog (mouse)",0.247703732,0.002142352
+poor,EFNA1,EFNA1,1942,ephrin-A1,0.410704727,0.002163853
+poor,TTC31,TTC31,64427,tetratricopeptide repeat domain 31,0.858195291,0.002256566
+poor,ERBB2,ERBB2,2064,"v-erb-b2 erythroblastic leukemia viral oncogene homolog 2, neuro/glioblastoma derived oncogene homolog (avian)",0.573548592,0.002346223
+poor,CDH16,CDH16,1014,"cadherin 16, KSP-cadherin",0.246735663,0.00239673
+poor,RAB4B,RAB4B,53916,"RAB4B, member RAS oncogene family",0.652512066,0.002554168
+poor,ZNF611,ZNF611,81856,zinc finger protein 611,0.526717214,0.002564943
+poor,GTF2F2,GTF2F2,2963,"general transcription factor IIF, polypeptide 2, 30kDa",0.626268996,0.002649772
+poor,ZNF331,ZNF331,55422,zinc finger protein 331,0.574804096,0.002707203
+poor,CASC3,CASC3,22794,cancer susceptibility candidate 3,0.737486437,0.002712537
+poor,IRF2BP1,IRF2BP1,26145,interferon regulatory factor 2 binding protein 1,0.752746595,0.002964463
+poor,RGS19,RGS19,10287,regulator of G-protein signaling 19,0.704084997,0.003095416
+poor,ELMO2,ELMO2,63916,engulfment and cell motility 2,0.645990357,0.00310814
+poor,XRCC4,XRCC4,7518,X-ray repair complementing defective repair in Chinese hamster cells 4,0.7166145,0.003128297
+poor,C19orf7,C19orf7,23211,zinc finger CCCH-type containing 4,0.734448875,0.003240102
+poor,WIPF2,WIPF2,147179,"WAS/WASL interacting protein family, member 2",0.953013627,0.003427601
+poor,LTBP1,LTBP1,4052,latent transforming growth factor beta binding protein 1,0.281257615,0.003556812
+poor,RNF44,RNF44,22838,ring finger protein 44,0.544829027,0.003704662
+poor,RPL23,RPL23,9349,ribosomal protein L23,0.821952067,0.003810222
+poor,TGIF2,TGIF2,60436,TGFB-induced factor homeobox 2,0.460040874,0.003826208
+poor,MAPT,MAPT,4137,microtubule-associated protein tau,0.817413156,0.004043262
+poor,DMWD,DMWD,1762,"dystrophia myotonica, WD repeat containing",0.754803133,0.004050101
+poor,UTP6,UTP6,55813,"UTP6, small subunit (SSU) processome component, homolog (yeast)",0.767597235,0.004055042
+poor,NEK3,NEK3,4752,NIMA (never in mitosis gene a)-related kinase 3,0.49081119,0.004093051
+poor,GMEB2,GMEB2,26205,glucocorticoid modulatory element binding protein 2,0.742780242,0.004146307
+poor,SPAG5,SPAG5,10615,sperm associated antigen 5,0.403989156,0.004243842
+poor,PTPN1,PTPN1,5770,"protein tyrosine phosphatase, non-receptor type 1",0.643632571,0.004264712
+poor,ATP1A3,ATP1A3,478,"ATPase, Na+/K+ transporting, alpha 3 polypeptide",0.437570899,0.004325525
+poor,BLCAP,BLCAP,10904,bladder cancer associated protein,0.661854723,0.004453006
+poor,DHX35,DHX35,60625,DEAH (Asp-Glu-Ala-His) box polypeptide 35,0.528726768,0.004560061
+poor,STRN4,STRN4,29888,"striatin, calmodulin binding protein 4",0.605693295,0.004747001
+poor,HIGD1B,HIGD1B,51751,"HIG1 domain family, member 1B",1.429649111,0.005020761
+poor,USH1C,USH1C,10083,"Usher syndrome 1C (autosomal recessive, severe)",0.658636466,0.005237956
+poor,TBP,TBP,6908,TATA box binding protein,0.729567279,0.005244596
+poor,TRIM13,TRIM13,10206,tripartite motif-containing 13,0.720247045,0.005422197
+poor,ITPKC,ITPKC,80271,"inositol 1,4,5-trisphosphate 3-kinase C",0.57879416,0.005454018
+poor,KRT13,KRT13,3860,keratin 13,0.425494952,0.005541644
+poor,ADA,ADA,100,adenosine deaminase,0.51514341,0.005642223
+poor,CEMP1,CEMP1,752014,cementum protein 1,0.788311075,0.005846611
+poor,SLC25A30,SLC25A30,253512,"solute carrier family 25, member 30",0.750032288,0.005921452
+poor,HHLA2,HHLA2,11148,HERV-H LTR-associating 2,0.879307177,0.006052252
+poor,SAMD4B,SAMD4B,55095,sterile alpha motif domain containing 4B,0.497236039,0.006112613
+poor,YTHDC2,YTHDC2,64848,YTH domain containing 2,0.581911536,0.006124365
+poor,ZHX3,ZHX3,23051,zinc fingers and homeoboxes 3,0.745458257,0.006132173
+poor,AKT2,AKT2,208,v-akt murine thymoma viral oncogene homolog 2,0.569646732,0.006148701
+poor,GEMIN7,GEMIN7,79760,gem (nuclear organelle) associated protein 7,0.553990225,0.006157941
+poor,SH3TC2,SH3TC2,79628,SH3 domain and tetratricopeptide repeats 2,0.575798294,0.00631567
+poor,STK4,STK4,6789,serine/threonine kinase 4,0.641339412,0.006319734
+poor,ANKRD46,ANKRD46,157567,ankyrin repeat domain 46,0.426364258,0.006378416
+poor,PSMC4,PSMC4,5704,"proteasome (prosome, macropain) 26S subunit, ATPase, 4",0.420653239,0.006491739
+poor,HSPBAP1,HSPBAP1,79663,HSPB (heat shock 27kDa) associated protein 1,0.520599516,0.006729339
+poor,NUFIP1,NUFIP1,26747,nuclear fragile X mental retardation protein interacting protein 1,0.5669176,0.006931224
+poor,TCF15,TCF15,6939,transcription factor 15 (basic helix-loop-helix),0.290123847,0.007045325
+poor,C20orf4,C20ORF4,25980,chromosome 20 open reading frame 4,0.623332059,0.007075264
+poor,GRWD1,GRWD1,83743,glutamate-rich WD repeat containing 1,0.923391503,0.007078211
+poor,MIOS,FLJ20323,54468,hypothetical protein FLJ20323,0.450230522,0.007111952
+poor,C20orf3,C20ORF3,57136,chromosome 20 open reading frame 3,0.55192505,0.007292109
+poor,SMG5,SMG5,23381,"Smg-5 homolog, nonsense mediated mRNA decay factor (C. elegans)",0.631230484,0.007457807
+poor,C17orf63,C17ORF63,55731,chromosome 17 open reading frame 63,0.426361857,0.007481543
+poor,KCNG1,KCNG1,3755,"potassium voltage-gated channel, subfamily G, member 1",0.452618366,0.007728936
+poor,LRRC31,LRRC31,79782,leucine rich repeat containing 31,0.370877717,0.007838407
+poor,DMPK,DMPK,1760,dystrophia myotonica-protein kinase,0.72768944,0.008094492
+poor,CCNF,CCNF,899,cyclin F,0.57033133,0.008152497
+poor,ACVR2A,ACVR2A,92,"activin A receptor, type IIA",0.426094693,0.008168757
+poor,FBXL18,FBXL18,80028,F-box and leucine-rich repeat protein 18,0.800640648,0.008266622
+poor,CAMK2G,CAMK2G,818,calcium/calmodulin-dependent protein kinase II gamma,0.743943889,0.008423803
+poor,EML2,EML2,24139,echinoderm microtubule associated protein like 2,0.724138968,0.008639767
+poor,MGRN1,MGRN1,23295,"mahogunin, ring finger 1",0.590200198,0.008786949
+poor,ZNF574,ZNF574,64763,zinc finger protein 574,0.582735114,0.0089964
+poor,MRPS31,MRPS31,10240,mitochondrial ribosomal protein S31,0.542439674,0.009295434
+poor,NLK,NLK,51701,nemo-like kinase,0.57136262,0.009309642
+poor,C20ORF121,C20ORF121,79183,tocopherol (alpha) transfer protein-like,0.613512175,0.009384899
+poor,PABPC1,PABPC1,26986,"poly(A) binding protein, cytoplasmic 1",0.53489039,0.009410087
+poor,PLAC4,PLAC4,191585,placenta-specific 4,0.377393591,0.009441284
+poor,CLK2,CLK2,1196,CDC-like kinase 2,0.640752706,0.009847403
+good,ALDH5A1,ALDH5A1,7915,"aldehyde dehydrogenase 5 family, member A1",-0.66764386,0.000228588
+good,GJB1,GJB1,2705,"gap junction protein, beta 1, 32kDa",-0.447234443,0.000237986
+good,AADAC,AADAC,13,arylacetamide deacetylase (esterase),-0.324935873,0.000313306
+good,DMC1,DMC1,11144,"DMC1 dosage suppressor of mck1 homolog, meiosis-specific homologous recombination (yeast)",-0.636801886,0.000347172
+good,GEMIN8,GEMIN8,54960,gem (nuclear organelle) associated protein 8,-0.726444142,0.000625172
+good,ZFR,ZFR,51663,zinc finger RNA binding protein,-0.956712967,0.000764541
+good,HSPA1L,HSPA1L,3305,heat shock 70kDa protein 1-like,-0.700225679,0.000985362
+good,PIGP,PIGP,51227,"phosphatidylinositol glycan anchor biosynthesis, class P",-0.645545232,0.001068167
+good,DAP,DAP,1611,death-associated protein,-0.565105618,0.001072546
+good,IL2,IL2,3558,interleukin 2,-0.96882179,0.001079799
+good,PCK2,PCK2,5106,phosphoenolpyruvate carboxykinase 2 (mitochondrial),-0.649561472,0.001109156
+good,GMPR,GMPR,2766,guanosine monophosphate reductase,-0.350054778,0.001134854
+good,HIST1H2BE,HIST1H2BE,8344,"histone cluster 1, H2be",-0.439571972,0.001290455
+good,CXCL9,CXCL9,4283,chemokine (C-X-C motif) ligand 9,-0.215798969,0.001297904
+good,CECR1,CECR1,51816,"cat eye syndrome chromosome region, candidate 1",-0.344415107,0.001444118
+good,GSTZ1,GSTZ1,2954,glutathione transferase zeta 1,-0.483394094,0.001460925
+good,ETV4,ETV4,2118,ets variant 4,-0.433234189,0.001551368
+good,ACOT13,THEM2,55856,thioesterase superfamily member 2,-0.525650324,0.001577373
+good,HLA-DOB,HLA-DOB,3112,"major histocompatibility complex, class II, DO beta",-0.411018912,0.001896013
+good,RBP1,RBP1,5947,"retinol binding protein 1, cellular",-0.346418787,0.001896916
+good,HIRIP3,HIRIP3,8479,HIRA interacting protein 3,-0.678588439,0.002047149
+good,FJX1,FJX1,24147,four jointed box 1 (Drosophila),-0.528228534,0.002072187
+good,FAH,FAH,2184,fumarylacetoacetate hydrolase (fumarylacetoacetase),-0.35939053,0.002410519
+good,CD27,CD27,939,CD27 molecule,-0.44389938,0.002748176
+good,HLA-DMB,HLA-DMB,3109,"major histocompatibility complex, class II, DM beta",-0.307475736,0.002847227
+good,RTN3,RTN3,10313,reticulon 3,-0.683362734,0.002868179
+good,SHMT2,SHMT2,6472,serine hydroxymethyltransferase 2 (mitochondrial),-0.406451372,0.002985241
+good,CUTA,CUTA,51596,cutA divalent cation tolerance homolog (E. coli),-0.585495744,0.003754846
+good,ARL6IP5,ARL6IP5,10550,ADP-ribosylation-like factor 6 interacting protein 5,-0.507020408,0.00386083
+good,CREB3,CREB3,10488,cAMP responsive element binding protein 3,-0.596608394,0.003902413
+good,FLOT1,FLOT1,10211,flotillin 1,-0.623666561,0.003909347
+good,WARS,WARS,7453,tryptophanyl-tRNA synthetase,-0.337059217,0.003963386
+good,TMX4,TXNDC13,56255,thioredoxin domain containing 13,-0.409166133,0.004003971
+good,PHKG2,PHKG2,5261,"phosphorylase kinase, gamma 2 (testis)",-0.690760932,0.004031966
+good,CLEC11A,CLEC11A,6320,"C-type lectin domain family 11, member A",-0.39942973,0.004078637
+good,CXCL13,CXCL13,10563,chemokine (C-X-C motif) ligand 13,-0.269115641,0.004198236
+good,HIST1H2BO,HIST1H2BO,8348,"histone cluster 1, H2bo",-0.583160953,0.004482335
+good,EDNRB,EDNRB,1910,endothelin receptor type B,-0.281195905,0.00454977
+good,HIST1H2AM,HIST1H2AM,8336,"histone cluster 1, H2am",-0.334986775,0.004809725
+good,BCL7C,BCL7C,9274,B-cell CLL/lymphoma 7C,-0.642849176,0.004881584
+good,HIST1H2AB,HIST1H2AB,8335,"histone cluster 1, H2ab",-0.375959382,0.005115581
+good,MTHFS,MTHFS,10588,"5,10-methenyltetrahydrofolate synthetase (5-formyltetrahydrofolate cyclo-ligase)",-0.598610767,0.005319914
+good,SLC1A4,SLC1A4,6509,"solute carrier family 1 (glutamate/neutral amino acid transporter), member 4",-0.531591971,0.005398611
+good,HIST1H3E,HIST1H3E,8353,"histone cluster 1, H3e",-0.369073537,0.005563984
+good,MAST4,MAST4,375449,microtubule associated serine/threonine kinase family member 4,-0.478026271,0.005585783
+good,TRIM27,TRIM27,5987,tripartite motif-containing 27,-0.572522075,0.005598791
+good,GAD1,GAD1,2571,"glutamate decarboxylase 1 (brain, 67kDa)",-0.464061736,0.005643083
+good,TCP11,TCP11,6954,t-complex 11 homolog (mouse),-0.375846172,0.005700298
+good,SLC7A11,SLC7A11,23657,"solute carrier family 7, (cationic amino acid transporter, y+ system) member 11",-0.342731556,0.005766757
+good,FAM8A1,FAM8A1,51439,"family with sequence similarity 8, member A1",-0.575243584,0.006003308
+good,HLCS,HLCS,3141,holocarboxylase synthetase (biotin-(proprionyl-Coenzyme A-carboxylase (ATP-hydrolysing)) ligase),-0.698873914,0.006119221
+good,UBD,UBD,10537,ubiquitin D,-0.180543911,0.006153294
+good,MBNL3,MBNL3,55796,muscleblind-like 3 (Drosophila),-0.364500629,0.006292981
+good,ICOS,ICOS,29851,inducible T-cell co-stimulator,-0.494276642,0.006380119
+good,BTN2A2,BTN2A2,10385,"butyrophilin, subfamily 2, member A2",-0.589907853,0.006534562
+good,ZNF76,ZNF76,7629,zinc finger protein 76 (expressed in testis),-0.774602918,0.006659874
+good,BSCL2,BSCL2,26580,Bernardinelli-Seip congenital lipodystrophy 2 (seipin),-0.520424535,0.006771066
+good,TMEM30B,TMEM30B,161291,transmembrane protein 30B,-0.564171795,0.006840657
+good,WWOX,WWOX,51741,WW domain containing oxidoreductase,-0.713161146,0.007037149
+good,HYAL2,HYAL2,8692,hyaluronoglucosaminidase 2,-0.565251141,0.007082746
+good,ID4,ID4,3400,"inhibitor of DNA binding 4, dominant negative helix-loop-helix protein",-0.232037918,0.007111255
+good,EFTUD1,EFTUD1,79631,elongation factor Tu GTP binding domain containing 1,-0.51690241,0.007136297
+good,BMPR2,BMPR2,659,"bone morphogenetic protein receptor, type II (serine/threonine kinase)",-0.478015443,0.007477525
+good,STK16,STK16,8576,serine/threonine kinase 16,-0.561389213,0.007549608
+good,PHLDA3,PHLDA3,23612,"pleckstrin homology-like domain, family A, member 3",-0.394392337,0.007566427
+good,GALNT6,GALNT6,11226,UDP-N-acetyl-alpha-D-galactosamine:polypeptide N-acetylgalactosaminyltransferase 6 (GalNAc-T6),-0.32033535,0.007579114
+good,DNAJC4,DNAJC4,3338,"DnaJ (Hsp40) homolog, subfamily C, member 4",-0.862090354,0.007643422
+good,MATN2,MATN2,4147,matrilin 2,-0.243020457,0.007671
+good,PNPLA4,PNPLA4,8228,patatin-like phospholipase domain containing 4,-0.34440708,0.007957994
+good,CUL4B,CUL4B,8450,cullin 4B,-0.619872374,0.008068114
+good,HIST1H4H,HIST1H4H,8365,"histone cluster 1, H4h",-0.260690691,0.00826791
+good,LEF1,LEF1,51176,lymphoid enhancer-binding factor 1,-0.28154957,0.008566159
+good,HLA-DOA,HLA-DOA,3111,"major histocompatibility complex, class II, DO alpha",-0.382199793,0.008580685
+good,SPRY2,SPRY2,10253,sprouty homolog 2 (Drosophila),-0.18262551,0.008737374
+good,BTN3A1,BTN3A1,11119,"butyrophilin, subfamily 3, member A1",-0.471760248,0.008986398
+good,C14orf159,C14ORF159,80017,chromosome 14 open reading frame 159,-0.528820905,0.008996883
+good,HIST1H2BI,HIST1H2BI,8346,"histone cluster 1, H2bi",-0.380709735,0.009139491
+good,ZNF184,ZNF184,7738,zinc finger protein 184,-0.382742365,0.009413297
+good,NAB1,NAB1,4664,NGFI-A binding protein 1 (EGR1 binding protein 1),-0.468243419,0.009491904
+good,C6orf64,C6ORF64,55776,chromosome 6 open reading frame 64,-0.578556466,0.009631207
+good,PRR5L,FLJ14213,79899,protor-2,-0.469893305,0.009657815
+good,NDUFC2,NDUFC2,4718,"NADH dehydrogenase (ubiquinone) 1, subcomplex unknown, 2, 14.5kDa",-0.376335457,0.009659719
+good,CSRP1,CSRP1,1465,cysteine and glycine-rich protein 1,-0.413764947,0.009682938
+good,COMMD4,COMMD4,54939,COMM domain containing 4,-0.533601039,0.009793447
+good,NOTCH4,NOTCH4,4855,Notch homolog 4 (Drosophila),-0.875721729,0.009919554
