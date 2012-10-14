@@ -6,9 +6,11 @@ function(datas, method=c("pearson", "spearman")) {
 	} else {
 		nc <- ncol(datas[[1]])
 		ncn <- dimnames(datas[[1]])[[2]]
-		for(k in 2:length(datas)) {
-			if(nc != ncol(datas[[k]]) | !all(dimnames(datas[[k]])[[2]] == ncn)) { stop("all the datasets have not the same variables (columns)") }
-		}
+		if(length(datas) > 1) {
+		    for(k in 2:length(datas)) {
+			    if(nc != ncol(datas[[k]]) | !all(dimnames(datas[[k]])[[2]] == ncn)) { stop("all the datasets have not the same variables (columns)") }
+		    }
+	    }
 		mycor <- matrix(NA, nrow=nc, ncol=nc, dimnames=list(ncn, ncn))
 		mycorn <- matrix(0, nrow=nc, ncol=nc, dimnames=list(ncn, ncn))
 		for(i in 1:nc) {
