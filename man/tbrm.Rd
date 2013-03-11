@@ -21,7 +21,7 @@ tbrm(x, C = 9)
   tree-ring chronology development. Cook and Kairiukstis (1990) have further
   details.
 
-Retrieved from \code{\link[dplR]{tbrm}}.
+Retrieved from the \code{tbrm} function in the \code{dplR} package.
 }
 \value{
   A numeric mean.
@@ -34,7 +34,7 @@ Cook, E. R. and Kairiukstis, L.A. (1990) \emph{Methods of Dendrochronology: Appl
 Mosteller, F. and Tukey, J. W. (1977) \emph{Data Analysis and Regression: a second course in statistics.} Addison-Wesley. ISBN-13: 978-0201048544.
 }
 \author{ Andy Bunn }
-\seealso{ \code{\link[dplR]{chron}} }
+\seealso{ \code{chron} in the \code{dplR} package. }
 \examples{
 tbrm(rnorm(100))
 
