@@ -44,15 +44,15 @@ function(data, annot, do.mapping=FALSE, mapping, verbose=FALSE) {
 	## rename gene names by the gene symbols
 	colnames(data) <- rownames(sig2) <- sig2[ , "symbol"]
 	
-	## transform expressions so they match approximately the scale of Affymetrix data
 	if(do.mapping) {
+    ## transform expressions so they match approximately the scale of Affymetrix data
     data <- apply(data, 2, function(x) {
-    xx <- (x - quantile(x, probs=0.025, na.rm=TRUE)) / (quantile(x, probs=0.975, na.rm=TRUE) - quantile(x, probs=0.025, na.rm=TRUE)) 
-    return((xx * 8) + 6)
-  })
-  data[!is.na(data) & data < 1] <- 1
-  data[!is.na(data) & data > 15] <- 15
-}
+      xx <- (x - quantile(x, probs=0.025, na.rm=TRUE)) / (quantile(x, probs=0.975, na.rm=TRUE) - quantile(x, probs=0.025, na.rm=TRUE)) 
+      return((xx * 8) + 6)
+    })
+    data[!is.na(data) & data < 1] <- 1
+    data[!is.na(data) & data > 15] <- 15
+  }
   
   data <- (data - apply(data, 1, mean, na.rm=TRUE)) + log2(500)
   ## apply transformation factor and offset
@@ -77,7 +77,7 @@ function(data, annot, do.mapping=FALSE, mapping, verbose=FALSE) {
     }
     return(x)
   })
-  #rsrisk <- ifelse(rs >= 5, 1, 0)
+  rsrisk <- ifelse(rs >= 5, 1, 0)
 	names(rs) <- names(rs.unscaled) <- names(rsrisk) <- dimnames(data)[[1]]
 	return(list("score"=rs, "risk"=rsrisk, "mapping"=mymapping, "probe"=myprobe))
 }
