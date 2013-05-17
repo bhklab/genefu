@@ -27,7 +27,7 @@ Matrix of annotations with at least one column named "EntrezGene.ID", dimnames b
 \code{TRUE} if the mapping through Entrez Gene ids must be performed (in case of ambiguities, the most variant probe is kept for each gene), \code{FALSE} otherwise.
 }
   \item{mapping}{
-Matrix with columns "EntrezGene.ID" and "probe" used to force the mapping such that the probes are not selected based on  their variance.
+**DEPRECATED** Matrix with columns "EntrezGene.ID" and "probe" used to force the mapping such that the probes are not selected based on  their variance.
 }
   \item{do.prediction.strength}{
 \code{TRUE} if the prediction strength must be computed (Tibshirani and Walther 2005), \code{FALSE} otherwise.
