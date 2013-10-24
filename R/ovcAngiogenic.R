@@ -35,7 +35,7 @@ function(data, annot, hgs, gmap=c("entrezgene", "ensembl_gene_id", "hgnc_symbol"
     rr <- genefu::rescale(ss[hgs], q=0.05, na.rm=TRUE)
     ## rescale the whole dataset
     pscore <- ((ss - attributes(rr)$q1) / (attributes(rr)$q2 - attributes(rr)$q1) - 0.5) * 2
-    emclust.ts <- mclust::estep(modelName="E", data=pscore, parameters=modelOvcAngioganic)
+    emclust.ts <- mclust::estep(modelName="E", data=pscore, parameters=modelOvcAngiogenic)
     dimnames(emclust.ts$z) <- list(names(pscore), c("Angiogenic.proba", "nonAngiogenic.proba"))
     class.ts <- mclust::map(emclust.ts$z, warn=FALSE)
     names(class.ts) <- names(pscore)

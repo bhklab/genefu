@@ -44,7 +44,6 @@ character string containing the \code{biomaRt} attribute to use for mapping if \
 }
 \references{
 Yoshihara K, Tajima A, Yahata T, Kodama S, Fujiwara H, Suzuki M, Onishi Y, Hatae M, Sueyoshi K, Fujiwara H, Kudo, Yoshiki, Kotera K, Masuzaki H, Tashiro H, Katabuchi H, Inoue I, Tanaka K (2010) "Gene expression profile for predicting survival in advanced-stage serous ovarian cancer across two independent datasets", \emph{PloS one}, \bold{5}(3):e9615.
-
 }
 \author{
 Benjamin Haibe-Kains

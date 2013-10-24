@@ -1,6 +1,5 @@
 `compute.pairw.cor.meta` <-
 function(datas, method=c("pearson", "spearman")) {
-	require(survcomp)
 	if(!is.list(datas)) {
 		mycor <- cor(x=datas, method=method, use="pairwise.complete.obs")
 	} else {
@@ -20,7 +19,7 @@ function(datas, method=c("pearson", "spearman")) {
 				for(k in 1:length(datas)) {
 					if(sum(complete.cases(datas[[k]][ , c(i, j)])) > 1) {
 						nn <- sum(complete.cases(datas[[k]][ , c(i, j)]))
-						mycorz <- c(mycorz, fisherz(cor(x=datas[[k]][ , i], y=datas[[k]][ , j], method=method, use="complete.obs"), inv=FALSE))
+						mycorz <- c(mycorz, survcomp::fisherz(cor(x=datas[[k]][ , i], y=datas[[k]][ , j], method=method, use="complete.obs"), inv=FALSE))
 						mycorz.se <- c(mycorz.se, 1/sqrt(nn - 3))
 						nnt <- nnt + nn
 					} else {

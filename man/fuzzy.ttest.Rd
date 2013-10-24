@@ -2,7 +2,7 @@
 \alias{fuzzy.ttest}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Function to compute the weighted mean and weighted variance of 'x'
+Function to compute the fuzzy Student t test based on weighted mean and weighted variance
 }
 \description{
 This function allows for computing the weighted mean and weighted variance of a vector of continuous values.
@@ -13,7 +13,7 @@ fuzzy.ttest(x, w1, w2, alternative=c("two.sided", "less", "greater"), check.w = 
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{x}{
-an object containing the values whose weighted mean is to be computed.
+an object containing the observed values.
 }
   \item{w1}{
 a numerical vector of weights of the same length as \code{x} giving the weights to use for elements of \code{x} in the first class.

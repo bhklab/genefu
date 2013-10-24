@@ -43,8 +43,7 @@ Note that the original algorithm has not been implemented as it necessitates ref
 	\item{probe }{If mapping is performed, this matrix contains the correspondence between the gene list (aka signature) and gene expression data.}
 }
 \references{
-Crijns APG, Fehrmann RSN, de Jong S, Gerbens F, Meersma G J, Klip HG, Hollema H, Hofstra RMW, te Meerman GJ, de Vries EGE, van der Zee AGJ (2009) "Survival-Related Profile, Pathways, and Transcription Factors in Ovarian Cancer"
-\emph{PLoS Medicine}, \bold{6}(2):e1000024.
+Crijns APG, Fehrmann RSN, de Jong S, Gerbens F, Meersma G J, Klip HG, Hollema H, Hofstra RMW, te Meerman GJ, de Vries EGE, van der Zee AGJ (2009) "Survival-Related Profile, Pathways, and Transcription Factors in Ovarian Cancer" \emph{PLoS Medicine}, \bold{6}(2):e1000024.
 }
 \author{
 Benjamin Haibe-Kains
