@@ -1,5 +1,4 @@
 inst/doc/.*[.]bib$
-inst/doc/*
 test/*
 TODO
 README
