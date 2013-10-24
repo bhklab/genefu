@@ -45,7 +45,6 @@ character string containing the \code{biomaRt} attribute to use for mapping if \
 }
 \references{
 Bentink S, Haibe-Kains B, Risch T, Fan J-B, Hirsch MS, Holton K, Rubio R, April C, Chen J, Wickham-Garcia E, Liu J, Culhane AC, Drapkin R, Quackenbush JF, Matulonis UA (2012) "Angiogenic mRNA and microRNA Gene Expression Signature Predicts a Novel Subtype of Serous Ovarian Cancer", \emph{PloS one}, \bold{7}(2):e30269
-
 }
 \author{
 Benjamin Haibe-Kains

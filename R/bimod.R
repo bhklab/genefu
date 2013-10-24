@@ -34,6 +34,6 @@ function(x, data, annot, do.mapping=FALSE, mapping, model=c("E", "V"), do.scale=
 		#classification
 		mystatus[cc.ix] <- as.numeric(rr2$classification == 2)
 		mystatus.proba[cc.ix] <- rr2$z[ , 2, drop=TRUE]
-	}
-	return(list("status"=mystatus, "status1.proba"=mystatus.proba, "gaussians"=res, "BIC"=mybic,  "BI"=bi, "x"=dd))
+    return(list("status"=mystatus, "status1.proba"=mystatus.proba, "gaussians"=res, "BIC"=mybic,  "BI"=bi, "x"=dd))
+    } else { stop("Not enough data!") }
 }

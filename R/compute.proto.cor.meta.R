@@ -1,6 +1,5 @@
 `compute.proto.cor.meta` <-
 function(datas, proto, method=c("pearson", "spearman")) {
-	require(survcomp)
 	if(!is.list(datas)) {
 		if(!all(is.element(proto, dimnames(datas)[[2]]))) { stop("prototypes are not in the dataset!") }
 		datasp <- datas[ , proto, drop=FALSE]

@@ -1,6 +1,5 @@
 `compute.pairw.cor.z` <-
 function(datas, method=c("pearson")) {
-	require(survcomp)
 	if(!is.list(datas)) {
 		mycorz <- mycorz.se <- matrix(NA, nrow=ncol(datas), ncol=ncol(datas), dimnames=list(dimnames(datas)[[2]], dimnames(datas)[[2]]))
 		for(i in 1:ncol(datas)) {

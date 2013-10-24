@@ -30,7 +30,7 @@ A character string specifying the alternative hypothesis, must be one of "two.si
 }
 }
 \details{
-This function is inspired from the \code{cordif.dep} function in the \code{multilevel} package.
+This function is inspired from the \code{\link[multilevel]{cordif.dep}}.
 }
 \value{
 %%  ~Describe the value returned

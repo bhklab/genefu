@@ -79,7 +79,7 @@ function(data, annot, do.mapping=FALSE, mapping, verbose=FALSE) {
 			if(rsu >= 18 & rsu < 31) { rsr <- 0.5 }
 			if(rsu >= 31) { rsr <- 1 }
 		}
-		else { rsu <- rsr <- NA }
+		else { rsu <- rsr <- rsu2 <- NA }
 		rs.unscaled <- c(rs.unscaled, rsu2)
 		rs <- c(rs, rsu)
 		rsrisk <- c(rsrisk, rsr)
