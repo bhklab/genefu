@@ -2,13 +2,14 @@
 \alias{modelOvcAngiogenic}
 \docType{data}
 \title{
-a
+Model used to classify ovarian tumors into Angiogenic and NonAngiogenic subtypes.
 }
 \description{
-a}
+Object containing the set of parameters for the mixture of Gaussians used as a model to classify ovarian tumors into Angiogenic and NonAngiogenic subtypes.
+}
 \usage{data(modelOvcAngiogenic)}
 \format{
-  \code{\link[genefu]{modelOvcAngiogenic}} a.
+  \code{\link[genefu]{modelOvcAngiogenic}}
 }
 %%\details{
 %%  ~~ If necessary, more details than the __description__ above ~~
