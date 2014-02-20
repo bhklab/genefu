@@ -1,0 +1,31 @@
+expos: annot.expos data.expos demo.expos
+mod1
+mod2
+modelOvcAngiogenic
+nkis: annot.nkis data.nkis demo.nkis
+pam50
+pam50.robust
+pam50.scale
+scmgene.robust
+scmod1.robust
+scmod2.robust
+sig.endoPredict
+sig.gene70
+sig.gene76
+sig.genius
+sig.ggi
+sig.oncotypedx
+sig.pik3cags
+sig.tamr13
+sigOvcAngiogenic
+sigOvcCrijns
+sigOvcSpentzos
+sigOvcTCGA
+sigOvcYoshihara
+ssp2003
+ssp2003.robust
+ssp2003.scale
+ssp2006
+ssp2006.robust
+ssp2006.scale
+vdxs: annot.vdxs data.vdxs demo.vdxs
