@@ -113,7 +113,7 @@ function(sbt.model, data, annot, do.mapping=FALSE, mapping, do.prediction.streng
 	
 	## apply the nearest centroid classifier to classify the samples again
 	ncor <- t(apply(X=data, MARGIN=1, FUN=function(x, y, method.cor) { 
-	  rr <- NA
+	  rr <- array(NA, dim=ncol(y), dimnames=list(colnames(y)))
     if (sum(complete.cases(x, y)) > 3) {
       rr <- cor(x=x, y=y, method=method.cor, use="complete.obs")
     }
@@ -121,7 +121,14 @@ function(sbt.model, data, annot, do.mapping=FALSE, mapping, do.prediction.streng
   }, y=centroids, method.cor=method.cor))
 	#nproba <- t(apply(X=ncor, MARGIN=1, FUN=function(x) { return(abs(x) / sum(abs(x), na.rm=TRUE)) }))
 	## negative correlations are truncated to zero since they have no meaning for subtypes identification
-	nproba <- t(apply(X=ncor, MARGIN=1, FUN=function(x) { x[x < 0] <- 0; return(x / sum(x, na.rm=TRUE)); }))
+	nproba <- t(apply(X=ncor, MARGIN=1, FUN=function (x) {
+    rr <- array(NA, dim=length(x), dimnames=list(names(x)))
+    x[!is.na(x) & x < 0] <- 0
+    if (!all(is.na(x))) {
+      rr <- x / sum(x, na.rm=TRUE)
+    }
+    return (rr)
+  }))
 	dimnames(ncor) <- dimnames(nproba) <- list(dimnames(data)[[1]], name.cluster)
 	ncl <- apply(X=ncor, MARGIN=1, FUN=function(x) { return(order(x, decreasing=TRUE, na.last=TRUE)[1]) })
 	names(ncl) <- dimnames(data)[[1]]
