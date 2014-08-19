@@ -1,16 +1,16 @@
 Package: genefu
 Type: Package
 Title: Relevant Functions for Gene Expression Analysis, Especially in Breast Cancer.
-Version: 1.13.2
-Date: 2013-12-02
+Version: 1.15.1
+Date: 2014-08-19
 Description: R package providing various functions relevant for gene expression analysis with emphasis on breast cancer.
 Author: Benjamin Haibe-Kains, Markus Schroeder, Gianluca Bontempi, Christos Sotiriou, John Quackenbush
-Maintainer: Benjamin Haibe-Kains <bhklab.research@gmail.com>, Markus Schroeder <mschroed@jimmy.harvard.edu>
+Maintainer: Benjamin Haibe-Kains <benjamin.haibe.kains@utoronto.ca>, Markus Schroeder <mschroed@cebitec.uni-bielefeld.de>
 Description: This package contains functions implementing various tasks usually required by gene expression analysis, especially in breast cancer studies: gene mapping between different microarray platforms, identification of molecular subtypes, implementation of published gene signatures, gene selection, survival analysis, ...
 biocViews: DifferentialExpression, GeneExpression, Visualization, Clustering, Classification
 Depends: survcomp, mclust, biomaRt
 Suggests: GeneMeta, breastCancerVDX, breastCancerMAINZ, breastCancerTRANSBIG, breastCancerUPP, breastCancerUNT, breastCancerNKI, rmeta, Biobase, xtable
 Imports: amap
 License: Artistic-2.0
-URL: http://compbio.dfci.harvard.edu
+URL: http://www.pmgenomics.ca/bhklab/
 LazyData: yes
