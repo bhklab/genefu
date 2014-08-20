@@ -54,8 +54,8 @@
 \author[5,6]{John Quackenbush}
 
 
-\affil[1]{Bioinformatics and Computational Genomics Laboratory, Institut de Recherches Cliniques de Montr\'{e}al}
-\affil[2]{Computational Genomics, Center for Biotechnology, Bielefeld University, Germany}
+\affil[1]{Bioinformatics and Computational Genomics Laboratory, Princess Margaret Cancer Center, University Health Network, Toronto, Ontario, Canada}
+\affil[2]{UCD School of Biomolecular and Biomedical Science, Conway Institute, University College Dublin, Belfield, Dublin, Ireland}
 \affil[3]{Breast Cancer Translational Research Laboratory, Institut Jules Bordet, Universit\'{e} Libre de Bruxelles}
 \affil[4]{Machine Learning Group, Universit\'{e} Libre de Bruxelles}
 \affil[5]{Computational Biology and Functional Genomics Laboratory, Dana-Farber Cancer Institute, Harvard School of Public Health}
