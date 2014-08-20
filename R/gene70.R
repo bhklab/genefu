@@ -32,7 +32,7 @@ function(data, annot, do.mapping=FALSE, mapping, std=c("none", "scale", "robust"
 		## change the names of probes in the data
 		dimnames(data)[[2]] <- names(gid2) <- names(gid1)
 	} else {
-		data <- data[ ,intersect(dimnames(sig.gene70)[[1]], dimnames(data)[[2]])]
+		data <- data[ , intersect(dimnames(sig.gene70)[[1]], dimnames(data)[[2]])]
 		sig2 <- sig.gene70[dimnames(data)[[2]], , drop=FALSE]
 		gm <- nrow(sig2)
 		mymapping <- c("mapped"=gm, "total"=gt)
@@ -53,7 +53,13 @@ function(data, annot, do.mapping=FALSE, mapping, std=c("none", "scale", "robust"
 	}, 
 	"none"={ if(verbose) { message("no standardization of the gene expressions") } })
 
-	score <- apply(X=data, MARGIN=1, FUN=cor, y=sig2[, "average.good.prognosis.profile"], method="spearman", use="complete.obs")
+	score <- apply(X=data, MARGIN=1, FUN=function (x, y, method, use) {
+	  rr <- NA
+    if (sum(complete.cases(x, y)) > 3) {
+      rr <- cor(x=x, y=y, method=method, use=use)
+    }
+    return (rr)
+	}, y=sig2[, "average.good.prognosis.profile"], method="spearman", use="complete.obs")
 	score <- -score
 	official.cutoff <- -0.3
 	## cutoff leaving 59% of patients in the poor prognosis group in the original dataset

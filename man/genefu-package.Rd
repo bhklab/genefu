@@ -21,6 +21,12 @@ License: \tab Artistic-2.0\cr
 \author{
 \bold{Benjamin Haibe-Kains}
 
+- Bioinformatics and Computational Genomics Laboratory, Princess Margaret Cancer Center, University Health Network, Toronto, Ontario, Canada
+
+\url{http://www.pmgenomics.ca/bhklab/}
+
+Former labs:
+
 - Computational Biology and Functional Genomics, Dana-Farber Cancer Institute, Boston, MA, USA
 
 \url{http://compbio.dfci.harvard.edu/}
@@ -28,8 +34,6 @@ License: \tab Artistic-2.0\cr
 - Center for Cancer Computational Biology, Dana-Farber Cancer Institute, Boston, MA, USA
 
 \url{http://cccb.dfci.harvard.edu/index.html}
-
-Former labs:
 
 - Machine Learning Group (MLG), Universite Libre de Bruxelles, Bruxelles, Belgium 
 
@@ -40,15 +44,14 @@ Former labs:
 \url{http://www.bordet.be/en/services/medical/array/practical.htm}
 
 
-\bold{Maintainer}: \bold{Benjamin Haibe-Kains}
+\bold{Maintainer}:
+\bold{Benjamin Haibe-Kains}
 
-\email{bhaibeka@jimmy.harvard.edu}
-
-\email{bhaibeka@ulb.ac.be}
+\email{benjamin.haibe.kains@utoronto.ca}
 
 \bold{Markus Schroeder}
 
-\email{mschroed@jimmy.harvard.edu}
+\email{markus.schroeder@ucdconnect.ie}
 }
 %\references{}
 \keyword{ clustering }
