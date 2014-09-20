@@ -1,5 +1,6 @@
 `compute.pairw.cor.meta` <-
 function(datas, method=c("pearson", "spearman")) {
+	method <- match.arg(method)
 	if(!is.list(datas)) {
 		mycor <- cor(x=datas, method=method, use="pairwise.complete.obs")
 	} else {
