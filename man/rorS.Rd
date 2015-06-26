@@ -48,9 +48,6 @@ Benjamin Haibe-Kains
 
 %%\seealso{
 %%}
-\examples{
-## load GENE70 signature
-data(sig.rorS)
 ## load NKI dataset
 data(vdxs)
 ## compute relapse score
