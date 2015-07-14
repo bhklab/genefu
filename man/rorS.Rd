@@ -48,6 +48,7 @@ Benjamin Haibe-Kains
 
 %%\seealso{
 %%}
+examples{
 ## load NKI dataset
 data(vdxs)
 ## compute relapse score
