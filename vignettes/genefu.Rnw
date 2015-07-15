@@ -38,18 +38,12 @@
 \author[1,2]{Deena M.A. Gendoo}
 \author[1]{Natchar Ratanasirigulchai}
 \author[3]{Markus Schr\"{o}der}
-\author[4]{Gianluca Bontempi}
-\author[5]{Christos Sotiriou}
-\author[6,7]{John Quackenbush}
 \author[1,2]{Benjamin Haibe-Kains\thanks{benjamin.haibe.kains@utoronto.ca }}
 
 \affil[1]{Bioinformatics and Computational Genomics Laboratory, Princess Margaret Cancer Center, University Health Network, Toronto, Ontario, Canada}
 \affil[2]{Department of Medical Biophysics, University of Toronto, Toronto, Canada}
 \affil[3]{UCD School of Biomolecular and Biomedical Science, Conway Institute, University College Dublin, Belfield, Dublin, Ireland}
 \affil[4]{Machine Learning Group, Universit\'{e} Libre de Bruxelles}
-\affil[5]{Breast Cancer Translational Research Laboratory, Institut Jules Bordet, Universit\'{e} Libre de Bruxelles}
-\affil[6]{Computational Biology and Functional Genomics Laboratory, Dana-Farber Cancer Institute, Harvard School of Public Health}
-\affil[7]{Center for Cancer Computational Biology, Dana-Farber Cancer Institute}
 
 \maketitle
 \tableofcontents
@@ -87,6 +81,10 @@ library(genefu)
 library(xtable)
 library(rmeta)
 @
+
+%------------------------------------------------------------
+\section{Case Study : Compare Molecular Subtype Classifications}
+%------------------------------------------------------------ 
 
 %------------------------------------------------------------
 \section{Case Study : Comparing risk prediction models}
