@@ -419,6 +419,7 @@ We can also compare the survival of patients for each subtype.
 We plot the surival curves of patients by subtype, 
 based on each molecular classification algorithm
 <<CompareSurvivalBySubtypes>>=
+# http://www.inside-r.org/r-doc/survival/survfit.coxph
 library(survival)
 
 data.for.survival.SCMGENE <- ddemo[,c("e.os", "t.os", "SCMGENE","age")]
@@ -443,10 +444,23 @@ surv.obj.SCMGENE <- survfit(Surv(data.for.survival.SCMGENE$months_to_death,
 message("KAPLAN-MEIR CURVE - USING PAM50")
 survMisc::autoplot(surv.obj.PAM50, title="Survival curves PAM50", censSize=0)$plot + 
   scale_colour_manual(name="Strata", values=c("black", "green", "blue", "red"))
-
+par(new=TRUE) 
 message("KAPLAN-MEIR CURVE - USING SCMGENE")
 survMisc::autoplot(surv.obj.SCMGENE, title="Survival curves SCMGENE", censSize=0)$plot + 
   scale_colour_manual(name="Strata", values=c("black", "green", "blue"))
+
+
+## GENERATE A OVERLAYED PLOT OF SURVIVAL CURVES
+message("Overlayed Surival Plots based on PAM50 and SCMGENE")
+                          ## Basal    Her2        Luminal   Normal
+plot(surv.obj.PAM50,col =c("#006d2c", "#a50f15", "#08519c", "#000000"),lty = 1,lwd = 3,
+     xlab = "Time (months)",ylab = "Survival")
+legend("topright",fill = c("#238b45","#cb181d","#2171b5","#000000"),legend = c("Basal","Her2","Luminal","Normal"))
+
+par(new=TRUE)
+                            ## Basal    Her2        Luminal
+lines(surv.obj.SCMGENE,col =c("#41ab5d", "#ef3b2c", "#6baed6"),lty=1.5,lwd=1)
+
 @
 
 We can now compare which of the molecular subtyping algorithms is more prognostic.
