@@ -231,8 +231,9 @@ library(WGCNA)
 datasetMerging<-function (esets, nthread=1) {
 
     ## all unique Entrez gene ids
-    ugid <- lapply(esets, function(x) { return(Biobase::fData(x)[, is.element(colnames(fData(x)), 
-                                                                              c("probe", "EntrezGene.ID"))]) })
+    ugid <- lapply(esets, function(x) { 
+      return(Biobase::fData(x)[, is.element(colnames(fData(x)), 
+                                            c("probe", "EntrezGene.ID"))]) })
     ugid <- do.call(rbind, ugid)
     ugid <- ugid[!is.na(ugid[ , "EntrezGene.ID"]) & 
                    !duplicated(ugid[ , "EntrezGene.ID"]), , drop=FALSE]
@@ -385,7 +386,7 @@ data("pam50.scale")
   # Perform subtyping using PAM50
   # Matrix should have samples as ROWS, genes as COLUMNS
   rownames(dannot)<-dannot$probe<-dannot$EntrezGene.ID
-  #PAM50Preds<-intrinsic.cluster.predict(sbt.model=pam50,data=data.nkis,annot=annot.nkis,do.mapping=TRUE,verbose=TRUE)
+ 
   PAM50Preds<-intrinsic.cluster.predict(sbt.model=pam50,data=ddata,
                                         annot=dannot,do.mapping=TRUE,verbose=TRUE)
   table(PAM50Preds$subtype)
@@ -438,24 +439,40 @@ surv.obj.PAM50 <- survfit(Surv(data.for.survival.PAM50$months_to_death,
 
 data.for.survival.SCMGENE$months_to_death <- data.for.survival.SCMGENE$t.os / days.per.month
 data.for.survival.SCMGENE$vital_status <- data.for.survival.SCMGENE$e.os == "1"
-surv.obj.SCMGENE <- survfit(Surv(data.for.survival.SCMGENE$months_to_death, 
-                                 data.for.survival.SCMGENE$vital_status) ~ data.for.survival.SCMGENE$SCMGENE)
+surv.obj.SCMGENE <- survfit(Surv(
+  data.for.survival.SCMGENE$months_to_death, 
+  data.for.survival.SCMGENE$vital_status) ~ data.for.survival.SCMGENE$SCMGENE)
 
 message("KAPLAN-MEIR CURVE - USING PAM50")
-survMisc::autoplot(surv.obj.PAM50, title="Survival curves PAM50", censSize=0)$plot + 
-  scale_colour_manual(name="Strata", values=c("black", "green", "blue", "red"))
-par(new=TRUE) 
-message("KAPLAN-MEIR CURVE - USING SCMGENE")
-survMisc::autoplot(surv.obj.SCMGENE, title="Survival curves SCMGENE", censSize=0)$plot + 
-  scale_colour_manual(name="Strata", values=c("black", "green", "blue"))
+# survMisc::autoplot(surv.obj.PAM50, title="Survival curves PAM50", censSize=0)$plot + 
+#   scale_colour_manual(name="Strata", values=c("black", "green", "blue", "red"))
 
+plot(main = "Surival Curves PAM50", surv.obj.PAM50,
+     col =c("#006d2c", "#a50f15", "#08519c", "#000000"),lty = 1,lwd = 3,
+     xlab = "Time (months)",ylab = "Survival")
+legend("topright",
+       fill = c("#006d2c", "#a50f15", "#08519c", "#000000"),
+       legend = c("Basal","Her2","Luminal","Normal"))
+
+message("KAPLAN-MEIR CURVE - USING SCMGENE")
+# survMisc::autoplot(surv.obj.SCMGENE, title="Survival curves SCMGENE", censSize=0)$plot + 
+#   scale_colour_manual(name="Strata", values=c("black", "green", "blue"))
+
+plot(main = "Surival Curves SCMGENE", surv.obj.SCMGENE,
+     col =c("#41ab5d", "#ef3b2c", "#6baed6"),lty = 1,lwd = 3,
+     xlab = "Time (months)",ylab = "Survival")
+legend("topright",
+       fill = c("#41ab5d", "#ef3b2c", "#6baed6"),
+       legend = c("Basal","Her2","Luminal"))
 
 ## GENERATE A OVERLAYED PLOT OF SURVIVAL CURVES
 message("Overlayed Surival Plots based on PAM50 and SCMGENE")
                           ## Basal    Her2        Luminal   Normal
 plot(surv.obj.PAM50,col =c("#006d2c", "#a50f15", "#08519c", "#000000"),lty = 1,lwd = 3,
-     xlab = "Time (months)",ylab = "Survival")
-legend("topright",fill = c("#238b45","#cb181d","#2171b5","#000000"),legend = c("Basal","Her2","Luminal","Normal"))
+     xlab = "Time (months)",ylab = "Survival",ymin = 0.2)
+legend("topright",
+       fill = c("#238b45","#cb181d","#2171b5","#000000"),
+       legend = c("Basal","Her2","Luminal","Normal"))
 
 par(new=TRUE)
                             ## Basal    Her2        Luminal
@@ -470,12 +487,16 @@ This returns the mean cross-validated partial likelihood, for each algorithm, us
 set.seed(12345)
 PatientMatrix<-ddata[rownames(data.for.survival.PAM50),]
 
-PAM5_CVPL<-cvpl(x=data.for.survival.PAM50$age, surv.time=data.for.survival.PAM50$months_to_death, 
-                surv.event=data.for.survival.PAM50$vital_status, strata=as.integer(factor(data.for.survival.PAM50$PAM50)), 
+PAM5_CVPL<-cvpl(x=data.for.survival.PAM50$age, 
+                surv.time=data.for.survival.PAM50$months_to_death, 
+                surv.event=data.for.survival.PAM50$vital_status, 
+                strata=as.integer(factor(data.for.survival.PAM50$PAM50)), 
                 nfold=10, setseed=54321)$cvpl
 
-SCMEGENE_CVPL<-cvpl(x=data.for.survival.SCMGENE$age, surv.time=data.for.survival.SCMGENE$months_to_death, 
-                    surv.event=data.for.survival.SCMGENE$vital_status, strata=as.integer(factor(data.for.survival.SCMGENE$SCMGENE)), 
+SCMEGENE_CVPL<-cvpl(x=data.for.survival.SCMGENE$age, 
+                    surv.time=data.for.survival.SCMGENE$months_to_death, 
+                    surv.event=data.for.survival.SCMGENE$vital_status, 
+                    strata=as.integer(factor(data.for.survival.SCMGENE$SCMGENE)), 
                     nfold=10, setseed=54321)$cvpl
 
 print.data.frame(data.frame(cbind(PAM5_CVPL,SCMEGENE_CVPL)))
@@ -590,7 +611,8 @@ for(i in 1:length(dn)) {
   rest <- cbind(rest, "TAMR13"=tamr13(data=ddata, annot=dannot, do.mapping=domap)$score)
 
   ## GENE70
-  # Need to do mapping for Affy platforms because this is based on Agilent. Hence the mapping rule is reversed here! 
+  # Need to do mapping for Affy platforms because this is based on Agilent. 
+  # Hence the mapping rule is reversed here! 
   if(dn.platform[i] == "affy") { domap <- TRUE } else { domap <- FALSE }
   rest <- cbind(rest, "GENE70"=gene70(data=ddata, annot=dannot, std="none",do.mapping=domap)$score)
   
@@ -622,7 +644,7 @@ for(i in 1:length(ddemo.all)) {
 res[complete.cases(ddemot[ ,"dataset"]) & ddemot[ ,"dataset"] == "VDX", "GENIUS"] <- NA
 
 ## select only untreated node-negative patients with all risk predictions
-## ie(incomplete cases (where a risk prediction may be missing for a sample) are subsequently removed))
+## ie(incomplete cases (where risk prediction may be missing for a sample) are subsequently removed))
 # Note that increasing the number of risk prediction analyses 
 # may increase the number of incomplete cases
 # In the previous vignette for genefu version1, we were only testing 4 risk predictors, 
@@ -910,7 +932,7 @@ The following is a list of publications that have cited genefu (Version 1) in th
 %------------------------------------------------------------
 \section{Session Info}
 %------------------------------------------------------------ 
-<<sessionInfo,echo=FALSE,results="tex">>==
+<<sessionInfo>>==
 toLatex(sessionInfo())
 @
 
