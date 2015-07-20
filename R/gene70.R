@@ -1,3 +1,5 @@
+if(getRversion() >= "2.15.1")  utils::globalVariables("sig.gene70")
+
 `gene70` <-
 function(data, annot, do.mapping=FALSE, mapping, std=c("none", "scale", "robust"), verbose=FALSE) {
 	
