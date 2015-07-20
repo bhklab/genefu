@@ -476,7 +476,8 @@ legend("topright",
 
 par(new=TRUE)
                             ## Basal    Her2        Luminal
-lines(surv.obj.SCMGENE,col =c("#41ab5d", "#ef3b2c", "#6baed6"),lty=1.5,lwd=1)
+lines(surv.obj.SCMGENE,col =c("#41ab5d", "#ef3b2c", "#6baed6"),lwd=2,lty=5)
+legend("bottomright",c("PAM50","SCMGENE"),lty=c("solid", "dashed"))
 
 @
 
