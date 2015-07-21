@@ -8,7 +8,9 @@ Function to compute the prediction scores and risk classifications for the ovari
 This function computes signature scores and risk classifications from gene expression values following the algorithm developed by the TCGA consortium for ovarian cancer.
 }
 \usage{
-ovcTCGA(data, annot, gmap = c("entrezgene", "ensembl_gene_id", "hgnc_symbol", "unigene"), do.mapping = FALSE, verbose = FALSE)
+ovcTCGA(data, annot, 
+gmap = c("entrezgene", "ensembl_gene_id", "hgnc_symbol", "unigene"), 
+do.mapping = FALSE, verbose = FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

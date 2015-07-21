@@ -41,8 +41,10 @@ Benjamin Haibe-Kains
 %%\seealso{
 %%}
 \examples{
-tt <- data.frame(matrix(NA, nrow=3, ncol=3, dimnames=list(1:3, paste("column", 1:3, sep="."))), stringsAsFactors=FALSE)
-tt <- setcolclass.df(df=tt, colclass=c("numeric", "factor", "character"), factor.levels=list(NULL, c("F1", "F2", "F3"), NULL))
+tt <- data.frame(matrix(NA, nrow=3, ncol=3, dimnames=list(1:3, paste("column", 1:3, sep="."))), 
+stringsAsFactors=FALSE)
+tt <- setcolclass.df(df=tt, colclass=c("numeric", "factor", "character"), 
+factor.levels=list(NULL, c("F1", "F2", "F3"), NULL))
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

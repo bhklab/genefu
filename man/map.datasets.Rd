@@ -8,7 +8,8 @@ Function to map a list of datasets through EntrezGene IDs in order to get the un
 This function maps a list of datasets through EntrezGene IDs in order to get the union of the genes. 
 }
 \usage{
-map.datasets(datas, annots, do.mapping = FALSE, mapping.coln = "EntrezGene.ID", mapping, verbose = FALSE)
+map.datasets(datas, annots, do.mapping = FALSE, 
+mapping.coln = "EntrezGene.ID", mapping, verbose = FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

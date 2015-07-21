@@ -8,7 +8,9 @@ Function to compute the subtype scores and risk classifications for the prognost
 This function computes subtype scores and risk classifications from gene expression values following the algorithm developed by Yoshihara et al, for prognosis in ovarian cancer.
 }
 \usage{
-ovcYoshihara(data, annot, hgs, gmap = c("entrezgene", "ensembl_gene_id", "hgnc_symbol", "unigene", "refseq_mrna"), do.mapping = FALSE, verbose = FALSE)
+ovcYoshihara(data, annot, hgs, 
+gmap = c("entrezgene", "ensembl_gene_id", "hgnc_symbol", "unigene", "refseq_mrna"), 
+do.mapping = FALSE, verbose = FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -64,7 +66,8 @@ data(sigOvcYoshihara)
 data(nkis)
 colnames(annot.nkis)[is.element(colnames(annot.nkis), "EntrezGene.ID")] <- "entrezgene"
 ## compute relapse score
-ovcYoshihara.nkis <- ovcYoshihara(data=data.nkis, annot=annot.nkis, gmap="entrezgene", do.mapping=TRUE)
+ovcYoshihara.nkis <- ovcYoshihara(data=data.nkis, 
+annot=annot.nkis, gmap="entrezgene", do.mapping=TRUE)
 table(ovcYoshihara.nkis$risk)
 
 }
