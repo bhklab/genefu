@@ -135,7 +135,7 @@ function(sbt.model, data, annot, do.mapping=FALSE, mapping, do.prediction.streng
 					ncl[rr3$classification == nclass[i]] <- i
 				}
 				## use the previously computed model to fit a new model in a supervised manner
-				myclass <- unmap(ncl)
+				myclass <- mclust::unmap(ncl)
 				dimnames(myclass) <-  list(dimnames(dd)[[1]], sbtn)
 				mclust.tr <- mclust::mstep(modelName=model.name, data=dd[ , c("ESR1", "ERBB2"), drop=FALSE], z=myclass)
 				dimnames(mclust.tr$z) <- dimnames(myclass)

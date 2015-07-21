@@ -38,18 +38,12 @@
 \author[1,2]{Deena M.A. Gendoo}
 \author[1]{Natchar Ratanasirigulchai}
 \author[3]{Markus Schr\"{o}der}
-\author[4]{Gianluca Bontempi}
-\author[5]{Christos Sotiriou}
-\author[6,7]{John Quackenbush}
 \author[1,2]{Benjamin Haibe-Kains\thanks{benjamin.haibe.kains@utoronto.ca }}
 
 \affil[1]{Bioinformatics and Computational Genomics Laboratory, Princess Margaret Cancer Center, University Health Network, Toronto, Ontario, Canada}
 \affil[2]{Department of Medical Biophysics, University of Toronto, Toronto, Canada}
 \affil[3]{UCD School of Biomolecular and Biomedical Science, Conway Institute, University College Dublin, Belfield, Dublin, Ireland}
 \affil[4]{Machine Learning Group, Universit\'{e} Libre de Bruxelles}
-\affil[5]{Breast Cancer Translational Research Laboratory, Institut Jules Bordet, Universit\'{e} Libre de Bruxelles}
-\affil[6]{Computational Biology and Functional Genomics Laboratory, Dana-Farber Cancer Institute, Harvard School of Public Health}
-\affil[7]{Center for Cancer Computational Biology, Dana-Farber Cancer Institute}
 
 \maketitle
 \tableofcontents
@@ -80,16 +74,21 @@ source("http://bioconductor.org/biocLite.R")
 biocLite("genefu")
 @
 
-For computing the risk scores, estimates of the performance of the risk scores, combining the estimates and comparing the estimates we have to load the genefu and survcomp packages into the workspace. We also load the xtable package to display results inside this document.
+For computing the risk scores, estimates of the performance of the risk scores, combining the estimates and comparing the estimates we have to load the genefu and survcomp packages into the workspace. 
+We also load all the packages we need to conduct the case studies. 
 
 <<loadPackages,eval=TRUE,results='hide',message=FALSE>>=
 library(genefu)
 library(xtable)
 library(rmeta)
+library(Biobase)
+library(caret)
+library(e1071)
 @
 
+
 %------------------------------------------------------------
-\section{Case Study : Comparing risk prediction models}
+\section{Load Datasets and Packages for Case Studies}
 %------------------------------------------------------------ 
 
 The following case study compares risk prediction models. 
@@ -155,17 +154,9 @@ Overall & 1123 & 759 & 178 & 25-73 & 237/507/350 & Affy/Agilent \\
 \end{center}
 \end{table}
 
-
-%------------------------------------------------------------
-%------------------------------------------------------------
-%%% CODE START
-%------------------------------------------------------------
-%------------------------------------------------------------
-
 Since there are duplicated patients in the five data sets, we have to identify the duplicated patients 
 and we subsequently store them in a vector.
 <<findDuplicatedPatients,eval=TRUE,results='hide',message=FALSE>>=
-library(Biobase)
 data(breastCancerData)
 cinfo <- colnames(pData(mainz7g))
 data.all <- c("transbig7g"=transbig7g, "unt7g"=unt7g, "upp7g"=upp7g, "mainz7g"=mainz7g, "nki7g"=nki7g)
@@ -222,6 +213,301 @@ duplres <- c(duplres, duplrest)
 ## Full set duplicated patients
 duPL <- sort(unlist(lapply(duplres, function(x) { return(x[-1]) } )))
 @
+
+%------------------------------------------------------------
+\section{Case Study : Compare Molecular Subtype Classifications}
+%------------------------------------------------------------ 
+
+For this case study, we first created a merged expression set that combines all the samples across the 5 datasets. 
+To do this we first select for the most representative probes across the esets and get the corresponding gene ids.
+We then perform quantile normalization on the gene expression datasets to merge them. 
+
+<<CreateMergedDataset>>=
+library(WGCNA)
+##---------------------------------------
+## Call the datasetMerging function
+##---------------------------------------
+
+datasetMerging<-function (esets, nthread=1) {
+
+    ## all unique Entrez gene ids
+    ugid <- lapply(esets, function(x) { 
+      return(Biobase::fData(x)[, is.element(colnames(fData(x)), 
+                                            c("probe", "EntrezGene.ID"))]) })
+    ugid <- do.call(rbind, ugid)
+    ugid <- ugid[!is.na(ugid[ , "EntrezGene.ID"]) & 
+                   !duplicated(ugid[ , "EntrezGene.ID"]), , drop=FALSE]
+    rownames(ugid) <- gsub(sprintf("(%s).", paste(names(esets), collapse="|")), "", rownames(ugid))
+    feature.merged <- ugid
+           
+    ## expression data
+    exprs.merged <- lapply(esets, function (x, y) 
+      {
+        ee <- Biobase::exprs(x)[is.element(rownames(exprs(x)),rownames(feature.merged)),]
+        print(dim(ee))
+        eem <- matrix(NA, nrow=length(y), ncol=ncol(ee), dimnames=list(y, colnames(ee)))
+        print(dim(eem))
+        print(length(intersect(rownames(ee),rownames(eem))))
+        eem[rownames(ee), colnames(ee)] <- ee
+        return (eem)
+      }, y=rownames(feature.merged))
+    
+    exprs.merged <- do.call(cbind, exprs.merged)
+
+    ## clinical info
+    ucid <- lapply(esets, function(x) { return(colnames(Biobase::pData(x))) })
+    ucid <- table(unlist(ucid))
+    ucid <- names(ucid)[ucid == length(esets)]
+    clinicinfo.merged <- lapply(esets, function (x , y) {
+      ee <- Biobase::pData(x)[ , y, drop=FALSE]
+    }, y=ucid)
+    clinicinfo.merged <- do.call(rbind, clinicinfo.merged)
+    rownames(clinicinfo.merged) <- colnames(exprs.merged)
+
+    ## create a merged expressionSet object
+    eset.merged <- ExpressionSet(assayData=exprs.merged, 
+                                 phenoData=AnnotatedDataFrame(data=clinicinfo.merged), 
+                                 featureData=AnnotatedDataFrame(data=feature.merged))
+    experimentData(eset.merged)@preprocessing <- list("normalization"="mixed", 
+                                                      package="unspecified", version="0")
+    annotation(eset.merged) <- "mixed"
+    ## standardization
+
+   ## robust scaling followed by quantile normalization
+   ee <- exprs(eset.merged)
+   
+   # ee <- apply(ee, 2, genefu::rescale)
+   splitix <- parallel::splitIndices(nx=ncol(ee), ncl=nthread)
+   mcres <- parallel::mclapply(splitix, function(x, data) 
+     {
+       res <- apply(data[ , x, drop=FALSE], 2, function (dx) {
+         return ((rescale(dx, q=0.05, na.rm=TRUE) - 0.5) * 2)
+       })
+       return (res)
+    }, data=ee, mc.cores=nthread)
+   ee <- do.call(cbind, mcres)
+
+   ## quantile normalization
+   ee <- limma::normalizeBetweenArrays(object=ee, method="quantile")
+   exprs(eset.merged) <- ee
+   
+  return (eset.merged)
+}
+
+##---------------------------------------
+## Probe-gene mapping
+##---------------------------------------
+
+nthread <- 1
+ availcore <- parallel::detectCores()
+    if (nthread > availcore) { nthread <- availcore }
+    options("mc.cores"=nthread)
+
+strEsets <- c("transbig", "unt", "upp", "mainz","nki")
+esets <- list()
+
+for(i in 1:length(strEsets)) 
+{
+  ## load dataset
+  esets[i] <- get(data(list=strEsets[i]))
+}
+names(esets) <- strEsets
+newEsets <- list()
+
+for (counter in esets)
+  {
+    fData(counter)$EntrezGene.ID[fData(counter)$EntrezGene.ID == "" 
+                                 |fData(counter)$EntrezGene.ID == " " ] <- NA
+    ## take out NA from fData, select those rows from expr
+    counter.fdata <- fData(counter)[!is.na(fData(counter)$EntrezGene.ID),]
+    counter.expr <- exprs(counter)[rownames(counter.fdata),]
+  
+    x <- cbind(counter.fdata$EntrezGene.ID,counter.expr)
+    collapsed.wgcna.mrv <- WGCNA::collapseRows(x[,-1], rowID=rownames(x), 
+                                               rowGroup=x[,1], method="maxRowVariance")
+    
+    best_probe <- collapsed.wgcna.mrv[[3]]
+    Biobase::exprs(counter) <- counter.expr[best_probe, ]
+    Biobase::fData(counter) <- counter.fdata[best_probe,]
+    rownames(Biobase::exprs(counter)) <- Biobase::fData(counter)$EntrezGene.ID
+    rownames(Biobase::fData(counter)) <- Biobase::fData(counter)$EntrezGene.ID
+    newEsets <- c(newEsets,counter)
+  }
+names(newEsets) <- strEsets
+
+##---------------------------------------
+## Merge the datasets to eset.merged & remove duplicates
+##---------------------------------------
+eset.merged <- datasetMerging(newEsets)
+pData(eset.merged) <- cbind(Biobase::pData(eset.merged), "duplicates"=NA)
+dups<-duPL
+names(dups)<-dups
+
+exprs(eset.merged)<-exprs(eset.merged[ , -which(colnames(eset.merged) %in% c(dups))])
+pData(eset.merged)<-pData(eset.merged)[-which(rownames(pData(eset.merged)) %in% c(dups)),]
+@
+
+We now perform molecular subtyping on the merged dataset. 
+Here, we perform subtyping using the PAM50 as well as the SCMgene subtyping algorithms. 
+<<CalculateMolecularSubtypes>>=
+
+#Load the PAM50 model first
+data("pam50")
+data("pam50.robust")
+data("pam50.scale")
+
+  #Extract expression set, pData, fData for each dataset
+  ddata <- t(exprs(eset.merged)) 
+  ddemo <- phenoData(eset.merged)@data
+  dannot <- featureData(eset.merged)@data
+  
+  #MOLECULAR SUBTYPING
+  #Perform subtyping using scmod2.robust
+  # scmod2.robust: List of parameters defining the subtype clustering model 
+  # (as defined by Wirapati et al)
+  SubtypePredictions<-subtype.cluster.predict(sbt.model=scmod2.robust,
+                                              data=ddata,annot=dannot,do.mapping=TRUE,verbose=TRUE)
+  
+  #Get sample counts pertaining to each subtype
+  table(SubtypePredictions$subtype)
+  #Select samples pertaining to Basal Subtype
+  Basals<-names(which(SubtypePredictions$subtype == "ER-/HER2-"))
+  #Select samples pertaining to HER2 Subtype
+  HER2s<-names(which(SubtypePredictions$subtype == "HER2+"))
+  #Select samples pertaining to Luminal Subtype
+  Luminals<-names(which(SubtypePredictions$subtype == "ER+/HER2-"))
+  #ASSIGN SUBTYPES TO EVERY SAMPLE, ADD TO THE EXISTING PHENODATA
+  ddemo$SCMGENE<-SubtypePredictions$subtype
+  ddemo[Luminals,]$SCMGENE<-"Luminal"
+  ddemo[Basals,]$SCMGENE<-"Basal"
+  ddemo[HER2s,]$SCMGENE<-"Her2"
+  
+  
+  # Perform subtyping using PAM50
+  # Matrix should have samples as ROWS, genes as COLUMNS
+  rownames(dannot)<-dannot$probe<-dannot$EntrezGene.ID
+ 
+  PAM50Preds<-intrinsic.cluster.predict(sbt.model=pam50,data=ddata,
+                                        annot=dannot,do.mapping=TRUE,verbose=TRUE)
+  table(PAM50Preds$subtype)
+  ddemo$PAM50<-PAM50Preds$subtype
+  LumA<-names(which(PAM50Preds$subtype == "LumA"))
+  LumB<-names(which(PAM50Preds$subtype == "LumB"))
+  Normals<-names(which(PAM50Preds$subtype=="Normal"))
+  ddemo[LumA,]$PAM50<-"Luminal"
+  ddemo[LumB,]$PAM50<-"Luminal"
+@
+
+We can compare the performance of both molecular subtyping methods 
+and determine how concordant subtype predictions are across the global population.
+We first generate a confusion matrix of the subtype predictions.
+<<CompareMolecularSubtypesByConfusionMatrix>>=
+# Obtain the subtype prediction counts for PAM50
+table(ddemo$PAM50)
+
+# Obtain the subtype prediction counts for SCMGENE
+table(ddemo$SCMGENE)
+
+# We compare the samples that are predicted as pertaining to a molecular subtyp
+# We ignore for now the samples that predict as 'Normal' by PAM50
+confusionMatrix(ddemo[-which(rownames(ddemo) %in% Normals),]$SCMGENE,
+                ddemo[-which(rownames(ddemo) %in% Normals),]$PAM50)
+@
+
+From these results, the concordance of the predictions between these models is around 83 percent. 
+
+We can also compare the survival of patients for each subtype. 
+We plot the surival curves of patients by subtype, 
+based on each molecular classification algorithm
+<<CompareSurvivalBySubtypes>>=
+# http://www.inside-r.org/r-doc/survival/survfit.coxph
+library(survival)
+
+data.for.survival.SCMGENE <- ddemo[,c("e.os", "t.os", "SCMGENE","age")]
+data.for.survival.PAM50 <- ddemo[,c("e.os", "t.os", "PAM50","age")]
+# Remove patients with missing survival information
+data.for.survival.SCMGENE <- data.for.survival.SCMGENE[complete.cases(data.for.survival.SCMGENE),]
+data.for.survival.PAM50 <- data.for.survival.PAM50[complete.cases(data.for.survival.PAM50),]
+
+days.per.month <- 30.4368
+days.per.year <- 365.242
+
+data.for.survival.PAM50$months_to_death <- data.for.survival.PAM50$t.os / days.per.month
+data.for.survival.PAM50$vital_status <- data.for.survival.PAM50$e.os == "1"
+surv.obj.PAM50 <- survfit(Surv(data.for.survival.PAM50$months_to_death, 
+                               data.for.survival.PAM50$vital_status) ~ data.for.survival.PAM50$PAM50)
+
+data.for.survival.SCMGENE$months_to_death <- data.for.survival.SCMGENE$t.os / days.per.month
+data.for.survival.SCMGENE$vital_status <- data.for.survival.SCMGENE$e.os == "1"
+surv.obj.SCMGENE <- survfit(Surv(
+  data.for.survival.SCMGENE$months_to_death, 
+  data.for.survival.SCMGENE$vital_status) ~ data.for.survival.SCMGENE$SCMGENE)
+
+message("KAPLAN-MEIR CURVE - USING PAM50")
+# survMisc::autoplot(surv.obj.PAM50, title="Survival curves PAM50", censSize=0)$plot + 
+#   scale_colour_manual(name="Strata", values=c("black", "green", "blue", "red"))
+
+plot(main = "Surival Curves PAM50", surv.obj.PAM50,
+     col =c("#006d2c", "#a50f15", "#08519c", "#000000"),lty = 1,lwd = 3,
+     xlab = "Time (months)",ylab = "Survival")
+legend("topright",
+       fill = c("#006d2c", "#a50f15", "#08519c", "#000000"),
+       legend = c("Basal","Her2","Luminal","Normal"))
+
+message("KAPLAN-MEIR CURVE - USING SCMGENE")
+# survMisc::autoplot(surv.obj.SCMGENE, title="Survival curves SCMGENE", censSize=0)$plot + 
+#   scale_colour_manual(name="Strata", values=c("black", "green", "blue"))
+
+plot(main = "Surival Curves SCMGENE", surv.obj.SCMGENE,
+     col =c("#41ab5d", "#ef3b2c", "#6baed6"),lty = 1,lwd = 3,
+     xlab = "Time (months)",ylab = "Survival")
+legend("topright",
+       fill = c("#41ab5d", "#ef3b2c", "#6baed6"),
+       legend = c("Basal","Her2","Luminal"))
+
+## GENERATE A OVERLAYED PLOT OF SURVIVAL CURVES
+message("Overlayed Surival Plots based on PAM50 and SCMGENE")
+                          ## Basal    Her2        Luminal   Normal
+plot(surv.obj.PAM50,col =c("#006d2c", "#a50f15", "#08519c", "#000000"),lty = 1,lwd = 3,
+     xlab = "Time (months)",ylab = "Survival",ymin = 0.2)
+legend("topright",
+       fill = c("#238b45","#cb181d","#2171b5","#000000"),
+       legend = c("Basal","Her2","Luminal","Normal"))
+
+par(new=TRUE)
+                            ## Basal    Her2        Luminal
+lines(surv.obj.SCMGENE,col =c("#41ab5d", "#ef3b2c", "#6baed6"),lwd=2,lty=5)
+legend("bottomright",c("PAM50","SCMGENE"),lty=c("solid", "dashed"))
+
+@
+
+We can now compare which of the molecular subtyping algorithms is more prognostic.
+To do this we use a Cross-validated Partial Likelihood (cvpl) calculation from survcomp. 
+This returns the mean cross-validated partial likelihood, for each algorithm, using molecular subtypes for stratification
+<<CalculatedCVPL>>=
+set.seed(12345)
+PatientMatrix<-ddata[rownames(data.for.survival.PAM50),]
+
+PAM5_CVPL<-cvpl(x=data.for.survival.PAM50$age, 
+                surv.time=data.for.survival.PAM50$months_to_death, 
+                surv.event=data.for.survival.PAM50$vital_status, 
+                strata=as.integer(factor(data.for.survival.PAM50$PAM50)), 
+                nfold=10, setseed=54321)$cvpl
+
+SCMEGENE_CVPL<-cvpl(x=data.for.survival.SCMGENE$age, 
+                    surv.time=data.for.survival.SCMGENE$months_to_death, 
+                    surv.event=data.for.survival.SCMGENE$vital_status, 
+                    strata=as.integer(factor(data.for.survival.SCMGENE$SCMGENE)), 
+                    nfold=10, setseed=54321)$cvpl
+
+print.data.frame(data.frame(cbind(PAM5_CVPL,SCMEGENE_CVPL)))
+@
+
+\newpage
+
+%------------------------------------------------------------
+\section{Case Study : Comparing risk prediction models}
+%------------------------------------------------------------ 
 
 ** Computing Risk Scores of Prognostic Signatures for Each Dataset:** 
 
@@ -326,7 +612,8 @@ for(i in 1:length(dn)) {
   rest <- cbind(rest, "TAMR13"=tamr13(data=ddata, annot=dannot, do.mapping=domap)$score)
 
   ## GENE70
-  # Need to do mapping for Affy platforms because this is based on Agilent. Hence the mapping rule is reversed here! 
+  # Need to do mapping for Affy platforms because this is based on Agilent. 
+  # Hence the mapping rule is reversed here! 
   if(dn.platform[i] == "affy") { domap <- TRUE } else { domap <- FALSE }
   rest <- cbind(rest, "GENE70"=gene70(data=ddata, annot=dannot, std="none",do.mapping=domap)$score)
   
@@ -358,9 +645,11 @@ for(i in 1:length(ddemo.all)) {
 res[complete.cases(ddemot[ ,"dataset"]) & ddemot[ ,"dataset"] == "VDX", "GENIUS"] <- NA
 
 ## select only untreated node-negative patients with all risk predictions
-## ie(incomplete cases (where a risk prediction may be missing for a sample) are subsequently removed))
-# Note that increasing the number of risk prediction analyses may increase the number of incomplete cases
-# In the previous vignette for genefu version1, we were only testing 4 risk predictors, so we had a total of 722 complete cases remaining
+## ie(incomplete cases (where risk prediction may be missing for a sample) are subsequently removed))
+# Note that increasing the number of risk prediction analyses 
+# may increase the number of incomplete cases
+# In the previous vignette for genefu version1, we were only testing 4 risk predictors, 
+# so we had a total of 722 complete cases remaining
 # Here, we are now testing 12 risk predictors, so we only have 713 complete cases remaining. 
 # The difference of 9 cases between the two versions are all from the NKI dataset. 
 myx <- complete.cases(res, ddemot[ , c("node", "treatment")]) & 
@@ -644,7 +933,7 @@ The following is a list of publications that have cited genefu (Version 1) in th
 %------------------------------------------------------------
 \section{Session Info}
 %------------------------------------------------------------ 
-<<sessionInfo,echo=FALSE,results="tex">>==
+<<sessionInfo>>==
 toLatex(sessionInfo())
 @
 
