@@ -1,3 +1,5 @@
+if(getRversion() >= "2.15.1")  utils::globalVariables("pam50")
+
 `rorS` <-
 function(data, annot, do.mapping=FALSE, mapping, verbose=FALSE) {
 
