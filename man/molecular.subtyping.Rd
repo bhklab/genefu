@@ -8,9 +8,7 @@ Function to identify breast cancer molecular subtypes using the Subtype Clusteri
 This function identifies the breast cancer molecular subtypes using a Subtype Clustering Model fitted by \code{\link[genefu]{subtype.cluster}}.
 }
 \usage{
-molecular.subtyping(sbt.model = c("scmgene", "scmod1", "scmod2", "pam50", "ssp2006", "ssp2003", "intClust", "AIMS"), data, annot, do.mapping = FALSE,
-  mapping, do.prediction.strength = FALSE,
-  do.BIC = FALSE, plot = FALSE, verbose = FALSE)
+molecular.subtyping(sbt.model = c("scmgene", "scmod1", "scmod2", "pam50", "ssp2006", "ssp2003", "intClust", "AIMS"), data, annot, do.mapping = FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -69,13 +67,13 @@ Benjamin Haibe-Kains
 ## load VDX data
 data(vdxs)
 ## Subtype Clustering Model fitted on EXPO and applied on VDX
-sbt.vdxs <- molecular.subtyping(sbt.model="scmgene", data=data.vdxs, 
+sbt.vdx.SCMGENE <- molecular.subtyping(sbt.model="scmgene", data=data.vdxs, 
   annot=annot.vdxs, do.mapping=FALSE)
-table(sbt.vdxs$subtype)
-table(sbt.vdxs$subtype2)
+table(sbt.vdx.SCMGENE$subtype)
 ## Using the AIMS molecular subtyping algorithm
-sbt.vdxs <- molecular.subtyping(sbt.model="AIMS", data=data.vdxs,
+sbt.vdxs.AIMS <- molecular.subtyping(sbt.model="AIMS", data=data.vdxs,
 annot=annot.vdxs, do.mapping=FALSE)
+table(sbt.vdxs.AIMS$subtype)
 
 ## with mapping
 ## load NKI data
@@ -84,8 +82,6 @@ data(nkis)
 sbt.nkis <- molecular.subtyping(sbt.model="scmgene", data=data.nkis, 
   annot=annot.nkis, do.mapping=TRUE)
 table(sbt.nkis$subtype)
-table(sbt.nkis$subtype2)
-
 
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
