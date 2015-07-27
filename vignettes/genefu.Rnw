@@ -368,7 +368,8 @@ data("pam50.scale")
 #   SubtypePredictions<-subtype.cluster.predict(sbt.model=scmod2.robust,
 #                                               data=ddata,annot=dannot,do.mapping=TRUE,verbose=TRUE)
    
-  SubtypePredictions<-molecular.subtyping(sbt.model = "scmod2",data = ddata,annot = dannot,do.mapping = TRUE)
+  SubtypePredictions<-molecular.subtyping(sbt.model = "scmod2",data = ddata,
+                                          annot = dannot,do.mapping = TRUE)
   
   #Get sample counts pertaining to each subtype
   table(SubtypePredictions$subtype)
@@ -385,8 +386,7 @@ data("pam50.scale")
   ddemo[LuminalA,]$SCMGENE<-"LumA"
   ddemo[Basals,]$SCMGENE<-"Basal"
   ddemo[HER2s,]$SCMGENE<-"Her2"
-  
-  
+ 
   # Perform subtyping using PAM50
   # Matrix should have samples as ROWS, genes as COLUMNS
   rownames(dannot)<-dannot$probe<-dannot$EntrezGene.ID
@@ -397,7 +397,11 @@ data("pam50.scale")
 #                                         annot=dannot,do.mapping=TRUE,verbose=TRUE)
   table(PAM50Preds$subtype)
   ddemo$PAM50<-PAM50Preds$subtype
-  Normals<-names(which(PAM50Preds$subtype=="Normal"))
+  LumA<-names(PAM50Preds$subtype)[which(PAM50Preds$subtype == "LumA")]
+  LumB<-names(PAM50Preds$subtype)[which(PAM50Preds$subtype == "LumB")]
+  Normals<-names(PAM50Preds$subtype)[which(PAM50Preds$subtype == "Normal")]
+  ddemo[LumA,]$PAM50<-"LumA"
+  ddemo[LumB,]$PAM50<-"LumB"
 @
 
 We can compare the performance of both molecular subtyping methods 
@@ -410,6 +414,7 @@ table(ddemo$PAM50)
 # Obtain the subtype prediction counts for SCMGENE
 table(ddemo$SCMGENE)
 
+ddemo$PAM50<-as.character(ddemo$PAM50)
 # We compare the samples that are predicted as pertaining to a molecular subtyp
 # We ignore for now the samples that predict as 'Normal' by PAM50
 confusionMatrix(ddemo[-which(rownames(ddemo) %in% Normals),]$SCMGENE,

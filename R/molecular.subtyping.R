@@ -72,9 +72,9 @@ function (sbt.model=c("scmgene", "scmod1", "scmod2", "pam50", "ssp2006", "ssp200
     #sbts$subtype.crisp <- cbind(sbts$subtype.crisp, "Lums"=lums.crisp)
     
     ## reorder columns
-    ss <- sbtn2.ssp[is.element(sbtn2.ssp, colnames(sbts$subtype.proba))]
-    sbts$subtype.proba <- sbts$subtype.proba[ , ss, drop=FALSE]
-    sbts$subtype.crisp <- sbts$subtype.crisp[ , ss, drop=FALSE]
+    #ss <- sbtn2.ssp[is.element(sbtn2.ssp, colnames(sbts$subtype.proba))]
+    #sbts$subtype.proba <- sbts$subtype.proba[ , ss, drop=FALSE]
+    #sbts$subtype.crisp <- sbts$subtype.crisp[ , ss, drop=FALSE]
     
     ## set the proper names
     names(sbts$subtype) <- rownames(sbts$subtype.proba) <- rownames(sbts$subtype.crisp)<- rownames(data)
