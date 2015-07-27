@@ -35,13 +35,6 @@ function (sbt.model=c("scmgene", "scmod1", "scmod2", "pam50", "ssp2006", "ssp200
       return (xx)
     }))
     
-    ## merge ER+/HER2- Low Prolif and ER+/HER2- High Prolif
-      #sum the probability for LumA and LumB to get the probability for Luminals in general
-    #lums.proba <- apply(sbts$subtype.proba[ , c("ER+/HER2- High Prolif", "ER+/HER2- Low Prolif"), drop=FALSE], 1, sum, na.rm=TRUE)
-    #sbts$subtype.proba <- cbind(sbts$subtype.proba, "ER+/HER2-"=lums.proba)
-    #lums.crisp <- as.numeric(is.element(sbts$subtype, c("ER+/HER2- Low Prolif", "ER+/HER2- High Prolif")))
-    #sbts$subtype.crisp <- cbind(sbts$subtype.crisp, "ER+/HER2-"=lums.crisp)
-    
     ## reorder columns
     #ss <- sbtn2.ssp[is.element(sbtn2.ssp, colnames(sbts$subtype.proba))]
     #sbts$subtype.proba <- sbts$subtype.proba[ , ss, drop=FALSE]
@@ -53,7 +46,7 @@ function (sbt.model=c("scmgene", "scmod1", "scmod2", "pam50", "ssp2006", "ssp200
   
   ## SSP family
   if (sbt.model %in% c("ssp2003", "ssp2006", "pam50")) {
-    switch(model,
+    switch(sbt.model,
       "pam50" = {
         sbts <- intrinsic.cluster.predict(sbt.model=pam50.robust, data=data, annot=annot, do.mapping=do.mapping)[c("subtype", "subtype.proba")]
       },
@@ -71,7 +64,8 @@ function (sbt.model=c("scmgene", "scmod1", "scmod2", "pam50", "ssp2006", "ssp200
       xx[which.max(x)] <- 1
       return (xx)
     }))
-    ## merge LumA and LumB
+    
+    ## merge LumA and LumB: #sum the probability for LumA and LumB to get the probability for Luminals in general
     #lums.proba <- apply(sbts$subtype.proba[ , c("LumB", "LumA"), drop=FALSE], 1, sum, na.rm=TRUE)
     #sbts$subtype.proba <- cbind(sbts$subtype.proba, "Lums"=lums.proba)
     #lums.crisp <- as.numeric(is.element(sbts$subtype, c("LumA", "LumB")))
