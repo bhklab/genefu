@@ -65,7 +65,7 @@ Please also refer to the References section below, for additional information on
 \section{Loading package for case studies}
 %------------------------------------------------------------ 
 First we load the genefu into the workspace. 
-The pacakge is publicly available and can be installed from Bioconductor version 2.8 or higher in R version 2.13.0 or higher. 
+The package is publicly available and can be installed from Bioconductor version 2.8 or higher in R version 2.13.0 or higher. 
 
 To install the genefu package:
 <<installAndLoadPackages,eval=FALSE,results='hide',message=FALSE>>=
@@ -99,11 +99,11 @@ The five data sets that we use in the case study are publicly available as exper
 In particular we used:
 
 \begin{description}
-\item breastCancerMAINZ:  http://www.bioconductor.org/packages/release/data/experiment/html/breastCancerMAINZ.html
-\item breastCancerUPP:  http://www.bioconductor.org/packages/release/data/experiment/html/breastCancerUPP.html
-\item breastCancerUNT:  http://www.bioconductor.org/packages/release/data/experiment/html/breastCancerUNT.html
-\item breastCancerNKI:  http://www.bioconductor.org/packages/release/data/experiment/html/breastCancerNKI.html
-\item breastCancerTRANSBIG:http://www.bioconductor.org/packages/release/data/experiment/html/breastCancerTRANSBIG.html
+\item breastCancerMAINZ:  bioconductor.org/packages/release/data/experiment/html/breastCancerMAINZ.html
+\item breastCancerUPP:  bioconductor.org/packages/release/data/experiment/html/breastCancerUPP.html
+\item breastCancerUNT:  bioconductor.org/packages/release/data/experiment/html/breastCancerUNT.html
+\item breastCancerNKI:  bioconductor.org/packages/release/data/experiment/html/breastCancerNKI.html
+\item breastCancerTRANSBIG: bioconductor.org/packages/release/data/experiment/html/breastCancerTRANSBIG.html
 \end{description}
 
 Please Note: We don't use the breastCancerVDX experimental package in this case study since it has been used as training data set for GENIUS. 
@@ -509,8 +509,6 @@ print.data.frame(data.frame(cbind(PAM5_CVPL,SCMEGENE_CVPL)))
 \section{Case Study : Comparing risk prediction models}
 %------------------------------------------------------------ 
 
-** Computing Risk Scores of Prognostic Signatures for Each Dataset:** 
-
 We compute the risk scores using the following list of algorithms (and corresponding genefu functions):
 
 \begin{description}
@@ -648,7 +646,7 @@ res[complete.cases(ddemot[ ,"dataset"]) & ddemot[ ,"dataset"] == "VDX", "GENIUS"
 ## ie(incomplete cases (where risk prediction may be missing for a sample) are subsequently removed))
 # Note that increasing the number of risk prediction analyses 
 # may increase the number of incomplete cases
-# In the previous vignette for genefu version1, we were only testing 4 risk predictors, 
+# In the pconcordance indexevious vignette for genefu version1, we were only testing 4 risk predictors, 
 # so we had a total of 722 complete cases remaining
 # Here, we are now testing 12 risk predictors, so we only have 713 complete cases remaining. 
 # The difference of 9 cases between the two versions are all from the NKI dataset. 
@@ -659,9 +657,7 @@ res <- res[myx, , drop=FALSE]
 ddemot <- ddemot[myx, , drop=FALSE]
 @
 
-To compare the risk score performances, we compute the concordance index\footnote{The same analysis could be performed with D index and hazard ratio by using the functions \Rfunction{D.index} and \Rfunction{hazard.ratio} from the \Rpackage{survcomp} package respectively}:
-
-Definition of the concordance index for a risk prediction: the probability that, for a pair of randomly chosen comparable samples, the sample with the higher risk prediction will experience an event before the other sample or belongs to a higher binary class.
+To compare the risk score performances, we compute the concordance index\footnote{The same analysis could be performed with D index and hazard ratio by using the functions \Rfunction{D.index} and \Rfunction{hazard.ratio} from the \Rpackage{survcomp} package respectively}, which is the probability that, for a pair of randomly chosen comparable samples, the sample with the higher risk prediction will experience an event before the other sample or belongs to a higher binary class.
 
 <<cindexComputation>>=
 cc.res <- complete.cases(res)
@@ -725,7 +721,7 @@ printPV<-t(printPV)
 @
 
 And print the table of P-values:
-<<printPvalue,results="asis">>==
+<<printPvalue,results="asis">>=
 xtable(printPV, digits=c(0, -1))
 @
 
@@ -856,7 +852,7 @@ rownames(ccmData) <- riskPList
 
 Table 2 displays the for multiple testing uncorrected p-values for the comparison of the different methods:
 <<printCCM,results="asis">>=
-xtable(ccmData, digits=c(0, rep(-1,ncol(ccmData))))
+xtable(ccmData, digits=c(0, rep(-1,ncol(ccmData))), size="footnotesize")
 @
 
 
@@ -870,7 +866,7 @@ ccmDataPval <- matrix(p.adjust(data.matrix(ccmData), method="holm"),ncol=length(
 
 Table 3 displays the corrected p-values:
 <<printCCMPval,results='asis'>>=
-xtable(ccmDataPval, digits=c(0, rep(-1,ncol(ccmDataPval))))
+xtable(ccmDataPval, digits=c(0, rep(-1,ncol(ccmDataPval))), size="footnotesize")
 @
 
 
@@ -889,7 +885,7 @@ xtable(ccmDataPval, digits=c(0, rep(-1,ncol(ccmDataPval))))
 The following is a list of publications that have cited genefu (Version 1) in the past.
 
 
-** Where genefu was used in subtyping:**
+\subsection*{Where genefu was used in subtyping}
 
 \begin{description}
 \item Larsen, M.J. et al., 2014. Microarray-Based RNA Profiling of Breast Cancer: Batch Effect Removal Improves Cross-Platform Consistency. BioMed Research International, 2014, pp.1-11.
@@ -898,7 +894,7 @@ The following is a list of publications that have cited genefu (Version 1) in th
 \end{description}
 
 
-** Where genefu was used in Comparing Subtyping Schemes:** 
+\subsection*{Where genefu was used in Comparing Subtyping Schemes}
 
 \begin{description}
 \item Haibe-Kains, B. et al., 2012. A three-gene model to robustly identify breast cancer molecular subtypes. Journal of the National Cancer Institute, 104(4), pp.311-325.
@@ -909,7 +905,7 @@ The following is a list of publications that have cited genefu (Version 1) in th
 \end{description}
 
 
-** Where genefu was used to Compute Prognostic gene signature scores:** 
+\subsection*{Where genefu was used to Compute Prognostic gene signature scores}
 
 \begin{description}
 \item Haibe-Kains, B. et al., 2008. A comparative study of survival models for breast cancer prognostication based on microarray data: does a single gene beat them all? Bioinformatics, 24(19), pp.2200-2208.
@@ -920,7 +916,7 @@ The following is a list of publications that have cited genefu (Version 1) in th
 \end{description}
 
 
-** As well as other publications ** 
+\subsection*{As well as other publications}
 
 \begin{description}
 \item APOBEC3B expression in breast cancer reflects cellular proliferation, while a deletion polymorphism is associated with immune activation.Cescon DW, Haibe-Kains B, Mak TW. Proc Natl Acad Sci U S A. 2015 Mar 3;112(9):2841-6. doi: 10.1073/pnas.1424869112. Epub 2015 Feb 17. PMID: 25730878 
@@ -933,7 +929,7 @@ The following is a list of publications that have cited genefu (Version 1) in th
 %------------------------------------------------------------
 \section{Session Info}
 %------------------------------------------------------------ 
-<<sessionInfo>>==
+<<sessionInfo,results='asis'>>=
 toLatex(sessionInfo())
 @
 
