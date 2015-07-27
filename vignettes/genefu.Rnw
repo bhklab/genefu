@@ -365,8 +365,10 @@ data("pam50.scale")
   #Perform subtyping using scmod2.robust
   # scmod2.robust: List of parameters defining the subtype clustering model 
   # (as defined by Wirapati et al)
-  SubtypePredictions<-subtype.cluster.predict(sbt.model=scmod2.robust,
-                                              data=ddata,annot=dannot,do.mapping=TRUE,verbose=TRUE)
+#   SubtypePredictions<-subtype.cluster.predict(sbt.model=scmod2.robust,
+#                                               data=ddata,annot=dannot,do.mapping=TRUE,verbose=TRUE)
+#   
+  SubtypePredictions<-molecular.subtyping(sbt.model = "scmod2",data = ddata,annot = dannot,do.mapping = TRUE)
   
   #Get sample counts pertaining to each subtype
   table(SubtypePredictions$subtype)
@@ -374,11 +376,13 @@ data("pam50.scale")
   Basals<-names(which(SubtypePredictions$subtype == "ER-/HER2-"))
   #Select samples pertaining to HER2 Subtype
   HER2s<-names(which(SubtypePredictions$subtype == "HER2+"))
-  #Select samples pertaining to Luminal Subtype
-  Luminals<-names(which(SubtypePredictions$subtype == "ER+/HER2-"))
+  #Select samples pertaining to Luminal Subtypes
+  LuminalB<-names(which(SubtypePredictions$subtype == "ER+/HER2- High Prolif"))
+  LuminalA<-names(which(SubtypePredictions$subtype == "ER+/HER2- Low Prolif"))
   #ASSIGN SUBTYPES TO EVERY SAMPLE, ADD TO THE EXISTING PHENODATA
   ddemo$SCMGENE<-SubtypePredictions$subtype
-  ddemo[Luminals,]$SCMGENE<-"Luminal"
+  ddemo[LuminalB,]$SCMGENE<-"LumB"
+  ddemo[LuminalA,]$SCMGENE<-"LumA"
   ddemo[Basals,]$SCMGENE<-"Basal"
   ddemo[HER2s,]$SCMGENE<-"Her2"
   
@@ -387,6 +391,7 @@ data("pam50.scale")
   # Matrix should have samples as ROWS, genes as COLUMNS
   rownames(dannot)<-dannot$probe<-dannot$EntrezGene.ID
  
+  SubtypePredictions<-molecular.subtyping(sbt.model = "pam50",data = ddata,annot = dannot,do.mapping = TRUE)
   PAM50Preds<-intrinsic.cluster.predict(sbt.model=pam50,data=ddata,
                                         annot=dannot,do.mapping=TRUE,verbose=TRUE)
   table(PAM50Preds$subtype)
@@ -394,8 +399,8 @@ data("pam50.scale")
   LumA<-names(which(PAM50Preds$subtype == "LumA"))
   LumB<-names(which(PAM50Preds$subtype == "LumB"))
   Normals<-names(which(PAM50Preds$subtype=="Normal"))
-  ddemo[LumA,]$PAM50<-"Luminal"
-  ddemo[LumB,]$PAM50<-"Luminal"
+  ddemo[LumA,]$PAM50<-"LumA"
+  ddemo[LumB,]$PAM50<-"LumB"
 @
 
 We can compare the performance of both molecular subtyping methods 
