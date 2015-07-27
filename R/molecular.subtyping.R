@@ -1,4 +1,4 @@
-`molecular.subtyping <- 
+molecular.subtyping <- 
 function (sbt.model=c("scmgene", "scmod1", "scmod2", "pam50", "ssp2006", "ssp2003", "intClust", "AIMS"), data, annot, do.mapping=FALSE) {
   
   sbt.model <- match.arg(sbt.model)
@@ -118,11 +118,7 @@ function (sbt.model=c("scmgene", "scmod1", "scmod2", "pam50", "ssp2006", "ssp200
   
   ## AIMS classifier
   if (sbt.model %in% c("AIMS")) {
-    
-    AIMS::applyAIMS(eset=t(data), EntrezID=annot[ , "EntrezGene.ID"])
-    
-    
-    
+      AIMS::applyAIMS(eset=t(data), EntrezID=annot[ , "EntrezGene.ID"])
   }
   
   return (sbts)
