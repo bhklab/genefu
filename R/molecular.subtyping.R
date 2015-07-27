@@ -82,10 +82,11 @@ function (sbt.model=c("scmgene", "scmod1", "scmod2", "pam50", "ssp2006", "ssp200
   
   ## IntClust family
   if (sbt.model %in% c("intClust")) {
+    message("Note: Need a Gene.Symbol column in the annotation object")
     
     myx <- !is.na(annot[ , "Gene.Symbol"]) & !duplicated(annot[ , "Gene.Symbol"])
     dd <- t(data[ , myx, drop=FALSE])
-    rownames(dd) <- annot[myx, "gene"]
+    rownames(dd) <- annot[myx, "Gene.Symbol"]
     ## remove patients with more than 80% missing values
     rix <- apply(dd, 2, function (x, y) { return ((sum(is.na(x) / length(x))) > y) }, y=0.8)
     cix <- apply(dd, 2, function (x, y) { return ((sum(is.na(x) / length(x))) > y) }, y=0.8)

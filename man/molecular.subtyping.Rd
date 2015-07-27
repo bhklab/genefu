@@ -74,6 +74,11 @@ table(sbt.vdx.SCMGENE$subtype)
 sbt.vdxs.AIMS <- molecular.subtyping(sbt.model="AIMS", data=data.vdxs,
 annot=annot.vdxs, do.mapping=FALSE)
 table(sbt.vdxs.AIMS$subtype)
+## Using the IntClust molecular subtyping algorithm
+colnames(annot.vdxs)[3]<-"Gene.Symbol"
+sbt.vdxs.intClust <- molecular.subtyping(sbt.model="intClust", data=data.vdxs,
+annot=annot.vdxs, do.mapping=FALSE)
+table(sbt.vdxs.intClust$subtype)
 
 ## with mapping
 ## load NKI data
