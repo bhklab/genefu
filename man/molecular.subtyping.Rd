@@ -69,21 +69,24 @@ Benjamin Haibe-Kains
 ## load VDX data
 data(vdxs)
 ## Subtype Clustering Model fitted on EXPO and applied on VDX
-sbt.vdxs <- molecular.subtyping(sbt.model=scmgene.robust, data=data.vdxs, 
-  annot=annot.vdxs, do.mapping=FALSE, do.prediction.strength=FALSE, 
-  do.BIC=FALSE, plot=TRUE, verbose=TRUE)
+sbt.vdxs <- molecular.subtyping(sbt.model="scmgene", data=data.vdxs, 
+  annot=annot.vdxs, do.mapping=FALSE)
 table(sbt.vdxs$subtype)
 table(sbt.vdxs$subtype2)
+## Using the AIMS molecular subtyping algorithm
+sbt.vdxs <- molecular.subtyping(sbt.model="AIMS", data=data.vdxs,
+annot=annot.vdxs, do.mapping=FALSE)
 
 ## with mapping
 ## load NKI data
 data(nkis)
 ## Subtype Clustering Model fitted on EXPO and applied on NKI
-sbt.nkis <- molecular.subtyping(sbt.model=scmgene.robust, data=data.nkis, 
-  annot=annot.nkis, do.mapping=TRUE, do.prediction.strength=FALSE, 
-  do.BIC=FALSE, plot=TRUE, verbose=TRUE)
+sbt.nkis <- molecular.subtyping(sbt.model="scmgene", data=data.nkis, 
+  annot=annot.nkis, do.mapping=TRUE)
 table(sbt.nkis$subtype)
 table(sbt.nkis$subtype2)
+
+
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
