@@ -222,7 +222,7 @@ For this case study, we first created a merged expression set that combines all 
 To do this we first select for the most representative probes across the esets and get the corresponding gene ids.
 We then perform quantile normalization on the gene expression datasets to merge them. 
 
-<<CreateMergedDataset>>=
+<<CreateMergedDataset,warning=FALSE>>=
 library(WGCNA)
 ##---------------------------------------
 ## Call the datasetMerging function
@@ -234,6 +234,7 @@ datasetMerging<-function (esets, nthread=1) {
     ugid <- lapply(esets, function(x) { 
       return(Biobase::fData(x)[, is.element(colnames(fData(x)), 
                                             c("probe", "EntrezGene.ID"))]) })
+    stringsAsFactors=FALSE
     ugid <- do.call(rbind, ugid)
     ugid <- ugid[!is.na(ugid[ , "EntrezGene.ID"]) & 
                    !duplicated(ugid[ , "EntrezGene.ID"]), , drop=FALSE]
@@ -351,11 +352,6 @@ We now perform molecular subtyping on the merged dataset.
 Here, we perform subtyping using the PAM50 as well as the SCMgene subtyping algorithms. 
 <<CalculateMolecularSubtypes>>=
 
-#Load the PAM50 model first
-data("pam50")
-data("pam50.robust")
-data("pam50.scale")
-
   #Extract expression set, pData, fData for each dataset
   ddata <- t(exprs(eset.merged)) 
   ddemo <- phenoData(eset.merged)@data
@@ -459,7 +455,7 @@ plot(main = "Surival Curves PAM50", surv.obj.PAM50,
      xlab = "Time (months)",ylab = "Survival")
 legend("topright",
        fill = c("#006d2c", "#8856a7","#a50f15", "#08519c", "#000000"),
-       legend = c("Basal","Her2","LumA","LumB","Normal"))
+       legend = c("Basal","Her2","LumA","LumB","Normal"),bty = "n")
 
 message("KAPLAN-MEIR CURVE - USING SCMGENE")
 # survMisc::autoplot(surv.obj.SCMGENE, title="Survival curves SCMGENE", censSize=0)$plot + 
@@ -470,7 +466,7 @@ plot(main = "Surival Curves SCMGENE", surv.obj.SCMGENE,
      xlab = "Time (months)",ylab = "Survival")
 legend("topright",
        fill = c("#006d2c", "#8856a7","#a50f15", "#08519c"),
-       legend = c("Basal","Her2","LumA","LumB"))
+       legend = c("Basal","Her2","LumA","LumB"),bty = "n")
 
 ## GENERATE A OVERLAYED PLOT OF SURVIVAL CURVES
 message("Overlayed Surival Plots based on PAM50 and SCMGENE")
@@ -479,7 +475,7 @@ plot(surv.obj.PAM50,col =c("#006d2c", "#8856a7","#a50f15", "#08519c", "#000000")
      xlab = "Time (months)",ylab = "Survival",ymin = 0.2)
 legend("topright",
        fill = c("#006d2c", "#8856a7","#a50f15", "#08519c", "#000000"),
-       legend = c("Basal","Her2","LumA","LumB","Normal"))
+       legend = c("Basal","Her2","LumA","LumB","Normal"),bty = "n")
 
 par(new=TRUE)
                             ## Basal    Her2        LuminalA  LuminalB
