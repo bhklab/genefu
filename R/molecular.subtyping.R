@@ -82,7 +82,7 @@ function (sbt.model=c("scmgene", "scmod1", "scmod2", "pam50", "ssp2006", "ssp200
   
   ## IntClust family
   if (sbt.model %in% c("intClust")) {
-    message("Note: Need a Gene.Symbol column in the annotation object")
+    #message("Note: Need a Gene.Symbol column in the annotation object")
     sbts<-NULL
     myx <- !is.na(annot[ , "Gene.Symbol"]) & !duplicated(annot[ , "Gene.Symbol"])
     dd <- t(data[ , myx, drop=FALSE])
@@ -119,9 +119,21 @@ function (sbt.model=c("scmgene", "scmod1", "scmod2", "pam50", "ssp2006", "ssp200
   
   ## AIMS classifier
   if (sbt.model %in% c("AIMS")) {
-      sbts<-AIMS::applyAIMS(eset=t(data), EntrezID=annot[ , "EntrezGene.ID"])
+      sbts<-AIMS::applyAIMS(eset=t(data), EntrezID=annot[ , "EntrezGene.ID"])[c("cl", "all.probs")]
       sbts$subtype<-sbts$cl
-      sbts$proba<-sbts$prob
+      sbts$subtype.proba<-matrix(unlist(sbts$all.probs$`20`), ncol = 5, byrow = TRUE)
+      colnames(sbts$subtype.proba)<-colnames(sbts$all.probs$`20`)
+      rownames(sbts$subtype.proba)<-rownames(sbts$subtype)
+
+      ## compute crisp classification
+      sbts$subtype.crisp <- t(
+        apply(sbts$subtype.proba, 1, function (x) {
+        xx <- array(0, dim=length(x), dimnames=list(names(x)))
+        xx[which.max(x)] <- 1
+        return (xx)
+      })
+      )
+      sbts<-sbts[- which(names(sbts) %in% c("cl","all.probs"))]
   }
   
   return (sbts)

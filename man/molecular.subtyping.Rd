@@ -63,24 +63,30 @@ Benjamin Haibe-Kains
 \code{\link[genefu]{subtype.cluster.predict}}, \code{\link[genefu]{intrinsic.subtype.predict}}
 }
 \examples{
-## without mapping (affy hgu133a or plus2 only)
+##### without mapping (affy hgu133a or plus2 only)
 ## load VDX data
 data(vdxs)
+
 ## Subtype Clustering Model fitted on EXPO and applied on VDX
-sbt.vdx.SCMGENE <- molecular.subtyping(sbt.model="scmgene", data=data.vdxs, 
-  annot=annot.vdxs, do.mapping=FALSE)
+sbt.vdx.SCMGENE <- molecular.subtyping(sbt.model="scmgene", 
+  data=data.vdxs, annot=annot.vdxs, do.mapping=FALSE)
 table(sbt.vdx.SCMGENE$subtype)
+
 ## Using the AIMS molecular subtyping algorithm
-sbt.vdxs.AIMS <- molecular.subtyping(sbt.model="AIMS", data=data.vdxs,annot=annot.vdxs, do.mapping=FALSE)
+sbt.vdxs.AIMS <- molecular.subtyping(sbt.model="AIMS", data=data.vdxs,
+  annot=annot.vdxs, do.mapping=FALSE)
 table(sbt.vdxs.AIMS$subtype)
+
 ## Using the IntClust molecular subtyping algorithm
 colnames(annot.vdxs)[3]<-"Gene.Symbol"
-sbt.vdxs.intClust <- molecular.subtyping(sbt.model="intClust", data=data.vdxs,annot=annot.vdxs, do.mapping=FALSE)
+sbt.vdxs.intClust <- molecular.subtyping(sbt.model="intClust", data=data.vdxs,
+  annot=annot.vdxs, do.mapping=FALSE)
 table(sbt.vdxs.intClust$subtype)
 
-## with mapping
+##### with mapping
 ## load NKI data
 data(nkis)
+
 ## Subtype Clustering Model fitted on EXPO and applied on NKI
 sbt.nkis <- molecular.subtyping(sbt.model="scmgene", data=data.nkis, 
   annot=annot.nkis, do.mapping=TRUE)
