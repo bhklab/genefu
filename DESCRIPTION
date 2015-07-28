@@ -11,6 +11,7 @@ biocViews: DifferentialExpression, GeneExpression, Visualization, Clustering, Cl
 Depends: survcomp, mclust, biomaRt, iC10, AIMS, R (>= 2.10)
 Suggests: GeneMeta, breastCancerVDX, breastCancerMAINZ, breastCancerTRANSBIG, breastCancerUPP, breastCancerUNT, breastCancerNKI, rmeta, Biobase, xtable, knitr
 Imports: amap
+VignetteBuilder: knitr
 License: Artistic-2.0
 URL: http://www.pmgenomics.ca/bhklab/software/genefu
 LazyData: yes

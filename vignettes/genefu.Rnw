@@ -222,7 +222,7 @@ For this case study, we first created a merged expression set that combines all 
 To do this we first select for the most representative probes across the esets and get the corresponding gene ids.
 We then perform quantile normalization on the gene expression datasets to merge them. 
 
-<<CreateMergedDataset,warning=FALSE>>=
+<<CreateMergedDataset>>=
 library(WGCNA)
 ##---------------------------------------
 ## Call the datasetMerging function
@@ -234,7 +234,12 @@ datasetMerging<-function (esets, nthread=1) {
     ugid <- lapply(esets, function(x) { 
       return(Biobase::fData(x)[, is.element(colnames(fData(x)), 
                                             c("probe", "EntrezGene.ID"))]) })
-    stringsAsFactors=FALSE
+    ugid$transbig$EntrezGene.ID<-as.character(ugid$transbig$EntrezGene.ID)
+    ugid$unt$EntrezGene.ID<-as.character(ugid$unt$EntrezGene.ID)
+    ugid$upp$EntrezGene.ID<-as.character(ugid$upp$EntrezGene.ID)
+    ugid$mainz$EntrezGene.ID<-as.character(ugid$mainz$EntrezGene.ID)
+    ugid$nki$EntrezGene.ID<-as.character(ugid$nki$EntrezGene.ID)
+    
     ugid <- do.call(rbind, ugid)
     ugid <- ugid[!is.na(ugid[ , "EntrezGene.ID"]) & 
                    !duplicated(ugid[ , "EntrezGene.ID"]), , drop=FALSE]
