@@ -83,7 +83,7 @@ function (sbt.model=c("scmgene", "scmod1", "scmod2", "pam50", "ssp2006", "ssp200
   ## IntClust family
   if (sbt.model %in% c("intClust")) {
     message("Note: Need a Gene.Symbol column in the annotation object")
-    
+    sbts<-NULL
     myx <- !is.na(annot[ , "Gene.Symbol"]) & !duplicated(annot[ , "Gene.Symbol"])
     dd <- t(data[ , myx, drop=FALSE])
     rownames(dd) <- annot[myx, "Gene.Symbol"]
@@ -119,7 +119,9 @@ function (sbt.model=c("scmgene", "scmod1", "scmod2", "pam50", "ssp2006", "ssp200
   
   ## AIMS classifier
   if (sbt.model %in% c("AIMS")) {
-      AIMS::applyAIMS(eset=t(data), EntrezID=annot[ , "EntrezGene.ID"])
+      sbts<-AIMS::applyAIMS(eset=t(data), EntrezID=annot[ , "EntrezGene.ID"])
+      sbts$subtype<-sbts$cl
+      sbts$proba<-sbts$prob
   }
   
   return (sbts)

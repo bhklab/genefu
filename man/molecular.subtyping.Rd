@@ -71,13 +71,11 @@ sbt.vdx.SCMGENE <- molecular.subtyping(sbt.model="scmgene", data=data.vdxs,
   annot=annot.vdxs, do.mapping=FALSE)
 table(sbt.vdx.SCMGENE$subtype)
 ## Using the AIMS molecular subtyping algorithm
-sbt.vdxs.AIMS <- molecular.subtyping(sbt.model="AIMS", data=data.vdxs,
-annot=annot.vdxs, do.mapping=FALSE)
+sbt.vdxs.AIMS <- molecular.subtyping(sbt.model="AIMS", data=data.vdxs,annot=annot.vdxs, do.mapping=FALSE)
 table(sbt.vdxs.AIMS$subtype)
 ## Using the IntClust molecular subtyping algorithm
 colnames(annot.vdxs)[3]<-"Gene.Symbol"
-sbt.vdxs.intClust <- molecular.subtyping(sbt.model="intClust", data=data.vdxs,
-annot=annot.vdxs, do.mapping=FALSE)
+sbt.vdxs.intClust <- molecular.subtyping(sbt.model="intClust", data=data.vdxs,annot=annot.vdxs, do.mapping=FALSE)
 table(sbt.vdxs.intClust$subtype)
 
 ## with mapping
