@@ -83,7 +83,6 @@ library(xtable)
 library(rmeta)
 library(Biobase)
 library(caret)
-library(e1071)
 @
 
 
@@ -154,214 +153,29 @@ Overall & 1123 & 759 & 178 & 25-73 & 237/507/350 & Affy/Agilent \\
 \end{center}
 \end{table}
 
-Since there are duplicated patients in the five data sets, we have to identify the duplicated patients 
-and we subsequently store them in a vector.
-<<findDuplicatedPatients,eval=TRUE,results='hide',message=FALSE>>=
-data(breastCancerData)
-cinfo <- colnames(pData(mainz7g))
-data.all <- c("transbig7g"=transbig7g, "unt7g"=unt7g, "upp7g"=upp7g, "mainz7g"=mainz7g, "nki7g"=nki7g)
-
-idtoremove.all <- NULL
-duplres <- NULL
-
-## No overlaps in the MainZ and NKI datasets. 
-
-## Focus on UNT vs UPP vs TRANSBIG
-demo.all <- rbind(pData(transbig7g), pData(unt7g), pData(upp7g))
-dn2 <- c("TRANSBIG", "UNT", "UPP")
-
-## Karolinska
-## Search for the VDXKIU, KIU, UPPU series
-ds2 <- c("VDXKIU", "KIU", "UPPU")
-demot <- demo.all[complete.cases(demo.all[ , c("series")]) & is.element(demo.all[ , "series"], ds2), ]
-
-# Find the duplicated patients in that series
-duplid <- sort(unique(demot[duplicated(demot[ , "id"]), "id"]))
-duplrest <- NULL
-for(i in 1:length(duplid)) {
-  tt <- NULL
-  for(k in 1:length(dn2)) {
-    myx <- sort(row.names(demot)[complete.cases(demot[ , c("id", "dataset")]) & 
-                                   demot[ , "id"] == duplid[i] & demot[ , "dataset"] == dn2[k]])
-    if(length(myx) > 0) { tt <- c(tt, myx) }
-  }
-  duplrest <- c(duplrest, list(tt))
-}
-names(duplrest) <- duplid
-duplres <- c(duplres, duplrest)
-
-## Oxford
-## Search for the VVDXOXFU, OXFU series
-ds2 <- c("VDXOXFU", "OXFU")
-demot <- demo.all[complete.cases(demo.all[ , c("series")]) & is.element(demo.all[ , "series"], ds2), ]
-
-# Find the duplicated patients in that series
-duplid <- sort(unique(demot[duplicated(demot[ , "id"]), "id"]))
-duplrest <- NULL
-for(i in 1:length(duplid)) {
-  tt <- NULL
-  for(k in 1:length(dn2)) {
-    myx <- sort(row.names(demot)[complete.cases(demot[ , c("id", "dataset")]) & 
-                                   demot[ , "id"] == duplid[i] & demot[ , "dataset"] == dn2[k]])
-    if(length(myx) > 0) { tt <- c(tt, myx) }
-  }
-  duplrest <- c(duplrest, list(tt))
-}
-names(duplrest) <- duplid
-duplres <- c(duplres, duplrest)
-
-## Full set duplicated patients
-duPL <- sort(unlist(lapply(duplres, function(x) { return(x[-1]) } )))
-@
 
 %------------------------------------------------------------
 \section{Case Study : Compare Molecular Subtype Classifications}
 %------------------------------------------------------------ 
 
-For this case study, we first created a merged expression set that combines all the samples across the 5 datasets. 
-To do this we first select for the most representative probes across the esets and get the corresponding gene ids.
-We then perform quantile normalization on the gene expression datasets to merge them. 
-
-<<CreateMergedDataset>>=
-library(WGCNA)
-##---------------------------------------
-## Call the datasetMerging function
-##---------------------------------------
-
-datasetMerging<-function (esets, nthread=1) {
-
-    ## all unique Entrez gene ids
-    ugid <- lapply(esets, function(x) { 
-      return(Biobase::fData(x)[, is.element(colnames(fData(x)), 
-                                            c("probe", "EntrezGene.ID"))]) })
-    ugid$transbig$EntrezGene.ID<-as.character(ugid$transbig$EntrezGene.ID)
-    ugid$unt$EntrezGene.ID<-as.character(ugid$unt$EntrezGene.ID)
-    ugid$upp$EntrezGene.ID<-as.character(ugid$upp$EntrezGene.ID)
-    ugid$mainz$EntrezGene.ID<-as.character(ugid$mainz$EntrezGene.ID)
-    ugid$nki$EntrezGene.ID<-as.character(ugid$nki$EntrezGene.ID)
-    
-    ugid <- do.call(rbind, ugid)
-    ugid <- ugid[!is.na(ugid[ , "EntrezGene.ID"]) & 
-                   !duplicated(ugid[ , "EntrezGene.ID"]), , drop=FALSE]
-    rownames(ugid) <- gsub(sprintf("(%s).", paste(names(esets), collapse="|")), "", rownames(ugid))
-    feature.merged <- ugid
-           
-    ## expression data
-    exprs.merged <- lapply(esets, function (x, y) 
-      {
-        ee <- Biobase::exprs(x)[is.element(rownames(exprs(x)),rownames(feature.merged)),]
-        print(dim(ee))
-        eem <- matrix(NA, nrow=length(y), ncol=ncol(ee), dimnames=list(y, colnames(ee)))
-        print(dim(eem))
-        print(length(intersect(rownames(ee),rownames(eem))))
-        eem[rownames(ee), colnames(ee)] <- ee
-        return (eem)
-      }, y=rownames(feature.merged))
-    
-    exprs.merged <- do.call(cbind, exprs.merged)
-
-    ## clinical info
-    ucid <- lapply(esets, function(x) { return(colnames(Biobase::pData(x))) })
-    ucid <- table(unlist(ucid))
-    ucid <- names(ucid)[ucid == length(esets)]
-    clinicinfo.merged <- lapply(esets, function (x , y) {
-      ee <- Biobase::pData(x)[ , y, drop=FALSE]
-    }, y=ucid)
-    clinicinfo.merged <- do.call(rbind, clinicinfo.merged)
-    rownames(clinicinfo.merged) <- colnames(exprs.merged)
-
-    ## create a merged expressionSet object
-    eset.merged <- ExpressionSet(assayData=exprs.merged, 
-                                 phenoData=AnnotatedDataFrame(data=clinicinfo.merged), 
-                                 featureData=AnnotatedDataFrame(data=feature.merged))
-    experimentData(eset.merged)@preprocessing <- list("normalization"="mixed", 
-                                                      package="unspecified", version="0")
-    annotation(eset.merged) <- "mixed"
-    ## standardization
-
-   ## robust scaling followed by quantile normalization
-   ee <- exprs(eset.merged)
-   
-   # ee <- apply(ee, 2, genefu::rescale)
-   splitix <- parallel::splitIndices(nx=ncol(ee), ncl=nthread)
-   mcres <- parallel::mclapply(splitix, function(x, data) 
-     {
-       res <- apply(data[ , x, drop=FALSE], 2, function (dx) {
-         return ((rescale(dx, q=0.05, na.rm=TRUE) - 0.5) * 2)
-       })
-       return (res)
-    }, data=ee, mc.cores=nthread)
-   ee <- do.call(cbind, mcres)
-
-   ## quantile normalization
-   ee <- limma::normalizeBetweenArrays(object=ee, method="quantile")
-   exprs(eset.merged) <- ee
-   
-  return (eset.merged)
-}
-
-##---------------------------------------
-## Probe-gene mapping
-##---------------------------------------
-
-nthread <- 1
- availcore <- parallel::detectCores()
-    if (nthread > availcore) { nthread <- availcore }
-    options("mc.cores"=nthread)
-
-strEsets <- c("transbig", "unt", "upp", "mainz","nki")
-esets <- list()
-
-for(i in 1:length(strEsets)) 
-{
-  ## load dataset
-  esets[i] <- get(data(list=strEsets[i]))
-}
-names(esets) <- strEsets
-newEsets <- list()
-
-for (counter in esets)
-  {
-    fData(counter)$EntrezGene.ID[fData(counter)$EntrezGene.ID == "" 
-                                 |fData(counter)$EntrezGene.ID == " " ] <- NA
-    ## take out NA from fData, select those rows from expr
-    counter.fdata <- fData(counter)[!is.na(fData(counter)$EntrezGene.ID),]
-    counter.expr <- exprs(counter)[rownames(counter.fdata),]
-  
-    x <- cbind(counter.fdata$EntrezGene.ID,counter.expr)
-    collapsed.wgcna.mrv <- WGCNA::collapseRows(x[,-1], rowID=rownames(x), 
-                                               rowGroup=x[,1], method="maxRowVariance")
-    
-    best_probe <- collapsed.wgcna.mrv[[3]]
-    Biobase::exprs(counter) <- counter.expr[best_probe, ]
-    Biobase::fData(counter) <- counter.fdata[best_probe,]
-    rownames(Biobase::exprs(counter)) <- Biobase::fData(counter)$EntrezGene.ID
-    rownames(Biobase::fData(counter)) <- Biobase::fData(counter)$EntrezGene.ID
-    newEsets <- c(newEsets,counter)
-  }
-names(newEsets) <- strEsets
-
-##---------------------------------------
-## Merge the datasets to eset.merged & remove duplicates
-##---------------------------------------
-eset.merged <- datasetMerging(newEsets)
-pData(eset.merged) <- cbind(Biobase::pData(eset.merged), "duplicates"=NA)
-dups<-duPL
-names(dups)<-dups
-
-exprs(eset.merged)<-exprs(eset.merged[ , -which(colnames(eset.merged) %in% c(dups))])
-pData(eset.merged)<-pData(eset.merged)[-which(rownames(pData(eset.merged)) %in% c(dups)),]
-@
-
-We now perform molecular subtyping on the merged dataset. 
+We now perform molecular subtyping on each of the datasets. 
 Here, we perform subtyping using the PAM50 as well as the SCMgene subtyping algorithms. 
 <<CalculateMolecularSubtypes>>=
+dn <- c("transbig", "unt", "upp", "mainz", "nki")
+dn.platform <- c("affy", "affy", "affy", "affy", "agilent")
+res <- ddemo.all <- ddemo.coln <- NULL
 
-  #Extract expression set, pData, fData for each dataset
-  ddata <- t(exprs(eset.merged)) 
-  ddemo <- phenoData(eset.merged)@data
-  dannot <- featureData(eset.merged)@data
+for(i in 1:length(dn)) {
+
+  ## load dataset
+  dd <- get(data(list=dn[i]))
+  message("obtained dataset!")
   
+  #Extract expression set, pData, fData for each dataset
+  ddata <- t(exprs(dd)) 
+  ddemo <- phenoData(dd)@data
+  dannot <- featureData(dd)@data
+ 
   #MOLECULAR SUBTYPING
   #Perform subtyping using scmod2.robust
   # scmod2.robust: List of parameters defining the subtype clustering model 
@@ -390,7 +204,7 @@ Here, we perform subtyping using the PAM50 as well as the SCMgene subtyping algo
  
   # Perform subtyping using PAM50
   # Matrix should have samples as ROWS, genes as COLUMNS
-  rownames(dannot)<-dannot$probe<-dannot$EntrezGene.ID
+  #rownames(dannot)<-dannot$probe<-dannot$EntrezGene.ID
  
   PAM50Preds<-molecular.subtyping(sbt.model = "pam50",data=ddata,
                                         annot=dannot,do.mapping=TRUE)
@@ -400,9 +214,12 @@ Here, we perform subtyping using the PAM50 as well as the SCMgene subtyping algo
   ddemo$PAM50<-PAM50Preds$subtype
   LumA<-names(PAM50Preds$subtype)[which(PAM50Preds$subtype == "LumA")]
   LumB<-names(PAM50Preds$subtype)[which(PAM50Preds$subtype == "LumB")]
-  Normals<-names(PAM50Preds$subtype)[which(PAM50Preds$subtype == "Normal")]
   ddemo[LumA,]$PAM50<-"LumA"
   ddemo[LumB,]$PAM50<-"LumB"
+  
+  ddemo.all <- rbind(ddemo, ddemo.all)
+}
+
 @
 
 We can compare the performance of both molecular subtyping methods 
@@ -410,16 +227,17 @@ and determine how concordant subtype predictions are across the global populatio
 We first generate a confusion matrix of the subtype predictions.
 <<CompareMolecularSubtypesByConfusionMatrix>>=
 # Obtain the subtype prediction counts for PAM50
-table(ddemo$PAM50)
+table(ddemo.all$PAM50)
+Normals<-rownames(ddemo.all[which(ddemo.all$PAM50 == "Normal"),])
 
 # Obtain the subtype prediction counts for SCMGENE
-table(ddemo$SCMGENE)
+table(ddemo.all$SCMGENE)
 
-ddemo$PAM50<-as.character(ddemo$PAM50)
+ddemo.all$PAM50<-as.character(ddemo.all$PAM50)
 # We compare the samples that are predicted as pertaining to a molecular subtyp
 # We ignore for now the samples that predict as 'Normal' by PAM50
-confusionMatrix(ddemo[-which(rownames(ddemo) %in% Normals),]$SCMGENE,
-                ddemo[-which(rownames(ddemo) %in% Normals),]$PAM50)
+confusionMatrix(ddemo.all[-which(rownames(ddemo.all) %in% Normals),]$SCMGENE,
+                ddemo.all[-which(rownames(ddemo.all) %in% Normals),]$PAM50)
 @
 
 From these results, the concordance of the predictions between these models is around 83 percent. 
@@ -430,7 +248,7 @@ based on each molecular classification algorithm
 <<CompareSurvivalBySubtypes>>=
 # http://www.inside-r.org/r-doc/survival/survfit.coxph
 library(survival)
-
+ddemo<-ddemo.all
 data.for.survival.SCMGENE <- ddemo[,c("e.os", "t.os", "SCMGENE","age")]
 data.for.survival.PAM50 <- ddemo[,c("e.os", "t.os", "PAM50","age")]
 # Remove patients with missing survival information
@@ -494,7 +312,6 @@ To do this we use a Cross-validated Partial Likelihood (cvpl) calculation from s
 This returns the mean cross-validated partial likelihood, for each algorithm, using molecular subtypes for stratification
 <<CalculatedCVPL>>=
 set.seed(12345)
-PatientMatrix<-ddata[rownames(data.for.survival.PAM50),]
 
 PAM5_CVPL<-cvpl(x=data.for.survival.PAM50$age, 
                 surv.time=data.for.survival.PAM50$months_to_death, 
@@ -533,6 +350,67 @@ We compute the risk scores using the following list of algorithms (and correspon
 \item PIK3CA: pik3cags()
 \item rorS: rorS()
 \end{description}
+
+Since there are duplicated patients in the five data sets, we have to identify the duplicated patients 
+and we subsequently store them in a vector.
+<<findDuplicatedPatients,eval=TRUE,results='hide',message=FALSE>>=
+data(breastCancerData)
+cinfo <- colnames(pData(mainz7g))
+data.all <- c("transbig7g"=transbig7g, "unt7g"=unt7g, "upp7g"=upp7g, "mainz7g"=mainz7g, "nki7g"=nki7g)
+
+idtoremove.all <- NULL
+duplres <- NULL
+
+## No overlaps in the MainZ and NKI datasets. 
+
+## Focus on UNT vs UPP vs TRANSBIG
+demo.all <- rbind(pData(transbig7g), pData(unt7g), pData(upp7g))
+dn2 <- c("TRANSBIG", "UNT", "UPP")
+
+## Karolinska
+## Search for the VDXKIU, KIU, UPPU series
+ds2 <- c("VDXKIU", "KIU", "UPPU")
+demot <- demo.all[complete.cases(demo.all[ , c("series")]) & is.element(demo.all[ , "series"], ds2), ]
+
+# Find the duplicated patients in that series
+duplid <- sort(unique(demot[duplicated(demot[ , "id"]), "id"]))
+duplrest <- NULL
+for(i in 1:length(duplid)) {
+  tt <- NULL
+  for(k in 1:length(dn2)) {
+    myx <- sort(row.names(demot)[complete.cases(demot[ , c("id", "dataset")]) & 
+                                   demot[ , "id"] == duplid[i] & demot[ , "dataset"] == dn2[k]])
+    if(length(myx) > 0) { tt <- c(tt, myx) }
+  }
+  duplrest <- c(duplrest, list(tt))
+}
+names(duplrest) <- duplid
+duplres <- c(duplres, duplrest)
+
+## Oxford
+## Search for the VVDXOXFU, OXFU series
+ds2 <- c("VDXOXFU", "OXFU")
+demot <- demo.all[complete.cases(demo.all[ , c("series")]) & is.element(demo.all[ , "series"], ds2), ]
+
+# Find the duplicated patients in that series
+duplid <- sort(unique(demot[duplicated(demot[ , "id"]), "id"]))
+duplrest <- NULL
+for(i in 1:length(duplid)) {
+  tt <- NULL
+  for(k in 1:length(dn2)) {
+    myx <- sort(row.names(demot)[complete.cases(demot[ , c("id", "dataset")]) & 
+                                   demot[ , "id"] == duplid[i] & demot[ , "dataset"] == dn2[k]])
+    if(length(myx) > 0) { tt <- c(tt, myx) }
+  }
+  duplrest <- c(duplrest, list(tt))
+}
+names(duplrest) <- duplid
+duplres <- c(duplres, duplrest)
+
+## Full set duplicated patients
+duPL <- sort(unlist(lapply(duplres, function(x) { return(x[-1]) } )))
+@
+
 
 <<computeRiskScore>>=
 dn <- c("transbig", "unt", "upp", "mainz", "nki")

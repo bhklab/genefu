@@ -8,7 +8,8 @@ Function to identify breast cancer molecular subtypes using the Subtype Clusteri
 This function identifies the breast cancer molecular subtypes using a Subtype Clustering Model fitted by \code{\link[genefu]{subtype.cluster}}.
 }
 \usage{
-molecular.subtyping(sbt.model = c("scmgene", "scmod1", "scmod2", "pam50", "ssp2006", "ssp2003", "intClust", "AIMS"), data, annot, do.mapping = FALSE)
+molecular.subtyping(sbt.model = c("scmgene", "scmod1", "scmod2", 
+"pam50", "ssp2006", "ssp2003", "intClust", "AIMS"), data, annot, do.mapping = FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
