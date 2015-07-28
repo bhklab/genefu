@@ -42,13 +42,12 @@ A numeric vector of six values that are the difference between the two weighted 
 }
 \references{
 \url{http://en.wikipedia.org/wiki/T_test}
-\url{http://www.nicebread.de/blog/files/fc02e1635792cb0f2b3cbd1f7e6c580b-10.php}
 }
 \author{
 Benjamin Haibe-Kains
 }
 %%\note{
-%%  ~~further notes~~
+%%  http://www.nicebread.de/blog/files/fc02e1635792cb0f2b3cbd1f7e6c580b-10.php
 %%}
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~

@@ -29,11 +29,11 @@ Former labs:
 
 - Computational Biology and Functional Genomics, Dana-Farber Cancer Institute, Boston, MA, USA
 
-\url{http://compbio.dfci.harvard.edu/}
+\url{http://compbio.dfci.harvard.edu}
 
 - Center for Cancer Computational Biology, Dana-Farber Cancer Institute, Boston, MA, USA
 
-\url{http://cccb.dfci.harvard.edu/index.html}
+\url{http://cccb.dfci.harvard.edu/home}
 
 - Machine Learning Group (MLG), Universite Libre de Bruxelles, Bruxelles, Belgium 
 
