@@ -47,7 +47,7 @@ Wirapati P, Sotiriou C, Kunkel S, Farmer P, Pradervand S, Haibe-Kains B, Desmedt
 
 Haibe-Kains B, Desmedt C, Loi S, Culhane AC, Bontempi G, Quackenbush J, Sotiriou C. (2012) "A three-gene model to robustly identify breast cancer molecular subtypes.", \emph{J Natl Cancer Inst.}, \bold{104}(4):311--325.
 
-Curtis C, Shah SP, Chin SF, Turashvili G, Rueda OM, Dunning MJ, Speed D, Lynch AG, Samarajiwa S, Yuan Y, Gräf S, Ha G, Haffari G, Bashashati A, Russell R, McKinney S; METABRIC Group, Langerød A, Green A, Provenzano E, Wishart G, Pinder S, Watson P, Markowetz F, Murphy L, Ellis I, Purushotham A, Børresen-Dale AL, Brenton JD, Tavaré S, Caldas C, Aparicio S. (2012) "The genomic and transcriptomic architecture of 2,000 breast tumours reveals novel subgroups.", \emph{Nature}, \bold{486}(7403):346--352.
+Curtis C, Shah SP, Chin SF, Turashvili G, Rueda OM, Dunning MJ, Speed D, Lynch AG, Samarajiwa S, Yuan Y, Graf S, Ha G, Haffari G, Bashashati A, Russell R, McKinney S; METABRIC Group, Langerod A, Green A, Provenzano E, Wishart G, Pinder S, Watson P, Markowetz F, Murphy L, Ellis I, Purushotham A, Borresen-Dale AL, Brenton JD, Tavare S, Caldas C, Aparicio S. (2012) "The genomic and transcriptomic architecture of 2,000 breast tumours reveals novel subgroups.", \emph{Nature}, \bold{486}(7403):346--352.
 
 Paquet ER, Hallett MT. (2015) "Absolute assignment of breast cancer intrinsic molecular subtype.", \emph{J Natl Cancer Inst.}, \bold{107}(1):357.
 }
@@ -61,7 +61,7 @@ Benjamin Haibe-Kains
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link[genefu]{subtype.cluster.predict}}, \code{\link[genefu]{intrinsic.subtype.predict}}
+\code{\link[genefu]{subtype.cluster.predict}}, \code{\link[genefu]{intrinsic.cluster.predict}}
 }
 \examples{
 ##### without mapping (affy hgu133a or plus2 only)

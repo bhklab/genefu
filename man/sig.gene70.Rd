@@ -15,7 +15,7 @@ List of 70 agilent probe ids representing 56 unique genes included in the GENE70
 %%  ~~ If necessary, more details than the __description__ above ~~
 %%}
 \source{
-\url{http://www.rii.com/publications/2002/vantveer.html}
+\url{http://www.nature.com/nature/journal/v415/n6871/full/415530a.html}
 }
 \references{
 L. J. van't Veer and H. Dai and M. J. van de Vijver and Y. D. He and A. A. Hart and M. Mao and H. L. Peterse and K. van der Kooy and M. J. Marton and A. T. Witteveen and G. J. Schreiber and R. M. Kerkhiven and C. Roberts and P. S. Linsley and R. Bernards and S. H. Friend (2002) "Gene Expression Profiling Predicts Clinical Outcome of Breast Cancer", \emph{Nature}, \bold{415}:530--536.

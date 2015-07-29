@@ -121,11 +121,11 @@ function (sbt.model=c("scmgene", "scmod1", "scmod2", "pam50", "ssp2006", "ssp200
   
   ## AIMS classifier
   if (sbt.model %in% c("AIMS")) {
-      sbts<-AIMS::applyAIMS(eset=t(data), EntrezID=annot[ , "EntrezGene.ID"])[c("cl", "all.probs")]
-      sbts$subtype<-sbts$cl
-      sbts$subtype.proba<-matrix(unlist(sbts$all.probs$`20`), ncol = 5, byrow = TRUE)
-      colnames(sbts$subtype.proba)<-colnames(sbts$all.probs$`20`)
-      rownames(sbts$subtype.proba)<-rownames(sbts$subtype)
+      sbts <- AIMS::applyAIMS(eset=t(data), EntrezID=annot[ , "EntrezGene.ID"])[c("cl", "all.probs")]
+      sbts$subtype <- sbts$cl
+      sbts$subtype.proba <- matrix(unlist(sbts$all.probs$`20`), ncol = 5, byrow = TRUE)
+      colnames(sbts$subtype.proba) <- colnames(sbts$all.probs$`20`)
+      rownames(sbts$subtype.proba) <- rownames(sbts$subtype)
 
       ## compute crisp classification
       sbts$subtype.crisp <- t(
