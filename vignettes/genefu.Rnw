@@ -153,10 +153,71 @@ Overall & 1123 & 759 & 178 & 25-73 & 237/507/350 & Affy/Agilent \\
 \end{center}
 \end{table}
 
+Since there are duplicated patients in the five data sets, we have to identify the duplicated patients 
+and we subsequently store them in a vector.
+<<findDuplicatedPatients,eval=TRUE,results='hide',message=FALSE>>=
+data(breastCancerData)
+cinfo <- colnames(pData(mainz7g))
+data.all <- c("transbig7g"=transbig7g, "unt7g"=unt7g, "upp7g"=upp7g, "mainz7g"=mainz7g, "nki7g"=nki7g)
+
+idtoremove.all <- NULL
+duplres <- NULL
+
+## No overlaps in the MainZ and NKI datasets. 
+
+## Focus on UNT vs UPP vs TRANSBIG
+demo.all <- rbind(pData(transbig7g), pData(unt7g), pData(upp7g))
+dn2 <- c("TRANSBIG", "UNT", "UPP")
+
+## Karolinska
+## Search for the VDXKIU, KIU, UPPU series
+ds2 <- c("VDXKIU", "KIU", "UPPU")
+demot <- demo.all[complete.cases(demo.all[ , c("series")]) & is.element(demo.all[ , "series"], ds2), ]
+
+# Find the duplicated patients in that series
+duplid <- sort(unique(demot[duplicated(demot[ , "id"]), "id"]))
+duplrest <- NULL
+for(i in 1:length(duplid)) {
+  tt <- NULL
+  for(k in 1:length(dn2)) {
+    myx <- sort(row.names(demot)[complete.cases(demot[ , c("id", "dataset")]) & 
+                                   demot[ , "id"] == duplid[i] & demot[ , "dataset"] == dn2[k]])
+    if(length(myx) > 0) { tt <- c(tt, myx) }
+  }
+  duplrest <- c(duplrest, list(tt))
+}
+names(duplrest) <- duplid
+duplres <- c(duplres, duplrest)
+
+## Oxford
+## Search for the VVDXOXFU, OXFU series
+ds2 <- c("VDXOXFU", "OXFU")
+demot <- demo.all[complete.cases(demo.all[ , c("series")]) & is.element(demo.all[ , "series"], ds2), ]
+
+# Find the duplicated patients in that series
+duplid <- sort(unique(demot[duplicated(demot[ , "id"]), "id"]))
+duplrest <- NULL
+for(i in 1:length(duplid)) {
+  tt <- NULL
+  for(k in 1:length(dn2)) {
+    myx <- sort(row.names(demot)[complete.cases(demot[ , c("id", "dataset")]) & 
+                                   demot[ , "id"] == duplid[i] & demot[ , "dataset"] == dn2[k]])
+    if(length(myx) > 0) { tt <- c(tt, myx) }
+  }
+  duplrest <- c(duplrest, list(tt))
+}
+names(duplrest) <- duplid
+duplres <- c(duplres, duplrest)
+
+## Full set duplicated patients
+duPL <- sort(unlist(lapply(duplres, function(x) { return(x[-1]) } )))
+@
+
 
 %------------------------------------------------------------
 \section{Case Study : Compare Molecular Subtype Classifications}
 %------------------------------------------------------------ 
+
 
 We now perform molecular subtyping on each of the datasets. 
 Here, we perform subtyping using the PAM50 as well as the SCMgene subtyping algorithms. 
@@ -169,13 +230,22 @@ for(i in 1:length(dn)) {
 
   ## load dataset
   dd <- get(data(list=dn[i]))
+  #Remove duplicates identified first
   message("obtained dataset!")
   
   #Extract expression set, pData, fData for each dataset
   ddata <- t(exprs(dd)) 
+
   ddemo <- phenoData(dd)@data
+  
+  if(length(intersect(rownames(ddata),duPL))>0)
+  {
+  ddata<-ddata[-which(rownames(ddata) %in% duPL),]
+  ddemo<-ddemo[-which(rownames(ddemo) %in% duPL),]
+  }
+  
   dannot <- featureData(dd)@data
- 
+
   #MOLECULAR SUBTYPING
   #Perform subtyping using scmod2.robust
   # scmod2.robust: List of parameters defining the subtype clustering model 
@@ -350,67 +420,6 @@ We compute the risk scores using the following list of algorithms (and correspon
 \item PIK3CA: pik3cags()
 \item rorS: rorS()
 \end{description}
-
-Since there are duplicated patients in the five data sets, we have to identify the duplicated patients 
-and we subsequently store them in a vector.
-<<findDuplicatedPatients,eval=TRUE,results='hide',message=FALSE>>=
-data(breastCancerData)
-cinfo <- colnames(pData(mainz7g))
-data.all <- c("transbig7g"=transbig7g, "unt7g"=unt7g, "upp7g"=upp7g, "mainz7g"=mainz7g, "nki7g"=nki7g)
-
-idtoremove.all <- NULL
-duplres <- NULL
-
-## No overlaps in the MainZ and NKI datasets. 
-
-## Focus on UNT vs UPP vs TRANSBIG
-demo.all <- rbind(pData(transbig7g), pData(unt7g), pData(upp7g))
-dn2 <- c("TRANSBIG", "UNT", "UPP")
-
-## Karolinska
-## Search for the VDXKIU, KIU, UPPU series
-ds2 <- c("VDXKIU", "KIU", "UPPU")
-demot <- demo.all[complete.cases(demo.all[ , c("series")]) & is.element(demo.all[ , "series"], ds2), ]
-
-# Find the duplicated patients in that series
-duplid <- sort(unique(demot[duplicated(demot[ , "id"]), "id"]))
-duplrest <- NULL
-for(i in 1:length(duplid)) {
-  tt <- NULL
-  for(k in 1:length(dn2)) {
-    myx <- sort(row.names(demot)[complete.cases(demot[ , c("id", "dataset")]) & 
-                                   demot[ , "id"] == duplid[i] & demot[ , "dataset"] == dn2[k]])
-    if(length(myx) > 0) { tt <- c(tt, myx) }
-  }
-  duplrest <- c(duplrest, list(tt))
-}
-names(duplrest) <- duplid
-duplres <- c(duplres, duplrest)
-
-## Oxford
-## Search for the VVDXOXFU, OXFU series
-ds2 <- c("VDXOXFU", "OXFU")
-demot <- demo.all[complete.cases(demo.all[ , c("series")]) & is.element(demo.all[ , "series"], ds2), ]
-
-# Find the duplicated patients in that series
-duplid <- sort(unique(demot[duplicated(demot[ , "id"]), "id"]))
-duplrest <- NULL
-for(i in 1:length(duplid)) {
-  tt <- NULL
-  for(k in 1:length(dn2)) {
-    myx <- sort(row.names(demot)[complete.cases(demot[ , c("id", "dataset")]) & 
-                                   demot[ , "id"] == duplid[i] & demot[ , "dataset"] == dn2[k]])
-    if(length(myx) > 0) { tt <- c(tt, myx) }
-  }
-  duplrest <- c(duplrest, list(tt))
-}
-names(duplrest) <- duplid
-duplres <- c(duplres, duplrest)
-
-## Full set duplicated patients
-duPL <- sort(unlist(lapply(duplres, function(x) { return(x[-1]) } )))
-@
-
 
 <<computeRiskScore>>=
 dn <- c("transbig", "unt", "upp", "mainz", "nki")
