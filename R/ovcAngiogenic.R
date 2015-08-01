@@ -1,3 +1,5 @@
+if(getRversion() >= "2.15.1")  utils::globalVariables(c("sigOvcAngiogenic","modelOvcAngiogenic"))
+
 `ovcAngiogenic` <-
 function(data, annot, hgs, gmap=c("entrezgene", "ensembl_gene_id", "hgnc_symbol", "unigene"), do.mapping=FALSE, verbose=FALSE) {
     gmap <- match.arg(gmap)
@@ -30,7 +32,7 @@ function(data, annot, hgs, gmap=c("entrezgene", "ensembl_gene_id", "hgnc_symbol"
         sigt <- sigOvcAngiogenic[gix, ,drop=FALSE]
     }
     
-    data(modelOvcAngiogenic)
+    #data(modelOvcAngiogenic)
     ss <- genefu::sig.score(x=data.frame("probe"=colnames(data), "EntrezGene.ID"=annot[ ,gmap], "coefficient"=sigt[ ,"weight"]), data=data, annot=annot, do.mapping=FALSE, signed=TRUE)$score
     ## rescale only with the high grade, late stage, serous (hgs) patients
     rr <- genefu::rescale(ss[hgs], q=0.05, na.rm=TRUE)

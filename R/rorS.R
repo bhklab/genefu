@@ -1,8 +1,10 @@
+if(getRversion() >= "2.15.1")  utils::globalVariables("pam50")
+
 `rorS` <-
 function(data, annot, do.mapping=FALSE, mapping, verbose=FALSE) {
 
   ## PAM50 classification
-  data(pam50)
+  #data(pam50)
   sbts <- intrinsic.cluster.predict(sbt.model=pam50, data=data, annot=annot, do.mapping=do.mapping, verbose=FALSE)
   mymapping <- c("mapped"=nrow(sbts$centroids.map), "total"=nrow(pam50$centroids.map))
   ## ROR-S

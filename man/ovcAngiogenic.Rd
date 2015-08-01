@@ -8,7 +8,9 @@ Function to compute the subtype scores and risk classifications for the angiogen
 This function computes subtype scores and risk classifications from gene expression values following the algorithm developed by Bentink, Haibe-Kains et al. to identify the angiogenic molecular subtype in ovarian cancer.
 }
 \usage{
-ovcAngiogenic(data, annot, hgs, gmap = c("entrezgene", "ensembl_gene_id", "hgnc_symbol", "unigene"), do.mapping = FALSE, verbose = FALSE)
+ovcAngiogenic(data, annot, hgs, 
+gmap = c("entrezgene", "ensembl_gene_id", "hgnc_symbol", "unigene"), 
+do.mapping = FALSE, verbose = FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -65,7 +67,8 @@ data(sigOvcAngiogenic)
 data(nkis)
 colnames(annot.nkis)[is.element(colnames(annot.nkis), "EntrezGene.ID")] <- "entrezgene"
 ## compute relapse score
-ovcAngiogenic.nkis <- ovcAngiogenic(data=data.nkis, annot=annot.nkis, gmap="entrezgene", do.mapping=TRUE)
+ovcAngiogenic.nkis <- ovcAngiogenic(data=data.nkis, annot=annot.nkis, 
+gmap="entrezgene", do.mapping=TRUE)
 table(ovcAngiogenic.nkis$risk)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

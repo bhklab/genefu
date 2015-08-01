@@ -38,18 +38,12 @@
 \author[1,2]{Deena M.A. Gendoo}
 \author[1]{Natchar Ratanasirigulchai}
 \author[3]{Markus Schr\"{o}der}
-\author[4]{Gianluca Bontempi}
-\author[5]{Christos Sotiriou}
-\author[6,7]{John Quackenbush}
 \author[1,2]{Benjamin Haibe-Kains\thanks{benjamin.haibe.kains@utoronto.ca }}
 
 \affil[1]{Bioinformatics and Computational Genomics Laboratory, Princess Margaret Cancer Center, University Health Network, Toronto, Ontario, Canada}
 \affil[2]{Department of Medical Biophysics, University of Toronto, Toronto, Canada}
 \affil[3]{UCD School of Biomolecular and Biomedical Science, Conway Institute, University College Dublin, Belfield, Dublin, Ireland}
 \affil[4]{Machine Learning Group, Universit\'{e} Libre de Bruxelles}
-\affil[5]{Breast Cancer Translational Research Laboratory, Institut Jules Bordet, Universit\'{e} Libre de Bruxelles}
-\affil[6]{Computational Biology and Functional Genomics Laboratory, Dana-Farber Cancer Institute, Harvard School of Public Health}
-\affil[7]{Center for Cancer Computational Biology, Dana-Farber Cancer Institute}
 
 \maketitle
 \tableofcontents
@@ -71,7 +65,7 @@ Please also refer to the References section below, for additional information on
 \section{Loading package for case studies}
 %------------------------------------------------------------ 
 First we load the genefu into the workspace. 
-The pacakge is publicly available and can be installed from Bioconductor version 2.8 or higher in R version 2.13.0 or higher. 
+The package is publicly available and can be installed from Bioconductor version 2.8 or higher in R version 2.13.0 or higher. 
 
 To install the genefu package:
 <<installAndLoadPackages,eval=FALSE,results='hide',message=FALSE>>=
@@ -80,16 +74,20 @@ source("http://bioconductor.org/biocLite.R")
 biocLite("genefu")
 @
 
-For computing the risk scores, estimates of the performance of the risk scores, combining the estimates and comparing the estimates we have to load the genefu and survcomp packages into the workspace. We also load the xtable package to display results inside this document.
+For computing the risk scores, estimates of the performance of the risk scores, combining the estimates and comparing the estimates we have to load the genefu and survcomp packages into the workspace. 
+We also load all the packages we need to conduct the case studies. 
 
 <<loadPackages,eval=TRUE,results='hide',message=FALSE>>=
 library(genefu)
 library(xtable)
 library(rmeta)
+library(Biobase)
+library(caret)
 @
 
+
 %------------------------------------------------------------
-\section{Case Study : Comparing risk prediction models}
+\section{Load Datasets and Packages for Case Studies}
 %------------------------------------------------------------ 
 
 The following case study compares risk prediction models. 
@@ -100,11 +98,11 @@ The five data sets that we use in the case study are publicly available as exper
 In particular we used:
 
 \begin{description}
-\item breastCancerMAINZ:  http://www.bioconductor.org/packages/release/data/experiment/html/breastCancerMAINZ.html
-\item breastCancerUPP:  http://www.bioconductor.org/packages/release/data/experiment/html/breastCancerUPP.html
-\item breastCancerUNT:  http://www.bioconductor.org/packages/release/data/experiment/html/breastCancerUNT.html
-\item breastCancerNKI:  http://www.bioconductor.org/packages/release/data/experiment/html/breastCancerNKI.html
-\item breastCancerTRANSBIG:http://www.bioconductor.org/packages/release/data/experiment/html/breastCancerTRANSBIG.html
+\item breastCancerMAINZ:  bioconductor.org/packages/release/data/experiment/html/breastCancerMAINZ.html
+\item breastCancerUPP:  bioconductor.org/packages/release/data/experiment/html/breastCancerUPP.html
+\item breastCancerUNT:  bioconductor.org/packages/release/data/experiment/html/breastCancerUNT.html
+\item breastCancerNKI:  bioconductor.org/packages/release/data/experiment/html/breastCancerNKI.html
+\item breastCancerTRANSBIG: bioconductor.org/packages/release/data/experiment/html/breastCancerTRANSBIG.html
 \end{description}
 
 Please Note: We don't use the breastCancerVDX experimental package in this case study since it has been used as training data set for GENIUS. 
@@ -155,17 +153,9 @@ Overall & 1123 & 759 & 178 & 25-73 & 237/507/350 & Affy/Agilent \\
 \end{center}
 \end{table}
 
-
-%------------------------------------------------------------
-%------------------------------------------------------------
-%%% CODE START
-%------------------------------------------------------------
-%------------------------------------------------------------
-
 Since there are duplicated patients in the five data sets, we have to identify the duplicated patients 
 and we subsequently store them in a vector.
 <<findDuplicatedPatients,eval=TRUE,results='hide',message=FALSE>>=
-library(Biobase)
 data(breastCancerData)
 cinfo <- colnames(pData(mainz7g))
 data.all <- c("transbig7g"=transbig7g, "unt7g"=unt7g, "upp7g"=upp7g, "mainz7g"=mainz7g, "nki7g"=nki7g)
@@ -223,7 +213,196 @@ duplres <- c(duplres, duplrest)
 duPL <- sort(unlist(lapply(duplres, function(x) { return(x[-1]) } )))
 @
 
-** Computing Risk Scores of Prognostic Signatures for Each Dataset:** 
+
+%------------------------------------------------------------
+\section{Case Study : Compare Molecular Subtype Classifications}
+%------------------------------------------------------------ 
+
+
+We now perform molecular subtyping on each of the datasets. 
+Here, we perform subtyping using the PAM50 as well as the SCMgene subtyping algorithms. 
+<<CalculateMolecularSubtypes>>=
+dn <- c("transbig", "unt", "upp", "mainz", "nki")
+dn.platform <- c("affy", "affy", "affy", "affy", "agilent")
+res <- ddemo.all <- ddemo.coln <- NULL
+
+for(i in 1:length(dn)) {
+
+  ## load dataset
+  dd <- get(data(list=dn[i]))
+  #Remove duplicates identified first
+  message("obtained dataset!")
+  
+  #Extract expression set, pData, fData for each dataset
+  ddata <- t(exprs(dd)) 
+
+  ddemo <- phenoData(dd)@data
+  
+  if(length(intersect(rownames(ddata),duPL))>0)
+  {
+  ddata<-ddata[-which(rownames(ddata) %in% duPL),]
+  ddemo<-ddemo[-which(rownames(ddemo) %in% duPL),]
+  }
+  
+  dannot <- featureData(dd)@data
+
+  #MOLECULAR SUBTYPING
+  #Perform subtyping using scmod2.robust
+  # scmod2.robust: List of parameters defining the subtype clustering model 
+  # (as defined by Wirapati et al)
+#   SubtypePredictions<-subtype.cluster.predict(sbt.model=scmod2.robust,
+#                                               data=ddata,annot=dannot,do.mapping=TRUE,verbose=TRUE)
+   
+  SubtypePredictions<-molecular.subtyping(sbt.model = "scmod2",data = ddata,
+                                          annot = dannot,do.mapping = TRUE)
+  
+  #Get sample counts pertaining to each subtype
+  table(SubtypePredictions$subtype)
+  #Select samples pertaining to Basal Subtype
+  Basals<-names(which(SubtypePredictions$subtype == "ER-/HER2-"))
+  #Select samples pertaining to HER2 Subtype
+  HER2s<-names(which(SubtypePredictions$subtype == "HER2+"))
+  #Select samples pertaining to Luminal Subtypes
+  LuminalB<-names(which(SubtypePredictions$subtype == "ER+/HER2- High Prolif"))
+  LuminalA<-names(which(SubtypePredictions$subtype == "ER+/HER2- Low Prolif"))
+  #ASSIGN SUBTYPES TO EVERY SAMPLE, ADD TO THE EXISTING PHENODATA
+  ddemo$SCMGENE<-SubtypePredictions$subtype
+  ddemo[LuminalB,]$SCMGENE<-"LumB"
+  ddemo[LuminalA,]$SCMGENE<-"LumA"
+  ddemo[Basals,]$SCMGENE<-"Basal"
+  ddemo[HER2s,]$SCMGENE<-"Her2"
+ 
+  # Perform subtyping using PAM50
+  # Matrix should have samples as ROWS, genes as COLUMNS
+  #rownames(dannot)<-dannot$probe<-dannot$EntrezGene.ID
+ 
+  PAM50Preds<-molecular.subtyping(sbt.model = "pam50",data=ddata,
+                                        annot=dannot,do.mapping=TRUE)
+#   PAM50Preds<-intrinsic.cluster.predict(sbt.model=pam50,data=ddata,
+#                                         annot=dannot,do.mapping=TRUE,verbose=TRUE)
+  table(PAM50Preds$subtype)
+  ddemo$PAM50<-PAM50Preds$subtype
+  LumA<-names(PAM50Preds$subtype)[which(PAM50Preds$subtype == "LumA")]
+  LumB<-names(PAM50Preds$subtype)[which(PAM50Preds$subtype == "LumB")]
+  ddemo[LumA,]$PAM50<-"LumA"
+  ddemo[LumB,]$PAM50<-"LumB"
+  
+  ddemo.all <- rbind(ddemo, ddemo.all)
+}
+
+@
+
+We can compare the performance of both molecular subtyping methods 
+and determine how concordant subtype predictions are across the global population.
+We first generate a confusion matrix of the subtype predictions.
+<<CompareMolecularSubtypesByConfusionMatrix>>=
+# Obtain the subtype prediction counts for PAM50
+table(ddemo.all$PAM50)
+Normals<-rownames(ddemo.all[which(ddemo.all$PAM50 == "Normal"),])
+
+# Obtain the subtype prediction counts for SCMGENE
+table(ddemo.all$SCMGENE)
+
+ddemo.all$PAM50<-as.character(ddemo.all$PAM50)
+# We compare the samples that are predicted as pertaining to a molecular subtyp
+# We ignore for now the samples that predict as 'Normal' by PAM50
+confusionMatrix(ddemo.all[-which(rownames(ddemo.all) %in% Normals),]$SCMGENE,
+                ddemo.all[-which(rownames(ddemo.all) %in% Normals),]$PAM50)
+@
+
+From these results, the concordance of the predictions between these models is around 83 percent. 
+
+We can also compare the survival of patients for each subtype. 
+We plot the surival curves of patients by subtype, 
+based on each molecular classification algorithm
+<<CompareSurvivalBySubtypes>>=
+# http://www.inside-r.org/r-doc/survival/survfit.coxph
+library(survival)
+ddemo<-ddemo.all
+data.for.survival.SCMGENE <- ddemo[,c("e.os", "t.os", "SCMGENE","age")]
+data.for.survival.PAM50 <- ddemo[,c("e.os", "t.os", "PAM50","age")]
+# Remove patients with missing survival information
+data.for.survival.SCMGENE <- data.for.survival.SCMGENE[complete.cases(data.for.survival.SCMGENE),]
+data.for.survival.PAM50 <- data.for.survival.PAM50[complete.cases(data.for.survival.PAM50),]
+
+days.per.month <- 30.4368
+days.per.year <- 365.242
+
+data.for.survival.PAM50$months_to_death <- data.for.survival.PAM50$t.os / days.per.month
+data.for.survival.PAM50$vital_status <- data.for.survival.PAM50$e.os == "1"
+surv.obj.PAM50 <- survfit(Surv(data.for.survival.PAM50$months_to_death, 
+                               data.for.survival.PAM50$vital_status) ~ data.for.survival.PAM50$PAM50)
+
+data.for.survival.SCMGENE$months_to_death <- data.for.survival.SCMGENE$t.os / days.per.month
+data.for.survival.SCMGENE$vital_status <- data.for.survival.SCMGENE$e.os == "1"
+surv.obj.SCMGENE <- survfit(Surv(
+  data.for.survival.SCMGENE$months_to_death, 
+  data.for.survival.SCMGENE$vital_status) ~ data.for.survival.SCMGENE$SCMGENE)
+
+message("KAPLAN-MEIR CURVE - USING PAM50")
+# survMisc::autoplot(surv.obj.PAM50, title="Survival curves PAM50", censSize=0)$plot + 
+#   scale_colour_manual(name="Strata", values=c("black", "green", "blue", "red"))
+
+plot(main = "Surival Curves PAM50", surv.obj.PAM50,
+     col =c("#006d2c", "#8856a7","#a50f15", "#08519c", "#000000"),lty = 1,lwd = 3,
+     xlab = "Time (months)",ylab = "Survival")
+legend("topright",
+       fill = c("#006d2c", "#8856a7","#a50f15", "#08519c", "#000000"),
+       legend = c("Basal","Her2","LumA","LumB","Normal"),bty = "n")
+
+message("KAPLAN-MEIR CURVE - USING SCMGENE")
+# survMisc::autoplot(surv.obj.SCMGENE, title="Survival curves SCMGENE", censSize=0)$plot + 
+#   scale_colour_manual(name="Strata", values=c("black", "green", "blue"))
+
+plot(main = "Surival Curves SCMGENE", surv.obj.SCMGENE,
+     col =c("#006d2c", "#8856a7","#a50f15", "#08519c"),lty = 1,lwd = 3,
+     xlab = "Time (months)",ylab = "Survival")
+legend("topright",
+       fill = c("#006d2c", "#8856a7","#a50f15", "#08519c"),
+       legend = c("Basal","Her2","LumA","LumB"),bty = "n")
+
+## GENERATE A OVERLAYED PLOT OF SURVIVAL CURVES
+message("Overlayed Surival Plots based on PAM50 and SCMGENE")
+                          ## Basal    Her2        LuminalA  LuminalB   Normal
+plot(surv.obj.PAM50,col =c("#006d2c", "#8856a7","#a50f15", "#08519c", "#000000"),lty = 1,lwd = 3,
+     xlab = "Time (months)",ylab = "Survival",ymin = 0.2)
+legend("topright",
+       fill = c("#006d2c", "#8856a7","#a50f15", "#08519c", "#000000"),
+       legend = c("Basal","Her2","LumA","LumB","Normal"),bty = "n")
+
+par(new=TRUE)
+                            ## Basal    Her2        LuminalA  LuminalB
+lines(surv.obj.SCMGENE,col =c("#006d2c", "#8856a7","#a50f15", "#08519c"),lwd=2,lty=5)
+legend("bottomright",c("PAM50","SCMGENE"),lty=c("solid", "dashed"))
+
+@
+
+We can now compare which of the molecular subtyping algorithms is more prognostic.
+To do this we use a Cross-validated Partial Likelihood (cvpl) calculation from survcomp. 
+This returns the mean cross-validated partial likelihood, for each algorithm, using molecular subtypes for stratification
+<<CalculatedCVPL>>=
+set.seed(12345)
+
+PAM5_CVPL<-cvpl(x=data.for.survival.PAM50$age, 
+                surv.time=data.for.survival.PAM50$months_to_death, 
+                surv.event=data.for.survival.PAM50$vital_status, 
+                strata=as.integer(factor(data.for.survival.PAM50$PAM50)), 
+                nfold=10, setseed=54321)$cvpl
+
+SCMEGENE_CVPL<-cvpl(x=data.for.survival.SCMGENE$age, 
+                    surv.time=data.for.survival.SCMGENE$months_to_death, 
+                    surv.event=data.for.survival.SCMGENE$vital_status, 
+                    strata=as.integer(factor(data.for.survival.SCMGENE$SCMGENE)), 
+                    nfold=10, setseed=54321)$cvpl
+
+print.data.frame(data.frame(cbind(PAM5_CVPL,SCMEGENE_CVPL)))
+@
+
+\newpage
+
+%------------------------------------------------------------
+\section{Case Study : Comparing risk prediction models}
+%------------------------------------------------------------ 
 
 We compute the risk scores using the following list of algorithms (and corresponding genefu functions):
 
@@ -326,7 +505,8 @@ for(i in 1:length(dn)) {
   rest <- cbind(rest, "TAMR13"=tamr13(data=ddata, annot=dannot, do.mapping=domap)$score)
 
   ## GENE70
-  # Need to do mapping for Affy platforms because this is based on Agilent. Hence the mapping rule is reversed here! 
+  # Need to do mapping for Affy platforms because this is based on Agilent. 
+  # Hence the mapping rule is reversed here! 
   if(dn.platform[i] == "affy") { domap <- TRUE } else { domap <- FALSE }
   rest <- cbind(rest, "GENE70"=gene70(data=ddata, annot=dannot, std="none",do.mapping=domap)$score)
   
@@ -358,9 +538,11 @@ for(i in 1:length(ddemo.all)) {
 res[complete.cases(ddemot[ ,"dataset"]) & ddemot[ ,"dataset"] == "VDX", "GENIUS"] <- NA
 
 ## select only untreated node-negative patients with all risk predictions
-## ie(incomplete cases (where a risk prediction may be missing for a sample) are subsequently removed))
-# Note that increasing the number of risk prediction analyses may increase the number of incomplete cases
-# In the previous vignette for genefu version1, we were only testing 4 risk predictors, so we had a total of 722 complete cases remaining
+## ie(incomplete cases (where risk prediction may be missing for a sample) are subsequently removed))
+# Note that increasing the number of risk prediction analyses 
+# may increase the number of incomplete cases
+# In the pconcordance indexevious vignette for genefu version1, we were only testing 4 risk predictors, 
+# so we had a total of 722 complete cases remaining
 # Here, we are now testing 12 risk predictors, so we only have 713 complete cases remaining. 
 # The difference of 9 cases between the two versions are all from the NKI dataset. 
 myx <- complete.cases(res, ddemot[ , c("node", "treatment")]) & 
@@ -370,9 +552,7 @@ res <- res[myx, , drop=FALSE]
 ddemot <- ddemot[myx, , drop=FALSE]
 @
 
-To compare the risk score performances, we compute the concordance index\footnote{The same analysis could be performed with D index and hazard ratio by using the functions \Rfunction{D.index} and \Rfunction{hazard.ratio} from the \Rpackage{survcomp} package respectively}:
-
-Definition of the concordance index for a risk prediction: the probability that, for a pair of randomly chosen comparable samples, the sample with the higher risk prediction will experience an event before the other sample or belongs to a higher binary class.
+To compare the risk score performances, we compute the concordance index\footnote{The same analysis could be performed with D index and hazard ratio by using the functions \Rfunction{D.index} and \Rfunction{hazard.ratio} from the \Rpackage{survcomp} package respectively}, which is the probability that, for a pair of randomly chosen comparable samples, the sample with the higher risk prediction will experience an event before the other sample or belongs to a higher binary class.
 
 <<cindexComputation>>=
 cc.res <- complete.cases(res)
@@ -436,7 +616,7 @@ printPV<-t(printPV)
 @
 
 And print the table of P-values:
-<<printPvalue,results="asis">>==
+<<printPvalue,results="asis">>=
 xtable(printPV, digits=c(0, -1))
 @
 
@@ -567,7 +747,7 @@ rownames(ccmData) <- riskPList
 
 Table 2 displays the for multiple testing uncorrected p-values for the comparison of the different methods:
 <<printCCM,results="asis">>=
-xtable(ccmData, digits=c(0, rep(-1,ncol(ccmData))))
+xtable(ccmData, digits=c(0, rep(-1,ncol(ccmData))), size="footnotesize")
 @
 
 
@@ -581,7 +761,7 @@ ccmDataPval <- matrix(p.adjust(data.matrix(ccmData), method="holm"),ncol=length(
 
 Table 3 displays the corrected p-values:
 <<printCCMPval,results='asis'>>=
-xtable(ccmDataPval, digits=c(0, rep(-1,ncol(ccmDataPval))))
+xtable(ccmDataPval, digits=c(0, rep(-1,ncol(ccmDataPval))), size="footnotesize")
 @
 
 
@@ -600,7 +780,7 @@ xtable(ccmDataPval, digits=c(0, rep(-1,ncol(ccmDataPval))))
 The following is a list of publications that have cited genefu (Version 1) in the past.
 
 
-** Where genefu was used in subtyping:**
+\subsection*{Where genefu was used in subtyping}
 
 \begin{description}
 \item Larsen, M.J. et al., 2014. Microarray-Based RNA Profiling of Breast Cancer: Batch Effect Removal Improves Cross-Platform Consistency. BioMed Research International, 2014, pp.1-11.
@@ -609,7 +789,7 @@ The following is a list of publications that have cited genefu (Version 1) in th
 \end{description}
 
 
-** Where genefu was used in Comparing Subtyping Schemes:** 
+\subsection*{Where genefu was used in Comparing Subtyping Schemes}
 
 \begin{description}
 \item Haibe-Kains, B. et al., 2012. A three-gene model to robustly identify breast cancer molecular subtypes. Journal of the National Cancer Institute, 104(4), pp.311-325.
@@ -620,7 +800,7 @@ The following is a list of publications that have cited genefu (Version 1) in th
 \end{description}
 
 
-** Where genefu was used to Compute Prognostic gene signature scores:** 
+\subsection*{Where genefu was used to Compute Prognostic gene signature scores}
 
 \begin{description}
 \item Haibe-Kains, B. et al., 2008. A comparative study of survival models for breast cancer prognostication based on microarray data: does a single gene beat them all? Bioinformatics, 24(19), pp.2200-2208.
@@ -631,7 +811,7 @@ The following is a list of publications that have cited genefu (Version 1) in th
 \end{description}
 
 
-** As well as other publications ** 
+\subsection*{As well as other publications}
 
 \begin{description}
 \item APOBEC3B expression in breast cancer reflects cellular proliferation, while a deletion polymorphism is associated with immune activation.Cescon DW, Haibe-Kains B, Mak TW. Proc Natl Acad Sci U S A. 2015 Mar 3;112(9):2841-6. doi: 10.1073/pnas.1424869112. Epub 2015 Feb 17. PMID: 25730878 
@@ -644,7 +824,7 @@ The following is a list of publications that have cited genefu (Version 1) in th
 %------------------------------------------------------------
 \section{Session Info}
 %------------------------------------------------------------ 
-<<sessionInfo,echo=FALSE,results="tex">>==
+<<sessionInfo,results='asis'>>=
 toLatex(sessionInfo())
 @
 

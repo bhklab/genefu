@@ -8,7 +8,8 @@ Function to compute the fuzzy Student t test based on weighted mean and weighted
 This function allows for computing the weighted mean and weighted variance of a vector of continuous values.
 }
 \usage{
-fuzzy.ttest(x, w1, w2, alternative=c("two.sided", "less", "greater"), check.w = TRUE, na.rm = FALSE)
+fuzzy.ttest(x, w1, w2, alternative=c("two.sided", "less", "greater"), 
+check.w = TRUE, na.rm = FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -41,13 +42,12 @@ A numeric vector of six values that are the difference between the two weighted 
 }
 \references{
 \url{http://en.wikipedia.org/wiki/T_test}
-\url{http://www.nicebread.de/blog/files/fc02e1635792cb0f2b3cbd1f7e6c580b-10.php}
 }
 \author{
 Benjamin Haibe-Kains
 }
 %%\note{
-%%  ~~further notes~~
+%%  http://www.nicebread.de/blog/files/fc02e1635792cb0f2b3cbd1f7e6c580b-10.php
 %%}
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
@@ -72,7 +72,8 @@ print(wt)
 ## permutation test to compute the null distribution of the weighted t statistic
 wt <- wt[2]
 rands <- t(sapply(1:1000, function(x,y) { return(sample(1:y)) }, y=length(xx)))
-randst <- apply(rands, 1, function(x, xx, ww1, ww2) { return(fuzzy.ttest(x=xx, w1=ww1[x], w2=ww2[x])[2]) }, xx=xx, ww1=ww1, ww2=ww2)
+randst <- apply(rands, 1, function(x, xx, ww1, ww2) 
+{ return(fuzzy.ttest(x=xx, w1=ww1[x], w2=ww2[x])[2]) }, xx=xx, ww1=ww1, ww2=ww2)
 ifelse(wt < 0, sum(randst <= wt), sum(randst >= wt)) / length(randst)
 }
 }

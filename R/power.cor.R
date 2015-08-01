@@ -1,5 +1,4 @@
 ## sample size calculation for correlation coefficients (Pearson, kendall and SPearman)
-## Bonett, D. G., & Wright, T. A. (2000). Sample size requirements for estimating pearson, kendall and spearman correlations. Psychometrika, 65(1), 23–28. doi:10.1007/BF02294183
 ## example: power.cor(rho=0.5, w=0.1, alpha=0.05, method="spearman")
 `power.cor` <- 
 function (rho, w, alpha=0.05, method=c("pearson", "kendall", "spearman")) {

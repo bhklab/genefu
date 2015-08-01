@@ -1,3 +1,5 @@
+if(getRversion() >= "2.15.1")  utils::globalVariables("sigOvcTCGA")
+
 `ovcTCGA` <-
 function(data, annot, gmap=c("entrezgene", "ensembl_gene_id", "hgnc_symbol", "unigene"), do.mapping=FALSE, verbose=FALSE) {
     gmap <- match.arg(gmap)

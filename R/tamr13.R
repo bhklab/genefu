@@ -1,3 +1,5 @@
+if(getRversion() >= "2.15.1")  utils::globalVariables("sig.tamr13")
+
 `tamr13` <-
 function(data, annot, do.mapping=FALSE, mapping, verbose=FALSE) {
 

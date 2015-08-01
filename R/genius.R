@@ -1,3 +1,5 @@
+if(getRversion() >= "2.15.1")  utils::globalVariables(c("sig.genius","scmod1.robust"))
+
 `genius` <-
 function(data, annot, do.mapping=FALSE, mapping, do.scale=TRUE) {
 	
