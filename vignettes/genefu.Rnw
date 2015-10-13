@@ -133,9 +133,11 @@ library(breastCancerUNT)
 library(breastCancerNKI)
 @
 
-Table1 shows an overview of the data sets and the patients (n=1123). 
+Table1 shows an overview of the data sets and the patients (n=1123). Information on ER and HER2 status, as well as patient ages has been extracted from the phenotype (pData) of the corresponding dataset under the Gene Expression Omnibus (GEO). The corresponding GEO accession numbers of the Mainz, Transbig, UPP, and UNT datasets are GSE11121,GSE7390,GSE3494, and GSE2990 respectively. Data was also obtained from the publication supplementary information for the NKI dataset. 
+
 
 For analysis involving molecular subtyping classifications [Section 4], we perform molecular subtyping on each of the datasets seperatly, after the removal of duplicate patients in the datasets.   
+
 
 For analysis comparing risk prediction models and determining prognosis [Section 5], we selected from those 1123 breast cancer patients only the patients that are node negative and didn't receive any treatment (except local radiotherapy), which results in 713 patients [please consult Section 5 for more details] .
 
@@ -656,7 +658,7 @@ par(mfrow=c(2,2))
   r.lower <- c(tt$lower)
   r.upper <- c(tt$upper)
   
-  metaplot.surv(mn=r.mean, lower=r.lower, upper=r.upper, labels=labeltext, xlim=c(0.4,0.9), 
+  metaplot.surv(mn=r.mean, lower=r.lower, upper=r.upper, labels=labeltext, xlim=c(0.3,0.9), 
                 boxsize=0.5, zero=0.5, 
                 col=meta.colors(box="royalblue",line="darkblue",zero="firebrick"), 
                 main=paste(RP))
@@ -693,7 +695,7 @@ r.mean <- c(NA,tt$cindex)
 r.lower <- c(NA,tt$lower)
 r.upper <- c(NA,tt$upper)
 
-metaplot.surv(mn=r.mean, lower=r.lower, upper=r.upper, labels=labeltext, xlim=c(0.45,0.75), 
+metaplot.surv(mn=r.mean, lower=r.lower, upper=r.upper, labels=labeltext, xlim=c(0.35,0.75), 
               boxsize=0.5, zero=0.5, 
               col=meta.colors(box="royalblue",line="darkblue",zero="firebrick"), 
               main="Overall Concordance Index")
@@ -762,7 +764,9 @@ Table 3 displays the corrected p-values using the Holms method, to correct for m
 
 <<printCCM,results="asis">>=
 #kable(ccmData,format = "latex")
-xtable(ccmData, digits=c(0, rep(-1,ncol(ccmData))), 
+xtable(ccmData[,1:6], digits=c(0, rep(-1,ncol(ccmData[,1:6]))), 
+       size="footnotesize")
+xtable(ccmData[,7:12], digits=c(0, rep(-1,ncol(ccmData[,7:12]))), 
        size="footnotesize",caption="Uncorrected p-values")
 @
 
@@ -772,7 +776,9 @@ ccmDataPval <- matrix(p.adjust(data.matrix(ccmData), method="holm"),ncol=length(
 @
 
 <<printCCMPval,results='asis'>>=
-xtable(ccmDataPval, digits=c(0, rep(-1,ncol(ccmDataPval))), 
+xtable(ccmDataPval[,1:6], digits=c(0, rep(-1,ncol(ccmDataPval[,1:6]))), 
+       size="footnotesize")
+xtable(ccmDataPval[,7:12], digits=c(0, rep(-1,ncol(ccmDataPval[,7:12]))), 
        size="footnotesize",caption="Corrected p-values")
 @
 
