@@ -133,7 +133,7 @@ library(breastCancerUNT)
 library(breastCancerNKI)
 @
 
-Table1 shows an overview of the data sets and the patients (n=1123). Information on ER and HER2 status, as well as patient ages has been extracted from the phenotype (pData) of the corresponding dataset under the Gene Expression Omnibus (GEO). The corresponding GEO accession numbers of the Mainz, Transbig, UPP, and UNT datasets are GSE11121,GSE7390,GSE3494, and GSE2990 respectively. Data was also obtained from the publication supplementary information for the NKI dataset. 
+Table1 shows an overview of the data sets and the patients (n=1123). Information on ER and HER2 status, as well as patient ages (range of patient ages per dataset) has been extracted from the phenotype (pData) of the corresponding dataset under the Gene Expression Omnibus (GEO). The corresponding GEO accession numbers of the Mainz, Transbig, UPP, and UNT datasets are GSE11121,GSE7390,GSE3494, and GSE2990 respectively. Data was also obtained from the publication supplementary information for the NKI dataset. 
 
 
 For analysis involving molecular subtyping classifications [Section 4], we perform molecular subtyping on each of the datasets seperatly, after the removal of duplicate patients in the datasets.   
