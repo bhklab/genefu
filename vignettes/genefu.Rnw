@@ -767,7 +767,7 @@ Table 3 displays the corrected p-values using the Holms method, to correct for m
 xtable(ccmData[,1:6], digits=c(0, rep(-1,ncol(ccmData[,1:6]))), 
        size="footnotesize")
 xtable(ccmData[,7:12], digits=c(0, rep(-1,ncol(ccmData[,7:12]))), 
-       size="footnotesize",caption="Uncorrected p-values")
+       size="footnotesize",caption="Uncorrected p-values for the Comparison of Different Methods")
 @
 
 <<computeCCMPval>>=
@@ -779,7 +779,7 @@ ccmDataPval <- matrix(p.adjust(data.matrix(ccmData), method="holm"),ncol=length(
 xtable(ccmDataPval[,1:6], digits=c(0, rep(-1,ncol(ccmDataPval[,1:6]))), 
        size="footnotesize")
 xtable(ccmDataPval[,7:12], digits=c(0, rep(-1,ncol(ccmDataPval[,7:12]))), 
-       size="footnotesize",caption="Corrected p-values")
+       size="footnotesize",caption="Corrected p-values Using the Holm Method")
 @
 
 
