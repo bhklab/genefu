@@ -13,7 +13,6 @@
 \usepackage{microtype}
 \usepackage[T1]{fontenc}
 \usepackage[latin1]{inputenc}
-\usepackage{lmodern}
 \usepackage{geometry}
 \usepackage{authblk}
 \geometry{verbose,tmargin=2.5cm,bmargin=2.5cm,lmargin=2.5cm,rmargin=2.5cm}
@@ -134,9 +133,13 @@ library(breastCancerUNT)
 library(breastCancerNKI)
 @
 
-Table1 shows an overview of the data sets and the patients. 
-From those 1123 breast cancer patients we selected only the patients that are node negative and didn't receive any treatment 
-(except local radiotherapy), which results in 713 patients.
+Table1 shows an overview of the data sets and the patients (n=1123). Information on ER and HER2 status, as well as patient ages (range of patient ages per dataset) has been extracted from the phenotype (pData) of the corresponding dataset under the Gene Expression Omnibus (GEO). The corresponding GEO accession numbers of the Mainz, Transbig, UPP, and UNT datasets are GSE11121,GSE7390,GSE3494, and GSE2990 respectively. Data was also obtained from the publication supplementary information for the NKI dataset. 
+
+
+For analysis involving molecular subtyping classifications [Section 4], we perform molecular subtyping on each of the datasets seperatly, after the removal of duplicate patients in the datasets.   
+
+
+For analysis comparing risk prediction models and determining prognosis [Section 5], we selected from those 1123 breast cancer patients only the patients that are node negative and didn't receive any treatment (except local radiotherapy), which results in 713 patients [please consult Section 5 for more details] .
 
 \begin{table}
 \begin{center}
@@ -154,12 +157,13 @@ Overall & 1123 & 759 & 178 & 25-73 & 237/507/350 & Affy/Agilent \\
 \end{center}
 \end{table}
 
-Since there are duplicated patients in the five data sets, we have to identify the duplicated patients 
+Since there are duplicated patients in the five data sets, we first have to identify the duplicated patients 
 and we subsequently store them in a vector.
 <<findDuplicatedPatients,eval=TRUE,results='hide',message=FALSE>>=
 data(breastCancerData)
 cinfo <- colnames(pData(mainz7g))
-data.all <- c("transbig7g"=transbig7g, "unt7g"=unt7g, "upp7g"=upp7g, "mainz7g"=mainz7g, "nki7g"=nki7g)
+data.all <- c("transbig7g"=transbig7g, "unt7g"=unt7g, "upp7g"=upp7g, 
+              "mainz7g"=mainz7g, "nki7g"=nki7g)
 
 idtoremove.all <- NULL
 duplres <- NULL
@@ -221,7 +225,7 @@ duPL <- sort(unlist(lapply(duplres, function(x) { return(x[-1]) } )))
 
 
 We now perform molecular subtyping on each of the datasets. 
-Here, we perform subtyping using the PAM50 as well as the SCMgene subtyping algorithms. 
+Here, we perform subtyping using the PAM50 as well as the SCMOD2 subtyping algorithms. 
 <<CalculateMolecularSubtypes>>=
 dn <- c("transbig", "unt", "upp", "mainz", "nki")
 dn.platform <- c("affy", "affy", "affy", "affy", "agilent")
@@ -247,13 +251,16 @@ for(i in 1:length(dn)) {
   
   dannot <- featureData(dd)@data
 
-  #MOLECULAR SUBTYPING
-  #Perform subtyping using scmod2.robust
+  # MOLECULAR SUBTYPING
+  # Perform subtyping using scmod2.robust
   # scmod2.robust: List of parameters defining the subtype clustering model 
   # (as defined by Wirapati et al)
-#   SubtypePredictions<-subtype.cluster.predict(sbt.model=scmod2.robust,
-#                                               data=ddata,annot=dannot,do.mapping=TRUE,verbose=TRUE)
-   
+  
+  # OBSOLETE FUNCTION CALL - OLDER VERSIONS OF GENEFU
+  # SubtypePredictions<-subtype.cluster.predict(sbt.model=scmod2.robust,data=ddata,
+  #                                               annot=dannot,do.mapping=TRUE,verbose=TRUE)
+  
+  # CURRENT FUNCTION CALL - NEWEST VERSION OF GENEFU
   SubtypePredictions<-molecular.subtyping(sbt.model = "scmod2",data = ddata,
                                           annot = dannot,do.mapping = TRUE)
   
@@ -266,21 +273,27 @@ for(i in 1:length(dn)) {
   #Select samples pertaining to Luminal Subtypes
   LuminalB<-names(which(SubtypePredictions$subtype == "ER+/HER2- High Prolif"))
   LuminalA<-names(which(SubtypePredictions$subtype == "ER+/HER2- Low Prolif"))
+  
   #ASSIGN SUBTYPES TO EVERY SAMPLE, ADD TO THE EXISTING PHENODATA
-  ddemo$SCMGENE<-SubtypePredictions$subtype
-  ddemo[LuminalB,]$SCMGENE<-"LumB"
-  ddemo[LuminalA,]$SCMGENE<-"LumA"
-  ddemo[Basals,]$SCMGENE<-"Basal"
-  ddemo[HER2s,]$SCMGENE<-"Her2"
+  ddemo$SCMOD2<-SubtypePredictions$subtype
+  ddemo[LuminalB,]$SCMOD2<-"LumB"
+  ddemo[LuminalA,]$SCMOD2<-"LumA"
+  ddemo[Basals,]$SCMOD2<-"Basal"
+  ddemo[HER2s,]$SCMOD2<-"Her2"
  
   # Perform subtyping using PAM50
   # Matrix should have samples as ROWS, genes as COLUMNS
-  #rownames(dannot)<-dannot$probe<-dannot$EntrezGene.ID
- 
+  # rownames(dannot)<-dannot$probe<-dannot$EntrezGene.ID
+
+  # OLDER FUNCTION CALL
+  # PAM50Preds<-intrinsic.cluster.predict(sbt.model=pam50,data=ddata,
+  #                                         annot=dannot,do.mapping=TRUE,verbose=TRUE)
+  
+  # NEWER FUNCTION CALL BASED ON MOST RECENT VERSION
   PAM50Preds<-molecular.subtyping(sbt.model = "pam50",data=ddata,
                                         annot=dannot,do.mapping=TRUE)
-#   PAM50Preds<-intrinsic.cluster.predict(sbt.model=pam50,data=ddata,
-#                                         annot=dannot,do.mapping=TRUE,verbose=TRUE)
+  
+  
   table(PAM50Preds$subtype)
   ddemo$PAM50<-PAM50Preds$subtype
   LumA<-names(PAM50Preds$subtype)[which(PAM50Preds$subtype == "LumA")]
@@ -301,17 +314,17 @@ We first generate a confusion matrix of the subtype predictions.
 table(ddemo.all$PAM50)
 Normals<-rownames(ddemo.all[which(ddemo.all$PAM50 == "Normal"),])
 
-# Obtain the subtype prediction counts for SCMGENE
-table(ddemo.all$SCMGENE)
+# Obtain the subtype prediction counts for SCMOD2
+table(ddemo.all$SCMOD2)
 
 ddemo.all$PAM50<-as.character(ddemo.all$PAM50)
 # We compare the samples that are predicted as pertaining to a molecular subtyp
 # We ignore for now the samples that predict as 'Normal' by PAM50
-confusionMatrix(ddemo.all[-which(rownames(ddemo.all) %in% Normals),]$SCMGENE,
+confusionMatrix(ddemo.all[-which(rownames(ddemo.all) %in% Normals),]$SCMOD2,
                 ddemo.all[-which(rownames(ddemo.all) %in% Normals),]$PAM50)
 @
 
-From these results, the concordance of the predictions between these models is around 83 percent. 
+From these results, the concordance of the predictions between these models is around 85 percent. 
 
 We can also compare the survival of patients for each subtype. 
 We plot the surival curves of patients by subtype, 
@@ -320,10 +333,10 @@ based on each molecular classification algorithm
 # http://www.inside-r.org/r-doc/survival/survfit.coxph
 library(survival)
 ddemo<-ddemo.all
-data.for.survival.SCMGENE <- ddemo[,c("e.os", "t.os", "SCMGENE","age")]
+data.for.survival.SCMOD2 <- ddemo[,c("e.os", "t.os", "SCMOD2","age")]
 data.for.survival.PAM50 <- ddemo[,c("e.os", "t.os", "PAM50","age")]
 # Remove patients with missing survival information
-data.for.survival.SCMGENE <- data.for.survival.SCMGENE[complete.cases(data.for.survival.SCMGENE),]
+data.for.survival.SCMOD2 <- data.for.survival.SCMOD2[complete.cases(data.for.survival.SCMOD2),]
 data.for.survival.PAM50 <- data.for.survival.PAM50[complete.cases(data.for.survival.PAM50),]
 
 days.per.month <- 30.4368
@@ -334,11 +347,11 @@ data.for.survival.PAM50$vital_status <- data.for.survival.PAM50$e.os == "1"
 surv.obj.PAM50 <- survfit(Surv(data.for.survival.PAM50$months_to_death, 
                                data.for.survival.PAM50$vital_status) ~ data.for.survival.PAM50$PAM50)
 
-data.for.survival.SCMGENE$months_to_death <- data.for.survival.SCMGENE$t.os / days.per.month
-data.for.survival.SCMGENE$vital_status <- data.for.survival.SCMGENE$e.os == "1"
-surv.obj.SCMGENE <- survfit(Surv(
-  data.for.survival.SCMGENE$months_to_death, 
-  data.for.survival.SCMGENE$vital_status) ~ data.for.survival.SCMGENE$SCMGENE)
+data.for.survival.SCMOD2$months_to_death <- data.for.survival.SCMOD2$t.os / days.per.month
+data.for.survival.SCMOD2$vital_status <- data.for.survival.SCMOD2$e.os == "1"
+surv.obj.SCMOD2 <- survfit(Surv(
+  data.for.survival.SCMOD2$months_to_death, 
+  data.for.survival.SCMOD2$vital_status) ~ data.for.survival.SCMOD2$SCMOD2)
 
 message("KAPLAN-MEIR CURVE - USING PAM50")
 # survMisc::autoplot(surv.obj.PAM50, title="Survival curves PAM50", censSize=0)$plot + 
@@ -351,11 +364,11 @@ legend("topright",
        fill = c("#006d2c", "#8856a7","#a50f15", "#08519c", "#000000"),
        legend = c("Basal","Her2","LumA","LumB","Normal"),bty = "n")
 
-message("KAPLAN-MEIR CURVE - USING SCMGENE")
-# survMisc::autoplot(surv.obj.SCMGENE, title="Survival curves SCMGENE", censSize=0)$plot + 
+message("KAPLAN-MEIR CURVE - USING SCMOD2")
+# survMisc::autoplot(surv.obj.SCMOD2, title="Survival curves SCMOD2", censSize=0)$plot + 
 #   scale_colour_manual(name="Strata", values=c("black", "green", "blue"))
 
-plot(main = "Surival Curves SCMGENE", surv.obj.SCMGENE,
+plot(main = "Surival Curves SCMOD2", surv.obj.SCMOD2,
      col =c("#006d2c", "#8856a7","#a50f15", "#08519c"),lty = 1,lwd = 3,
      xlab = "Time (months)",ylab = "Survival")
 legend("topright",
@@ -363,7 +376,7 @@ legend("topright",
        legend = c("Basal","Her2","LumA","LumB"),bty = "n")
 
 ## GENERATE A OVERLAYED PLOT OF SURVIVAL CURVES
-message("Overlayed Surival Plots based on PAM50 and SCMGENE")
+message("Overlayed Surival Plots based on PAM50 and SCMOD2")
                           ## Basal    Her2        LuminalA  LuminalB   Normal
 plot(surv.obj.PAM50,col =c("#006d2c", "#8856a7","#a50f15", "#08519c", "#000000"),lty = 1,lwd = 3,
      xlab = "Time (months)",ylab = "Survival",ymin = 0.2)
@@ -373,8 +386,8 @@ legend("topright",
 
 par(new=TRUE)
                             ## Basal    Her2        LuminalA  LuminalB
-lines(surv.obj.SCMGENE,col =c("#006d2c", "#8856a7","#a50f15", "#08519c"),lwd=2,lty=5)
-legend("bottomright",c("PAM50","SCMGENE"),lty=c("solid", "dashed"))
+lines(surv.obj.SCMOD2,col =c("#006d2c", "#8856a7","#a50f15", "#08519c"),lwd=2,lty=5)
+legend("bottomright",c("PAM50","SCMOD2"),lty=c("solid", "dashed"))
 
 @
 
@@ -390,13 +403,13 @@ PAM5_CVPL<-cvpl(x=data.for.survival.PAM50$age,
                 strata=as.integer(factor(data.for.survival.PAM50$PAM50)), 
                 nfold=10, setseed=54321)$cvpl
 
-SCMEGENE_CVPL<-cvpl(x=data.for.survival.SCMGENE$age, 
-                    surv.time=data.for.survival.SCMGENE$months_to_death, 
-                    surv.event=data.for.survival.SCMGENE$vital_status, 
-                    strata=as.integer(factor(data.for.survival.SCMGENE$SCMGENE)), 
+SCMOD2_CVPL<-cvpl(x=data.for.survival.SCMOD2$age, 
+                    surv.time=data.for.survival.SCMOD2$months_to_death, 
+                    surv.event=data.for.survival.SCMOD2$vital_status, 
+                    strata=as.integer(factor(data.for.survival.SCMOD2$SCMOD2)), 
                     nfold=10, setseed=54321)$cvpl
 
-print.data.frame(data.frame(cbind(PAM5_CVPL,SCMEGENE_CVPL)))
+print.data.frame(data.frame(cbind(PAM5_CVPL,SCMOD2_CVPL)))
 @
 
 \newpage
@@ -542,7 +555,7 @@ res[complete.cases(ddemot[ ,"dataset"]) & ddemot[ ,"dataset"] == "VDX", "GENIUS"
 ## ie(incomplete cases (where risk prediction may be missing for a sample) are subsequently removed))
 # Note that increasing the number of risk prediction analyses 
 # may increase the number of incomplete cases
-# In the pconcordance indexevious vignette for genefu version1, we were only testing 4 risk predictors, 
+# In the previous vignette for genefu version1, we were only testing 4 risk predictors, 
 # so we had a total of 722 complete cases remaining
 # Here, we are now testing 12 risk predictors, so we only have 713 complete cases remaining. 
 # The difference of 9 cases between the two versions are all from the NKI dataset. 
@@ -645,7 +658,7 @@ par(mfrow=c(2,2))
   r.lower <- c(tt$lower)
   r.upper <- c(tt$upper)
   
-  metaplot.surv(mn=r.mean, lower=r.lower, upper=r.upper, labels=labeltext, xlim=c(0.4,0.9), 
+  metaplot.surv(mn=r.mean, lower=r.lower, upper=r.upper, labels=labeltext, xlim=c(0.3,0.9), 
                 boxsize=0.5, zero=0.5, 
                 col=meta.colors(box="royalblue",line="darkblue",zero="firebrick"), 
                 main=paste(RP))
@@ -682,7 +695,7 @@ r.mean <- c(NA,tt$cindex)
 r.lower <- c(NA,tt$lower)
 r.upper <- c(NA,tt$upper)
 
-metaplot.surv(mn=r.mean, lower=r.lower, upper=r.upper, labels=labeltext, xlim=c(0.45,0.75), 
+metaplot.surv(mn=r.mean, lower=r.lower, upper=r.upper, labels=labeltext, xlim=c(0.35,0.75), 
               boxsize=0.5, zero=0.5, 
               col=meta.colors(box="royalblue",line="darkblue",zero="firebrick"), 
               main="Overall Concordance Index")
@@ -745,24 +758,28 @@ colnames(ccmData) <- riskPList
 rownames(ccmData) <- riskPList
 @
 
+Table 2 displays the uncorrected p-values for the comparison of the different methods.
 
-Table 2 displays the for multiple testing uncorrected p-values for the comparison of the different methods:
+Table 3 displays the corrected p-values using the Holms method, to correct for multiple testing. 
+
 <<printCCM,results="asis">>=
-xtable(ccmData, digits=c(0, rep(-1,ncol(ccmData))), size="footnotesize")
+#kable(ccmData,format = "latex")
+xtable(ccmData[,1:6], digits=c(0, rep(-1,ncol(ccmData[,1:6]))), 
+       size="footnotesize")
+xtable(ccmData[,7:12], digits=c(0, rep(-1,ncol(ccmData[,7:12]))), 
+       size="footnotesize",caption="Uncorrected p-values for the Comparison of Different Methods")
 @
 
-
-
-We correct the p-value with Holms method:
 <<computeCCMPval>>=
 ccmDataPval <- matrix(p.adjust(data.matrix(ccmData), method="holm"),ncol=length(riskPList),
                       dimnames=list(rownames(ccmData),colnames(ccmData)))
 @
 
-
-Table 3 displays the corrected p-values:
 <<printCCMPval,results='asis'>>=
-xtable(ccmDataPval, digits=c(0, rep(-1,ncol(ccmDataPval))), size="footnotesize")
+xtable(ccmDataPval[,1:6], digits=c(0, rep(-1,ncol(ccmDataPval[,1:6]))), 
+       size="footnotesize")
+xtable(ccmDataPval[,7:12], digits=c(0, rep(-1,ncol(ccmDataPval[,7:12]))), 
+       size="footnotesize",caption="Corrected p-values Using the Holm Method")
 @
 
 
