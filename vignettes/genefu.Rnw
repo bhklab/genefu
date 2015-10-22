@@ -359,7 +359,7 @@ message("KAPLAN-MEIR CURVE - USING PAM50")
 
 plot(main = "Surival Curves PAM50", surv.obj.PAM50,
      col =c("#006d2c", "#8856a7","#a50f15", "#08519c", "#000000"),lty = 1,lwd = 3,
-     xlab = "Time (months)",ylab = "Survival")
+     xlab = "Time (months)",ylab = "Probability of Survival")
 legend("topright",
        fill = c("#006d2c", "#8856a7","#a50f15", "#08519c", "#000000"),
        legend = c("Basal","Her2","LumA","LumB","Normal"),bty = "n")
@@ -370,7 +370,7 @@ message("KAPLAN-MEIR CURVE - USING SCMOD2")
 
 plot(main = "Surival Curves SCMOD2", surv.obj.SCMOD2,
      col =c("#006d2c", "#8856a7","#a50f15", "#08519c"),lty = 1,lwd = 3,
-     xlab = "Time (months)",ylab = "Survival")
+     xlab = "Time (months)",ylab = "Probability of Survival")
 legend("topright",
        fill = c("#006d2c", "#8856a7","#a50f15", "#08519c"),
        legend = c("Basal","Her2","LumA","LumB"),bty = "n")
@@ -379,7 +379,7 @@ legend("topright",
 message("Overlayed Surival Plots based on PAM50 and SCMOD2")
                           ## Basal    Her2        LuminalA  LuminalB   Normal
 plot(surv.obj.PAM50,col =c("#006d2c", "#8856a7","#a50f15", "#08519c", "#000000"),lty = 1,lwd = 3,
-     xlab = "Time (months)",ylab = "Survival",ymin = 0.2)
+     xlab = "Time (months)",ylab = "Probability of Survival",ymin = 0.2)
 legend("topright",
        fill = c("#006d2c", "#8856a7","#a50f15", "#08519c", "#000000"),
        legend = c("Basal","Her2","LumA","LumB","Normal"),bty = "n")
