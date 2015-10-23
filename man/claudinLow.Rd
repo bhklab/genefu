@@ -24,9 +24,6 @@ Aleix Prat, Joel S Parker, Olga Karginova, Cheng Fan, Chad Livasy, Jason I Hersc
 }
 \examples{
 data(claudinLowData)
-  # To read from a file, assuming claudingLowData saved in txt file:
-  # train<- readarray("T.E.9CELL-LINE.txt",hr=2)
-  # test<-readarray("T.E.9CELL-LINE.txt",hr=2)
 
 #Training Set
 train<-claudinLowData
