@@ -42,7 +42,7 @@ results <- cbind(predout$predictions, predout$distances)
 #write.table(results,"T.E.9CELL.LINE_results.txt",sep="\t",col=T, row=F)
 }
 \seealso{
-\code{\link[genefu]{medianCtr}},\code{\link[genefu]{claudinLowData}}
+\code{\link[genefu]{medianCtr}}, \code{\link[genefu]{claudinLowData}}
 }
 
 

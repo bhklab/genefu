@@ -2,15 +2,12 @@
 \alias{claudinLowData}
 \docType{data}
 \title{
-a
+claudingLowData
 }
 \description{
-a
+Training and Testing Data for use with the Claudin-Low Classifier
 }
 \usage{data(claudinLowData)}
-\format{
-  \code{\link[genefu]{claudinLowData}} 
-}
 %%\details{
 %%  ~~ If necessary, more details than the __description__ above ~~
 %%}

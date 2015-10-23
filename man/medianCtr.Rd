@@ -17,6 +17,6 @@ medianCtr(mat)
   \code{citation("claudinLow")}
 }
 \author{}
-\seealso{ \code{\link[claudinLow]{claudinLow}} }
+\seealso{ \code{\link[genefu]{claudinLow}} }
 
 
