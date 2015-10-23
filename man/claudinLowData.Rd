@@ -2,7 +2,7 @@
 \alias{claudinLowData}
 \docType{data}
 \title{
-claudingLowData
+claudinLowData
 }
 \description{
 Training and Testing Data for use with the Claudin-Low Classifier
@@ -16,6 +16,9 @@ Training and Testing Data for use with the Claudin-Low Classifier
 %}
 \references{
 Aleix Prat, Joel S Parker, Olga Karginova, Cheng Fan, Chad Livasy, Jason I Herschkowitz, Xiaping He, and Charles M. Perou (2010) "Phenotypic and molecular characterization of the claudin-low intrinsic subtype of breast cancer", \emph{Breast Cancer Research}, \bold{12}(5):R68
+}
+\seealso{
+\code{\link[genefu]{claudinLow}}
 }
 \examples{
 data(claudinLowData)

@@ -2,7 +2,7 @@
 \alias{claudinLow}
 \title{Claudin-low classification for Breast Cancer Data}
 \description{
- Utility function called within the claudinLow classifier
+Subtyping method for identifying Claudin-Low Breast Cancer Samples
 }
 \usage{
 claudinLow(x,classes="",y,nGenes="",priors="equal",std=F,distm="euclidean",centroids=F)
