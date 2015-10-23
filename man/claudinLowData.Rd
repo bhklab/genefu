@@ -2,7 +2,7 @@
 \alias{claudinLowData}
 \docType{data}
 \title{
-claudinLowData
+claudinLowData for use in the claudinLow classifier. Data generously provided by Aleix Prat. 
 }
 \description{
 Training and Testing Data for use with the Claudin-Low Classifier
