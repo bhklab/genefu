@@ -174,20 +174,54 @@ function (sbt.model=c("scmgene", "scmod1", "scmod2", "pam50", "ssp2006", "ssp200
     
     test<- medianCtr(t(data)) #probes as rows, median-centered
     #Run Classifier Call
-    sbts<-claudinLow(train$xd, as.matrix(train$classes$Group,ncol=1), test)
-    sbts$subtype<-factor(sbts$predictions$Call)
+    predout<-claudinLow(train$xd, as.matrix(train$classes$Group,ncol=1), test)
+    sbts<-NULL
+    sbts$subtype<-factor(as.character(predout$predictions$Call))
+    colnames(predout$centroids)<-c("Claudin","Others")
     
-#     sbts$subtype.proba <- t(apply(X=predout$centroids[,2], MARGIN=1, FUN=function(x) { return(abs(x) / sum(abs(x), na.rm=TRUE)) }))
-#     
-#     ## compute crisp classification
-#     sbts$subtype.crisp <- t(
-#       apply(sbts$subtype.proba, 1, function (x) {
-#         xx <- array(0, dim=length(x), dimnames=list(names(x)))
-#         xx[which.max(x)] <- 1
-#         return (xx)
-#       })
-#     )
-#     
+    ## apply the nearest centroid classifier to classify the samples again
+    ncor <- t(apply(X=data, MARGIN=1, FUN=function(x, y, method.cor) {
+      rr <- array(NA, dim=ncol(y), dimnames=list(colnames(y)))
+      if (sum(complete.cases(x, y)) > 3) {
+        rr <- cor(x=x, y=y, method="spearman", use="complete.obs")
+      }
+      return (rr)
+    }, y=predout$centroids, method.cor=method.cor))
+    
+    #Calculate posterior probability based on the correlationss
+   # nproba <- t(apply(X=ncor, MARGIN=1, FUN=function(x) { return(abs(x) / sum(abs(x), na.rm=TRUE)) }))
+    
+    # negative correlations are truncated to zero since they have no meaning for subtypes identification
+    nproba <- t(apply(X=ncor, MARGIN=1, FUN=function (x) {
+      rr <- array(NA, dim=length(x), dimnames=list(names(x)))
+      x[!is.na(x) & x < 0] <- 0
+      if (!all(is.na(x))) {
+        rr <- x / sum(x, na.rm=TRUE)
+      }
+      return (rr)
+    }))
+    
+    sbts$subtype.proba<-nproba
+
+    ## compute crisp classification - in this case, really based on the binary call from the CL classifier
+    #     sbts$subtype.crisp <- t(
+    #       apply(sbts$subtype.proba, 1, function (x) {
+    #         xx <- array(0, dim=length(x), dimnames=list(names(x)))
+    #         xx[which.max(x)] <- 1
+    #         return (xx)
+    #       })
+    #     )
+    #     colnames(sbts$subtype.crisp)<-c("Claudin","Others")
+    
+    # In this case, really based on the binary call from the CL classifier. Use that for accuracy
+      CLsubtypes<-c("Claudin","Others")
+      sbts$subtype.crisp <- matrix(0, nrow=nrow(predout$predictions), ncol=2,dimnames=list(rownames(predout$predictions),CLsubtypes))
+      for(count in 1:nrow(predout$predictions))
+      {
+        if(predout$predictions$Call[count]=="Others")
+          sbts$subtype.crisp[count,2]<-1
+        else sbts$subtype.crisp[count,1]<-1
+      }
   }
   return (sbts)
 }
