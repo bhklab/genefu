@@ -9,18 +9,18 @@ This function identifies the breast cancer molecular subtypes using a Subtype Cl
 }
 \usage{
 molecular.subtyping(sbt.model = c("scmgene", "scmod1", "scmod2", 
-"pam50", "ssp2006", "ssp2003", "intClust", "AIMS"), data, annot, do.mapping = FALSE)
+"pam50", "ssp2006", "ssp2003", "intClust", "AIMS","claudinLow"), data, annot, do.mapping = FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{sbt.model}{
-Subtyping classification model, can be either "scmgene", "scmod1", "scmod2", "pam50", "ssp2006", "ssp2003", "intClust", or "AIMS".
+Subtyping classification model, can be either "scmgene", "scmod1", "scmod2", "pam50", "ssp2006", "ssp2003", "intClust", "AIMS", or "claudinLow".
 }
   \item{data}{
 Matrix of gene expressions with samples in rows and probes in columns, dimnames being properly defined.
 }
   \item{annot}{
-Matrix of annotations with at least one column named "EntrezGene.ID" (fro ssp, scm and AIMS models) or "Gene.Symbol" (for the intClust model), dimnames being properly defined.
+Matrix of annotations with at least one column named "EntrezGene.ID" (for ssp, scm, AIMS, and claudinLow models) or "Gene.Symbol" (for the intClust model), dimnames being properly defined.
 }
   \item{do.mapping}{
 \code{TRUE} if the mapping through Entrez Gene ids must be performed (in case of ambiguities, the most variant probe is kept for each gene), \code{FALSE} otherwise.
@@ -50,6 +50,9 @@ Haibe-Kains B, Desmedt C, Loi S, Culhane AC, Bontempi G, Quackenbush J, Sotiriou
 Curtis C, Shah SP, Chin SF, Turashvili G, Rueda OM, Dunning MJ, Speed D, Lynch AG, Samarajiwa S, Yuan Y, Graf S, Ha G, Haffari G, Bashashati A, Russell R, McKinney S; METABRIC Group, Langerod A, Green A, Provenzano E, Wishart G, Pinder S, Watson P, Markowetz F, Murphy L, Ellis I, Purushotham A, Borresen-Dale AL, Brenton JD, Tavare S, Caldas C, Aparicio S. (2012) "The genomic and transcriptomic architecture of 2,000 breast tumours reveals novel subgroups.", \emph{Nature}, \bold{486}(7403):346--352.
 
 Paquet ER, Hallett MT. (2015) "Absolute assignment of breast cancer intrinsic molecular subtype.", \emph{J Natl Cancer Inst.}, \bold{107}(1):357.
+
+Aleix Prat, Joel S Parker, Olga Karginova, Cheng Fan, Chad Livasy, Jason I Herschkowitz, Xiaping He, and Charles M. Perou (2010) "Phenotypic and molecular characterization of the claudin-low intrinsic subtype of breast cancer", \emph{Breast Cancer Research}, \bold{12}(5):R68
+
 }
 \author{
 Benjamin Haibe-Kains
@@ -92,6 +95,15 @@ data(nkis)
 sbt.nkis <- molecular.subtyping(sbt.model="scmgene", data=data.nkis, 
   annot=annot.nkis, do.mapping=TRUE)
 table(sbt.nkis$subtype)
+
+##### with mapping
+## load vdxs data
+data(vdxs)
+
+## Claudin-Low classification of 150 VDXS samples
+sbt.vdxs.CL <- molecular.subtyping(sbt.model="claudinLow", data=data.vdxs, 
+  annot=annot.vdxs, do.mapping=TRUE)
+table(sbt.vdxs.CL$subtype)
 
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

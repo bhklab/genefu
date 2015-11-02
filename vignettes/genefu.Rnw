@@ -13,6 +13,7 @@
 \usepackage{microtype}
 \usepackage[T1]{fontenc}
 \usepackage[latin1]{inputenc}
+\usepackage{lmodern}
 \usepackage{geometry}
 \usepackage{authblk}
 \geometry{verbose,tmargin=2.5cm,bmargin=2.5cm,lmargin=2.5cm,rmargin=2.5cm}
@@ -38,12 +39,18 @@
 \author[1,2]{Deena M.A. Gendoo}
 \author[1]{Natchar Ratanasirigulchai}
 \author[3]{Markus Schr\"{o}der}
+\author[4]{Laia Pare}
+\author[5]{Joel S. Parker}
+\author[4,6,7]{Aleix Prat}
 \author[1,2]{Benjamin Haibe-Kains\thanks{benjamin.haibe.kains@utoronto.ca }}
 
 \affil[1]{Bioinformatics and Computational Genomics Laboratory, Princess Margaret Cancer Center, University Health Network, Toronto, Ontario, Canada}
 \affil[2]{Department of Medical Biophysics, University of Toronto, Toronto, Canada}
 \affil[3]{UCD School of Biomolecular and Biomedical Science, Conway Institute, University College Dublin, Belfield, Dublin, Ireland}
-\affil[4]{Machine Learning Group, Universit\'{e} Libre de Bruxelles}
+\affil[4]{Translational Genomics and Targeted Therapeutics in Solid Tumors, August Pi i Sunyer Biomedical Research Institute (IDIBAPS), 08036, Barcelona, Spain}
+\affil[5]{Lineberger Comprehensive Cancer Center, University of North Carolina, Chapel Hill, NC 27599, USA}
+\affil[6]{Translational Genomics Group, Vall d´Hebron Institute of Oncology (VHIO), 08035, Barcelona, Spain}
+\affil[7]{Department of Medical Oncology, Hospital Clínic of Barcelona, 08036, Barcelona, Spain}
 
 \maketitle
 \tableofcontents
@@ -359,7 +366,7 @@ message("KAPLAN-MEIR CURVE - USING PAM50")
 
 plot(main = "Surival Curves PAM50", surv.obj.PAM50,
      col =c("#006d2c", "#8856a7","#a50f15", "#08519c", "#000000"),lty = 1,lwd = 3,
-     xlab = "Time (months)",ylab = "Survival")
+     xlab = "Time (months)",ylab = "Probability of Survival")
 legend("topright",
        fill = c("#006d2c", "#8856a7","#a50f15", "#08519c", "#000000"),
        legend = c("Basal","Her2","LumA","LumB","Normal"),bty = "n")
@@ -370,7 +377,7 @@ message("KAPLAN-MEIR CURVE - USING SCMOD2")
 
 plot(main = "Surival Curves SCMOD2", surv.obj.SCMOD2,
      col =c("#006d2c", "#8856a7","#a50f15", "#08519c"),lty = 1,lwd = 3,
-     xlab = "Time (months)",ylab = "Survival")
+     xlab = "Time (months)",ylab = "Probability of Survival")
 legend("topright",
        fill = c("#006d2c", "#8856a7","#a50f15", "#08519c"),
        legend = c("Basal","Her2","LumA","LumB"),bty = "n")
@@ -379,7 +386,7 @@ legend("topright",
 message("Overlayed Surival Plots based on PAM50 and SCMOD2")
                           ## Basal    Her2        LuminalA  LuminalB   Normal
 plot(surv.obj.PAM50,col =c("#006d2c", "#8856a7","#a50f15", "#08519c", "#000000"),lty = 1,lwd = 3,
-     xlab = "Time (months)",ylab = "Survival",ymin = 0.2)
+     xlab = "Time (months)",ylab = "Probability of Survival",ymin = 0.2)
 legend("topright",
        fill = c("#006d2c", "#8856a7","#a50f15", "#08519c", "#000000"),
        legend = c("Basal","Her2","LumA","LumB","Normal"),bty = "n")

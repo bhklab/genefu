@@ -2,7 +2,8 @@
 \alias{claudinLow}
 \title{Claudin-low classification for Breast Cancer Data}
 \description{
- Utility function called within the claudinLow classifier
+Subtyping method for identifying Claudin-Low Breast Cancer Samples. 
+Code generously provided by Aleix Prat. 
 }
 \usage{
 claudinLow(x,classes="",y,nGenes="",priors="equal",std=F,distm="euclidean",centroids=F)
@@ -23,9 +24,6 @@ Aleix Prat, Joel S Parker, Olga Karginova, Cheng Fan, Chad Livasy, Jason I Hersc
 }
 \examples{
 data(claudinLowData)
-  # To read from a file, assuming claudingLowData saved in txt file:
-  # train<- readarray("T.E.9CELL-LINE.txt",hr=2)
-  # test<-readarray("T.E.9CELL-LINE.txt",hr=2)
 
 #Training Set
 train<-claudinLowData
@@ -41,7 +39,8 @@ predout<-claudinLow(train$xd, as.matrix(train$classes$Group,ncol=1), test$xd)
 results <- cbind(predout$predictions, predout$distances)
 #write.table(results,"T.E.9CELL.LINE_results.txt",sep="\t",col=T, row=F)
 }
-\author{}
-\seealso{ \code{\link[claudinLow]{claudinLow}} }
+\seealso{
+\code{\link[genefu]{medianCtr}}, \code{\link[genefu]{claudinLowData}}
+}
 
 

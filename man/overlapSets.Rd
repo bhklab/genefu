@@ -5,11 +5,11 @@
  Utility function called within the claudinLow classifier
 }
 \usage{
-overlapSets(mat1,mat2)
+overlapSets(x,y)
 }
 \arguments{
-  \item{mat1}{Matrix1}
-  \item{mat2}{Matrix2}
+  \item{x}{Matrix1}
+  \item{y}{Matrix2}
 }
 \value{
   Overlapped dataset
@@ -17,7 +17,6 @@ overlapSets(mat1,mat2)
 \references{
   \code{citation("claudinLow")}
 }
-\author{}
 \seealso{ \code{\link[claudinLow]{claudinLow}} }
 
 

@@ -67,6 +67,3 @@ ana=sample(x=0:1,size=count,replace=TRUE), scoreWithClinical=TRUE, na.rm=TRUE)
 % R documentation directory.
 \keyword{ prognosis }
 %%\keyword{ breast cancer }
-
-data(NKI)
-

@@ -1,7 +1,7 @@
-if(getRversion() >= "2.15.1")  utils::globalVariables(c("scmgene.robust","scmod2.robust","pam50.robust","ssp2006.robust","ssp2003.robust"))
+if(getRversion() >= "2.15.1")  utils::globalVariables(c("scmgene.robust","scmod2.robust","pam50.robust","ssp2006.robust","ssp2003.robust","claudinLowData"))
 
 molecular.subtyping <- 
-function (sbt.model=c("scmgene", "scmod1", "scmod2", "pam50", "ssp2006", "ssp2003", "intClust", "AIMS"), data, annot, do.mapping=FALSE) {
+function (sbt.model=c("scmgene", "scmod1", "scmod2", "pam50", "ssp2006", "ssp2003", "intClust", "AIMS","claudinLow"), data, annot, do.mapping=FALSE) {
   
   sbt.model <- match.arg(sbt.model)
   
@@ -138,5 +138,90 @@ function (sbt.model=c("scmgene", "scmod1", "scmod2", "pam50", "ssp2006", "ssp200
       sbts<-sbts[- which(names(sbts) %in% c("cl","all.probs"))]
   }
   
+  ## CLAUDIN-LOW classifier
+  if (sbt.model %in% c("claudinLow")) {
+    train<-claudinLowData
+    train$xd<- medianCtr(train$xd)
+    
+    if(do.mapping) {
+      gid1 <- as.numeric(rownames(train$xd))
+      names(gid1) <- rownames(train$xd)
+      gid2 <- as.numeric(as.character(annot[ ,"EntrezGene.ID"]))
+      names(gid2) <- dimnames(annot)[[1]]
+
+      ## remove missing and duplicated geneids from the gene list
+      rm.ix <- is.na(gid1) | duplicated(gid1)
+      gid1 <- gid1[!rm.ix]
+      rr <- geneid.map(geneid1=gid2, data1=data, geneid2=gid1, verbose=FALSE)
+      gm <- length(rr$geneid2)
+      if(is.na(rr$geneid1[1])) {
+        gm <- 0
+        #no gene ids in common
+        res <- rep(NA, nrow(data))
+        names(res) <- dimnames(data)[[1]]
+        gf <- c("mapped"=0, "total"=gt)
+        if(verbose) { message(sprintf("probe candidates: 0/%i", gt)) }
+        return(list("score"=res, "risk"=res, "mapping"=gf, "probe"=NA))
+      }
+      gid1 <- rr$geneid2
+      gid2 <- rr$geneid1
+      data <- rr$data1
+      #mymapping <- c("mapped"=gm, "total"=gt)
+      myprobe <- cbind("probe"=names(gid1), "EntrezGene.ID"=gid1, "new.probe"=names(gid2))
+      ## change the names of probes in the data
+      dimnames(data)[[2]] <- names(gid2) <- names(gid1)
+    } 
+    
+    test<- medianCtr(t(data)) #probes as rows, median-centered
+    #Run Classifier Call
+    predout<-claudinLow(train$xd, as.matrix(train$classes$Group,ncol=1), test)
+    sbts<-NULL
+    sbts$subtype<-factor(as.character(predout$predictions$Call))
+    colnames(predout$centroids)<-c("Claudin","Others")
+    
+    ## apply the nearest centroid classifier to classify the samples again
+    ncor <- t(apply(X=data, MARGIN=1, FUN=function(x, y, method.cor) {
+      rr <- array(NA, dim=ncol(y), dimnames=list(colnames(y)))
+      if (sum(complete.cases(x, y)) > 3) {
+        rr <- cor(x=x, y=y, method="spearman", use="complete.obs")
+      }
+      return (rr)
+    }, y=predout$centroids, method.cor=method.cor))
+    
+    #Calculate posterior probability based on the correlationss
+   # nproba <- t(apply(X=ncor, MARGIN=1, FUN=function(x) { return(abs(x) / sum(abs(x), na.rm=TRUE)) }))
+    
+    # negative correlations are truncated to zero since they have no meaning for subtypes identification
+    nproba <- t(apply(X=ncor, MARGIN=1, FUN=function (x) {
+      rr <- array(NA, dim=length(x), dimnames=list(names(x)))
+      x[!is.na(x) & x < 0] <- 0
+      if (!all(is.na(x))) {
+        rr <- x / sum(x, na.rm=TRUE)
+      }
+      return (rr)
+    }))
+    
+    sbts$subtype.proba<-nproba
+
+    ## compute crisp classification - in this case, really based on the binary call from the CL classifier
+    #     sbts$subtype.crisp <- t(
+    #       apply(sbts$subtype.proba, 1, function (x) {
+    #         xx <- array(0, dim=length(x), dimnames=list(names(x)))
+    #         xx[which.max(x)] <- 1
+    #         return (xx)
+    #       })
+    #     )
+    #     colnames(sbts$subtype.crisp)<-c("Claudin","Others")
+    
+    # In this case, really based on the binary call from the CL classifier. Use that for accuracy
+      CLsubtypes<-c("Claudin","Others")
+      sbts$subtype.crisp <- matrix(0, nrow=nrow(predout$predictions), ncol=2,dimnames=list(rownames(predout$predictions),CLsubtypes))
+      for(count in 1:nrow(predout$predictions))
+      {
+        if(predout$predictions$Call[count]=="Others")
+          sbts$subtype.crisp[count,2]<-1
+        else sbts$subtype.crisp[count,1]<-1
+      }
+  }
   return (sbts)
 }
