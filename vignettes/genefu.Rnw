@@ -13,6 +13,7 @@
 \usepackage{microtype}
 \usepackage[T1]{fontenc}
 \usepackage[latin1]{inputenc}
+\usepackage{lmodern}
 \usepackage{geometry}
 \usepackage{authblk}
 \geometry{verbose,tmargin=2.5cm,bmargin=2.5cm,lmargin=2.5cm,rmargin=2.5cm}
