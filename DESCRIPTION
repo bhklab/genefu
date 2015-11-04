@@ -1,16 +1,16 @@
 Package: genefu
 Type: Package
 Title: Computation of Gene Expression-Based Signatures in Breast Cancer
-Version: 2.3.2
-Date: 2015-10-28
+Version: 2.3.3
+Date: 2015-11-04
 Description: R package providing various functions relevant for gene expression analysis with emphasis on breast cancer.
-Author: Deena M.A. Gendoo, Natchar Ratanasirigulchai, Markus S. Schroder, Laia Pare, Joel S. Parker, Aleix Prat, and Benjamin Haibe-Kains
+Author: Deena M.A. Gendoo, Natchar Ratanasirigulchai, Markus S. Schroeder, Laia Pare, Joel S. Parker, Aleix Prat, and Benjamin Haibe-Kains
 Maintainer: Benjamin Haibe-Kains <benjamin.haibe.kains@utoronto.ca>, Markus Schroeder <markus.schroeder@ucdconnect.ie>
 Description: This package contains functions implementing various tasks usually required by gene expression analysis, especially in breast cancer studies: gene mapping between different microarray platforms, identification of molecular subtypes, implementation of published gene signatures, gene selection, and survival analysis.
 biocViews: DifferentialExpression, GeneExpression, Visualization, Clustering, Classification
-Depends: survcomp, mclust, limma,biomaRt, iC10, AIMS, R (>= 2.10)
+Depends: survcomp, mclust, limma, biomaRt, iC10, AIMS, R (>= 2.10)
 Suggests: GeneMeta, breastCancerVDX, breastCancerMAINZ, breastCancerTRANSBIG, breastCancerUPP, breastCancerUNT, breastCancerNKI, rmeta, Biobase, xtable, knitr, caret, survival
-Imports: amap
+Imports: amap, impute
 VignetteBuilder: knitr
 License: Artistic-2.0
 URL: http://www.pmgenomics.ca/bhklab/software/genefu

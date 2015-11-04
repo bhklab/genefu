@@ -1,5 +1,6 @@
 importFrom(mclust, Mclust, estep, mstep, mclustBIC, mclust2Dplot, mvn2plot, map)
 importFrom(amap, hcluster)
+importFrom(impute,impute.knn)
 import(survcomp)
 import(biomaRt)
 import(iC10)

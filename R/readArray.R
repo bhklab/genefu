@@ -48,7 +48,7 @@ readarray<-function(dataFile,designFile=NA,hr=1,impute=T,method="mean"){
   }
   
   if(sum(apply(xd,2,is.na))>0 & impute){
-    library(impute)
+    #library(impute)
     allAnn<-dimnames(xd)
     data.imputed<-impute.knn(as.matrix(xd))$data
     xd<-data.imputed[1:features,]
