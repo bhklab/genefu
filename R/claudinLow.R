@@ -16,7 +16,7 @@ if(getRversion() >= "2.15.1")  utils::globalVariables(c("collapseIDs","medianCtr
 #				centroids	-	when true, it is assumed that x consists of pre-calculated centroids
 
 
-claudinLow<-function(x,classes="",y,nGenes="",priors="equal",std=F,distm="euclidean",centroids=F){
+claudinLow<-function(x,classes="",y,nGenes="",priors="equal",std=FALSE,distm="euclidean",centroids=FALSE){
   
   dataMatrix<-x
   features<- dim(x)[1]

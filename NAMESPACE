@@ -5,5 +5,6 @@ import(survcomp)
 import(biomaRt)
 import(iC10)
 import(AIMS)
+import(limma)
 
 exportPattern("^[^\\.]")

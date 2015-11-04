@@ -15,6 +15,6 @@
 \references{
   \code{citation("claudinLow")}
 }
-\seealso{ \code{\link[claudinLow]{claudinLow}} }
+\seealso{ \code{\link[genefu]{claudinLow}} }
 
 
