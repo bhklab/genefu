@@ -50,7 +50,7 @@ Benjamin Haibe-Kains
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link[stats]{cor}}, \code{\link[stats]{t.test}}, \code{\link[genefu]{compare.proto.cor}}
+\code{\link[stats]{cor}}, \code{\link[stats]{t.test}}, \code{\link[genefu]{compareProtoCor}}
 }
 \examples{
 ## load VDX dataset

@@ -5,7 +5,7 @@
  Utility function called within the claudinLow classifier
 }
 \usage{
- collapseIDs<-(x,allids=row.names(x),method="mean")
+ collapseIDs(x,allids=row.names(x),method="mean")
 }
 \arguments{
   \item{x}{Matrix of numbers}

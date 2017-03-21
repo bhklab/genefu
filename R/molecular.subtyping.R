@@ -1,7 +1,7 @@
 if(getRversion() >= "2.15.1")  utils::globalVariables(c("scmgene.robust","scmod2.robust","pam50.robust","ssp2006.robust","ssp2003.robust","claudinLowData"))
 
 molecular.subtyping <- 
-function (sbt.model=c("scmgene", "scmod1", "scmod2", "pam50", "ssp2006", "ssp2003", "intClust", "AIMS","claudinLow"), data, annot, do.mapping=FALSE) {
+function (sbt.model=c("scmgene", "scmod1", "scmod2", "pam50", "ssp2006", "ssp2003", "intClust", "AIMS","claudinLow"), data, annot, do.mapping=FALSE, verbose=FALSE) {
   
   sbt.model <- match.arg(sbt.model)
   
@@ -153,7 +153,7 @@ function (sbt.model=c("scmgene", "scmod1", "scmod2", "pam50", "ssp2006", "ssp200
       rm.ix <- is.na(gid1) | duplicated(gid1)
       gid1 <- gid1[!rm.ix]
       rr <- geneid.map(geneid1=gid2, data1=data, geneid2=gid1, verbose=FALSE)
-      gm <- length(rr$geneid2)
+      gt <- length(rr$geneid2)
       if(is.na(rr$geneid1[1])) {
         gm <- 0
         #no gene ids in common
@@ -180,13 +180,13 @@ function (sbt.model=c("scmgene", "scmod1", "scmod2", "pam50", "ssp2006", "ssp200
     colnames(predout$centroids)<-c("Claudin","Others")
     
     ## apply the nearest centroid classifier to classify the samples again
-    ncor <- t(apply(X=data, MARGIN=1, FUN=function(x, y, method.cor) {
+    ncor <- t(apply(X=data, MARGIN=1, FUN=function(x, y) {
       rr <- array(NA, dim=ncol(y), dimnames=list(colnames(y)))
       if (sum(complete.cases(x, y)) > 3) {
         rr <- cor(x=x, y=y, method="spearman", use="complete.obs")
       }
       return (rr)
-    }, y=predout$centroids, method.cor=method.cor))
+    }, y=predout$centroids))
     
     #Calculate posterior probability based on the correlationss
    # nproba <- t(apply(X=ncor, MARGIN=1, FUN=function(x) { return(abs(x) / sum(abs(x), na.rm=TRUE)) }))

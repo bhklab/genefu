@@ -9,7 +9,8 @@ This function identifies the breast cancer molecular subtypes using a Subtype Cl
 }
 \usage{
 molecular.subtyping(sbt.model = c("scmgene", "scmod1", "scmod2", 
-"pam50", "ssp2006", "ssp2003", "intClust", "AIMS","claudinLow"), data, annot, do.mapping = FALSE)
+  "pam50", "ssp2006", "ssp2003", "intClust", "AIMS","claudinLow"), 
+  data, annot, do.mapping = FALSE, verbose = FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -24,6 +25,9 @@ Matrix of annotations with at least one column named "EntrezGene.ID" (for ssp, s
 }
   \item{do.mapping}{
 \code{TRUE} if the mapping through Entrez Gene ids must be performed (in case of ambiguities, the most variant probe is kept for each gene), \code{FALSE} otherwise.
+}
+  \item{verbose}{
+\code{TRUE} if informative messages should be displayed, \code{FALSE} otherwise.
 }
 }
 %%\details{

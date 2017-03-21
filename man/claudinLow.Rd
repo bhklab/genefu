@@ -6,7 +6,8 @@ Subtyping method for identifying Claudin-Low Breast Cancer Samples.
 Code generously provided by Aleix Prat. 
 }
 \usage{
-  claudinLow(x,classes="",y,nGenes="",priors="equal",std=FALSE,distm="euclidean",centroids=FALSE)
+claudinLow(x, classes="", y, nGenes="", priors="equal", 
+  std=FALSE, distm="euclidean", centroids=FALSE)
 }
 \arguments{
   \item{x}{the data matrix of training samples, or pre-calculated centroids}

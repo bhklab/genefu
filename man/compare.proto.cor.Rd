@@ -1,5 +1,5 @@
-\name{compare.proto.cor}
-\alias{compare.proto.cor}
+\name{compareProtoCor}
+\alias{compareProtoCor}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Function to statistically compare correlation to prototypes
@@ -8,7 +8,7 @@ Function to statistically compare correlation to prototypes
 This function performs a statistical comparison of the correlation coefficients as computed between each probe and prototype.
 }
 \usage{
-compare.proto.cor(gene.cor, proto.cor, nn,
+compareProtoCor(gene.cor, proto.cor, nn,
   p.adjust.m = c("none", "holm", "hochberg", "hommel", "bonferroni", "BH", "BY", "fdr"))
 }
 %- maybe also 'usage' for other objects documented here.
@@ -76,7 +76,7 @@ datas.proto <- lapply(X=datas.mapped$datas, FUN=function(x, p) {
   return(x[ ,p,drop=FALSE]) }, p=protos)
 protocor <- compute.pairw.cor.meta(datas=datas.proto, method="pearson")
 ## compare correlation coefficients to each prototype
-res <- compare.proto.cor(gene.cor=probecor$cor, proto.cor=protocor$cor,
+res <- compareProtoCor(gene.cor=probecor$cor, proto.cor=protocor$cor,
   nn=probecor$cor.n, p.adjust.m="fdr")
 head(res)
 }

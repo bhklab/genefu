@@ -1,4 +1,4 @@
-`compare.proto.cor` <-
+`compareProtoCor` <-
 function(gene.cor, proto.cor, nn, p.adjust.m=c("none", "holm", "hochberg", "hommel", "bonferroni", "BH", "BY", "fdr")) {
 	p.adjust.m <- match.arg(p.adjust.m)
 	proto <- dimnames(proto.cor)[[1]]

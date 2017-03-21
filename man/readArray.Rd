@@ -5,7 +5,7 @@
  Formatting function to read arrays and format for use in the claudinLow classifier
 }
 \usage{
- readarray<-function(dataFile,designFile=NA,hr=1,impute=T,method="mean")
+ readArray(dataFile,designFile=NA,hr=1,impute=T,method="mean")
 }
 \arguments{
   \item{dataFile}{file with matrix to be read}

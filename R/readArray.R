@@ -1,4 +1,4 @@
-readarray<-function(dataFile,designFile=NA,hr=1,impute=T,method="mean"){
+readArray<-function(dataFile,designFile=NA,hr=1,impute=T,method="mean"){
   
   headerRows <- hr
   
