@@ -327,8 +327,8 @@ table(ddemo.all$SCMOD2)
 ddemo.all$PAM50<-as.character(ddemo.all$PAM50)
 # We compare the samples that are predicted as pertaining to a molecular subtyp
 # We ignore for now the samples that predict as 'Normal' by PAM50
-confusionMatrix(ddemo.all[-which(rownames(ddemo.all) %in% Normals),]$SCMOD2,
-                ddemo.all[-which(rownames(ddemo.all) %in% Normals),]$PAM50)
+confusionMatrix(factor(ddemo.all[-which(rownames(ddemo.all) %in% Normals),]$SCMOD2),
+                factor(ddemo.all[-which(rownames(ddemo.all) %in% Normals),]$PAM50))
 @
 
 From these results, the concordance of the predictions between these models is around 85 percent. 
