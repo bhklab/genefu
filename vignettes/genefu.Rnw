@@ -77,8 +77,9 @@ The package is publicly available and can be installed from Bioconductor version
 To install the genefu package:
 <<installAndLoadPackages,eval=FALSE,results='hide',message=FALSE>>=
 knitr::opts_chunk$set(eval=TRUE,cache=TRUE)
-source("http://bioconductor.org/biocLite.R")
-biocLite("genefu")
+if (!requireNamespace("BiocManager", quietly=TRUE))
+    install.packages("BiocManager")
+BiocManager::install("genefu")
 @
 
 For computing the risk scores, estimates of the performance of the risk scores, combining the estimates and comparing the estimates we have to load the genefu and survcomp packages into the workspace. 
@@ -123,12 +124,13 @@ These experimental data packages can be installed from Bioconductor version 2.8 
 For the experimental data packages the commands for installing the data sets are:
 
 <<installPackages,eval=FALSE,results='hide',message=FALSE>>=
-source("http://www.bioconductor.org/biocLite.R")
-biocLite("breastCancerMAINZ")
-biocLite("breastCancerTRANSBIG")
-biocLite("breastCancerUPP")
-biocLite("breastCancerUNT")
-biocLite("breastCancerNKI")
+if (!requireNamespace("BiocManager", quietly=TRUE))
+    install.packages("BiocManager")
+BiocManager::install("breastCancerMAINZ")
+BiocManager::install("breastCancerTRANSBIG")
+BiocManager::install("breastCancerUPP")
+BiocManager::install("breastCancerUNT")
+BiocManager::install("breastCancerNKI")
 @
 
 And to load the packages into R, please use the following commands:
