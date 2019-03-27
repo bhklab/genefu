@@ -109,7 +109,6 @@ claudinLow <- function(x, classes="", y, nGenes="", priors="equal", std=FALSE, d
   names(prediction) <- tsampleNames
   prediction <- data.frame(Samples=tsampleNames, prediction)
   colnames(prediction) <- c("Samples", "Call")
-    
   return(list(predictions=prediction,testData=tdataMatrix,distances=distances,centroids=centroids))
 }
 
