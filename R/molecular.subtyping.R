@@ -145,9 +145,9 @@ function (sbt.model=c("scmgene", "scmod1", "scmod2", "pam50", "ssp2006", "ssp200
     
     if(do.mapping) {
       gid1 <- as.numeric(rownames(train$xd))
-      names(gid1) <- rownames(train$xd)
+      names(gid1) <- paste("geneid", rownames(train$xd), sep=".")
       gid2 <- as.numeric(as.character(annot[ ,"EntrezGene.ID"]))
-      names(gid2) <- dimnames(annot)[[1]]
+      names(gid2) <- colnames(data)
 
       ## remove missing and duplicated geneids from the gene list
       rm.ix <- is.na(gid1) | duplicated(gid1)
@@ -172,12 +172,14 @@ function (sbt.model=c("scmgene", "scmod1", "scmod2", "pam50", "ssp2006", "ssp200
       dimnames(data)[[2]] <- names(gid2) <- names(gid1)
     } 
     
-    test<- medianCtr(t(data)) #probes as rows, median-centered
+    test <- medianCtr(t(data)) #probes as rows, median-centered
     #Run Classifier Call
-    predout<-claudinLow(train$xd, as.matrix(train$classes$Group,ncol=1), test)
-    sbts<-NULL
-    sbts$subtype<-factor(as.character(predout$predictions$Call))
-    colnames(predout$centroids)<-c("Claudin","Others")
+	train2 <- train$xd
+	rownames(train2) <- paste("geneid", rownames(train2), sep=".")
+    predout <- claudinLow(x=train2, classes=as.matrix(train$classes$Group,ncol=1), y=test)
+    sbts <- NULL
+    sbts$subtype <- factor(as.character(predout$predictions$Call))
+    colnames(predout$centroids) <- c("Claudin","Others")
     
     ## apply the nearest centroid classifier to classify the samples again
     ncor <- t(apply(X=data, MARGIN=1, FUN=function(x, y) {

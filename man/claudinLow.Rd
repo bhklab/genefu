@@ -27,14 +27,14 @@ Aleix Prat, Joel S Parker, Olga Karginova, Cheng Fan, Chad Livasy, Jason I Hersc
 data(claudinLowData)
 
 #Training Set
-train<-claudinLowData
-train$xd<- medianCtr(train$xd)
+train <- claudinLowData
+train$xd <-  medianCtr(train$xd)
 # Testing Set
-test<-claudinLowData
-test$xd<- medianCtr(test$xd)
+test <- claudinLowData
+test$xd <-  medianCtr(test$xd)
 
 # Generate Predictions
-predout<-claudinLow(train$xd, as.matrix(train$classes$Group,ncol=1), test$xd)
+predout <- claudinLow(x=train$xd, classes=as.matrix(train$classes$Group,ncol=1), y=test$xd)
 
 # Obtain results
 results <- cbind(predout$predictions, predout$distances)
