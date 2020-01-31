@@ -19,6 +19,7 @@ environment:
   NOT_CRAN: true
 
 build_script:
+  - travis-tool.sh install_bioc packages breastCancerVDX breastCancerMAINZ breastCancerTRANSBIG breastCancerUPP breastCancerUNT breastCancerNKI
   - travis-tool.sh install_deps
 
 test_script:
@@ -26,7 +27,6 @@ test_script:
 
 on_failure:
   - travis-tool.sh dump_logs
-
 
 
 artifacts:
