@@ -1,7 +1,7 @@
 if(getRversion() >= "2.15.1")  utils::globalVariables("sig.oncotypedx")
 
 `oncotypedx` <-
-function(data, annot, do.mapping=FALSE, mapping, verbose=FALSE) {
+function(data, annot, do.mapping=FALSE, mapping, do.scaling=TRUE, verbose=FALSE) {
 
 	## the reference genes are not taken into account due to their absence from most platforms
 	sig2 <- sig.oncotypedx[sig.oncotypedx[ , "group"] != "reference",  , drop=FALSE]
@@ -46,8 +46,12 @@ function(data, annot, do.mapping=FALSE, mapping, verbose=FALSE) {
 	## rename gene names by the gene symbols
 	dimnames(data)[[2]] <- dimnames(sig2)[[1]] <- sig2[ , "symbol"]
 	
-	## scaling between 0 and 15
-	data <- apply(data, 2, function(x) { xx <- (x - min(x, na.rm=TRUE)) / (max(x, na.rm=TRUE) - min(x, na.rm=TRUE)); return(xx * 15) })
+	If (do.scaling) {
+		## scaling between 0 and 15
+		data <- apply(data, 2, function(x) { xx <- (x - min(x, na.rm=TRUE)) / (max(x, na.rm=TRUE) - min(x, na.rm=TRUE)); return(xx * 15) })
+	} else {
+		## check that each gene expression lies approximately in [0, 15]
+	}
 	
 	## OcotypeDX recurrence score
 	## GRB7 group score = 0.9 * GRB7 + 0.1 * HER2 if result < 8, then result = 8
