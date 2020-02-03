@@ -24,6 +24,9 @@ Matrix of annotations with at least one column named "EntrezGene.ID", dimnames b
   \item{mapping}{
 Matrix with columns "EntrezGene.ID" and "probe" used to force the mapping such that the probes are not selected based on their variance.
 }
+  \item{do.scaling}{
+\code{TRUE} if the gene expression data must be rescaled between 0 and 15, \code{FALSE} otherwise (no scaling).
+}								      
   \item{verbose}{
 \code{TRUE} to print informative messages, \code{FALSE} otherwise.
 }
