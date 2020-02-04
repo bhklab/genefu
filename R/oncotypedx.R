@@ -46,7 +46,7 @@ function(data, annot, do.mapping=FALSE, mapping, do.scaling=TRUE, verbose=FALSE)
 	## rename gene names by the gene symbols
 	dimnames(data)[[2]] <- dimnames(sig2)[[1]] <- sig2[ , "symbol"]
 	
-	If (do.scaling) {
+	if (do.scaling) {
 		## scaling between 0 and 15
 		data <- apply(data, 2, function(x) { xx <- (x - min(x, na.rm=TRUE)) / (max(x, na.rm=TRUE) - min(x, na.rm=TRUE)); return(xx * 15) })
 	} else if (max(data, na.rm=TRUE) > 20 || min(data, na.rm=TRUE) < -5) {
