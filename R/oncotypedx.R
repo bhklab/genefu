@@ -49,8 +49,11 @@ function(data, annot, do.mapping=FALSE, mapping, do.scaling=TRUE, verbose=FALSE)
 	If (do.scaling) {
 		## scaling between 0 and 15
 		data <- apply(data, 2, function(x) { xx <- (x - min(x, na.rm=TRUE)) / (max(x, na.rm=TRUE) - min(x, na.rm=TRUE)); return(xx * 15) })
-	} else {
+	} else if (max(data, na.rm=TRUE) > 20 || min(data, na.rm=TRUE) < -5) {
 		## check that each gene expression lies approximately in [0, 15]
+		warning("The max and min values of your data suggest it is not already scaled... 
+			If it is please ignore this message, otherwise set `do.scaling=TRUE` to scale in the function call."
+			)
 	}
 	
 	## OcotypeDX recurrence score
