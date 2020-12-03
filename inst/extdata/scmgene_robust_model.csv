@@ -1,0 +1,18 @@
+# Benjamin Haibe-Kains. All rights reserved.
+# model.name: EEI
+# mean.1: -0.67216 -0.58278
+# mean.2: -0.261557 0.849866
+# mean.3: 0.650139 -0.34769
+# sigma: 0.101711 0.0787263
+# pro: 0.266289 0.121813 0.611898
+# scale: 0.0894835
+# shape: 1.13664 0.879785
+# gaussian.AURKA.mean: -0.280014
+# gaussian.AURKA.sigma: 0.294401
+# rescale.q: 0.05
+"module","probe","EntrezGene.ID","coefficient"
+"ESR1","205225_at","2099","1"
+"","","",""
+"ERBB2","216836_s_at","2064","1"
+"","","",""
+"AURKA","208079_s_at","6790","1"

@@ -1,0 +1,5 @@
+*.Rhistory
+.RData
+.Rbuildignore
+.Rproj.user/
+genefu.Rproj
