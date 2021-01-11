@@ -61,6 +61,7 @@
 #'
 #' @md
 #' @export
+#' @name gene70
 gene70 <- function(data, annot, do.mapping=FALSE, mapping,
                    std=c("none", "scale", "robust"), verbose=FALSE) {
 

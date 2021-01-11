@@ -1,5 +1,5 @@
 #' @title Function to compute the Relapse Score as published by Wang et al. 2005
-#' #'
+#'
 #' @description
 #' This function computes signature scores and risk classifications from gene
 #'   expression values following the algorithm used for the Relapse Score (GENE76) as
@@ -40,6 +40,7 @@
 #'
 #' @md
 #' @export
+#' @name gene76
 gene76 <- function(data, er) {
 
 	A <- 313.5

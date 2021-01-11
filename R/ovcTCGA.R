@@ -1,24 +1,24 @@
-#' @title Function to compute the prediction scores and risk classifications 
+#' @title Function to compute the prediction scores and risk classifications
 #'   for the ovarian cancer TCGA signature
 #'
 #' @description
-#' This function computes signature scores and risk classifications from gene 
-#'   expression values following the algorithm developed by the TCGA consortium 
+#' This function computes signature scores and risk classifications from gene
+#'   expression values following the algorithm developed by the TCGA consortium
 #'   for ovarian cancer.
 #'
 #' @usage
-#' ovcTCGA(data, annot, 
-#'   gmap = c("entrezgene", "ensembl_gene_id", "hgnc_symbol", "unigene"), 
+#' ovcTCGA(data, annot,
+#'   gmap = c("entrezgene", "ensembl_gene_id", "hgnc_symbol", "unigene"),
 #'   do.mapping = FALSE, verbose = FALSE)
 #'
-#' @param data	Matrix of gene expressions with samples in rows and probes in 
+#' @param data	Matrix of gene expressions with samples in rows and probes in
 #'   columns, dimnames being properly defined.
-#' @param annot	Matrix of annotations with one column named as gmap, dimnames 
+#' @param annot	Matrix of annotations with one column named as gmap, dimnames
 #'   being properly defined.
-#' @param gmap	character string containing the biomaRt attribute to use for 
+#' @param gmap	character string containing the biomaRt attribute to use for
 #'   mapping if do.mapping=TRUE
-#' @param do.mapping TRUE if the mapping through Entrez Gene ids must be 
-#'   performed (in case of ambiguities, the most variant probe is kept for 
+#' @param do.mapping TRUE if the mapping through Entrez Gene ids must be
+#'   performed (in case of ambiguities, the most variant probe is kept for
 #'   each gene), FALSE otherwise.
 #' @param verbose TRUE to print informative messages, FALSE otherwise.
 #'
@@ -27,11 +27,11 @@
 #' - score:	Continuous signature scores.
 #' - risk: Binary risk classification, 1 being high risk and 0 being low risk.
 #' - mapping: Mapping used if necessary.
-#' - probe:	If mapping is performed, this matrix contains the correspondence 
+#' - probe:	If mapping is performed, this matrix contains the correspondence
 #'   between the gene list (aka signature) and gene expression data.
 #'
 #' @references
-#' Bell D, Berchuck A, Birrer M et al. (2011) "Integrated genomic analyses of 
+#' Bell D, Berchuck A, Birrer M et al. (2011) "Integrated genomic analyses of
 #'   ovarian carcinoma", Nature, 474(7353):609-615
 #'
 #' @seealso
@@ -46,13 +46,12 @@
 #' # compute relapse score
 #' ovcTCGA.nkis <- ovcTCGA(data=data.nkis, annot=annot.nkis, gmap="entrezgene", do.mapping=TRUE)
 #' table(ovcTCGA.nkis$risk)
-#' 
+#'
 #' @md
 #' @export
-if(getRversion() >= "2.15.1")  utils::globalVariables("sigOvcTCGA")
-
-ovcTCGA <-
-function(data, annot, gmap=c("entrezgene", "ensembl_gene_id", "hgnc_symbol", "unigene"), do.mapping=FALSE, verbose=FALSE) {
+ovcTCGA <- function(data, annot, gmap=c("entrezgene", "ensembl_gene_id",
+    "hgnc_symbol", "unigene"), do.mapping=FALSE, verbose=FALSE)
+{
     gmap <- match.arg(gmap)
     if(do.mapping) {
         if(!is.element(gmap, colnames(annot))) { stop("gmap is not a column of annot!") }

@@ -37,6 +37,10 @@ list. The mapping process is performed using Entrez Gene id as reference. In cas
 ambiguities (several probes representing the same gene), the most variant probe is
 selected.
 }
+\note{
+It is mandatory that the names of geneid1 and geneid2 must be the probe names
+of the microarray platform.
+}
 \examples{
 # load NKI data
 data(nkis)

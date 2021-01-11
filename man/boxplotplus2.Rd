@@ -40,6 +40,9 @@ Number of samples in each group.
 \description{
 This function allows for display a boxplot with jittered points.
 }
+\note{
+2.21.2006 - Christos Hatzis, Nuvera Biosciences
+}
 \examples{
 dd <- list("G1"=runif(20), "G2"=rexp(30) * -1.1, "G3"=rnorm(15) * 1.3)
 boxplotplus2(x=dd, .las=3, .jit=0.75, .ylim=c(-3,3), pt.cex=0.75,

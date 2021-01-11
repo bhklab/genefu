@@ -49,6 +49,7 @@
 #'
 #' @md
 #' @export
+#' @name ggi
 ggi <- function(data, annot, do.mapping=FALSE, mapping, hg, verbose=FALSE) {
 
 	###########

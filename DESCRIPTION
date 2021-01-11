@@ -20,6 +20,7 @@ Suggests: GeneMeta, breastCancerVDX, breastCancerMAINZ, breastCancerTRANSBIG,
 Imports: amap, impute
 VignetteBuilder: knitr
 License: Artistic-2.0
+Encoding: UTF-8
 URL: http://www.pmgenomics.ca/bhklab/software/genefu
 LazyData: yes
 RoxygenNote: 7.1.1

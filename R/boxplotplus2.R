@@ -17,7 +17,7 @@
 #' @param pt.cex A numerical value giving the amount by which plotting jittered points
 #'   should be magnified relative to the default.
 #' @param pt.pch Either an integer specifying a symbol or a single character to be used
-#'   as the default in plotting jittered points. See points for possible values and 
+#'   as the default in plotting jittered points. See points for possible values and
 #'   their interpretation.
 #' @param med.line TRUE if a line should link the median of each group, FALSE otherwise.
 #' @param med.col Color of med.line.
@@ -26,9 +26,9 @@
 #' @return
 #' Number of samples in each group.
 #'
-#' @Note
+#' @note
 #' 2.21.2006 - Christos Hatzis, Nuvera Biosciences
-#' 
+#'
 #' @seealso
 #' [graphics::boxplot], [base::jitter]
 #'
