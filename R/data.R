@@ -178,7 +178,7 @@ NULL
 #' @description List of 11 genes included in the endoPredict signature. The EntrezGene.ID allows for mapping and the mapping to affy probes is already provided.
 #' @usage data(sig.endoPredict)
 #' @format sig.endoPredict is a matrix with 5 columns containing the annotations and information related to the signature itself (including a mapping to Affymetrix HGU platform).
-#' @reference Filipits, M., Rudas, M., Jakesz, R., Dubsky, P., Fitzal, F., Singer, C. F., et al. (2011). "A new molecular predictor of distant recurrence in ER-positive, HER2-negative breast cancer adds independent information to conventional clinical risk factors." \emph{Clinical Cancer Research}, \bold{17}(18):6012--6020.
+#' @references Filipits, M., Rudas, M., Jakesz, R., Dubsky, P., Fitzal, F., Singer, C. F., et al. (2011). "A new molecular predictor of distant recurrence in ER-positive, HER2-negative breast cancer adds independent information to conventional clinical risk factors." \emph{Clinical Cancer Research}, \bold{17}(18):6012--6020.
 #' @keywords data
 #' @md
 NULL
@@ -195,18 +195,165 @@ NULL
 #' @md
 NULL
 
-#
+#' @name sig.gene76
+#' @docType data
+#' @title Signature used to compute the Relapse Score (GENE76) as published in Wang et al. 2005
+#' @description List of 76 affymetrix hgu133a probesets representing 60 unique genes included in the GENE76 signature. The EntrezGene.ID allows for mapping and the coefficient allows for signature computation.
+#' @usage data(sig.gene76)
+#' @format sig.gene70 is a matrix with 10 columns containing the annotations and information related to the signature itself.
+#' @source [](http://www.thelancet.com/journals/lancet/article/PIIS0140-6736(05)17947-1/abstract)
+#' @references Y. Wang and J. G. Klijn and Y. Zhang and A. M. Sieuwerts and M. P. Look and F. Yang and D. Talantov and M. Timmermans and M. E. Meijer-van Gelder and J. Yu and T. Jatkoe and E. M. Berns and D. Atkins and J. A. Foekens (2005) "Gene-Expression Profiles to Predict Distant Metastasis of Lymph-Node-Negative Primary Breast Cancer", Lancet, 365(9460):671--679.
+#' @keywords data
+#' @md
+NULL
 
+#' @name sig.genius
+#' @docType data
+#' @title Gene Expression progNostic Index Using Subtypes (GENIUS) as published by Haibe-Kains et al. 2010.
+#' @description List of three gene signatures which compose the Gene Expression progNostic Index Using Subtypes (GENIUS) as published by Haibe-Kains et al. 2009. GENIUSM1, GENIUSM2 and GENIUSM3  are the ER-/HER2-, HER2+ and ER+/HER2- subtype signatures respectively.
+#' @format sig.genius is a list a three subtype signatures.
+#' @references Haibe-Kains B, Desmedt C, Rothe F, Sotiriou C and Bontempi G (2010) "A fuzzy gene expression-based computational approach improves breast cancer prognostication", Genome Biology, 11(2):R18
+#' @keywords data
+#' @md
+NULL
 
+#' @name sig.ggi
+#' @docType data
+#' @title Gene expression Grade Index (GGI) as published in Sotiriou et al. 2006
+#' @description List of 128 affymetrix hgu133a probesets representing 97 unique genes included in the GGI signature. The "EntrezGene.ID" column allows for mapping and "grade" defines the up-regulation of the expressions either in histological grade 1 or 3.
+#' @usage data(sig.ggi)
+#' @format sig.ggi is a matrix with 9 columns containing the annotations and information related to the signature itself.
+#' @source [](http://jnci.oxfordjournals.org/cgi/content/full/98/4/262/DC1)
+#' @references Sotiriou C, Wirapati P, Loi S, Harris A, Bergh J, Smeds J, Farmer P, Praz V, Haibe-Kains B, Lallemand F, Buyse M, Piccart MJ and Delorenzi M (2006) "Gene expression profiling in breast cancer: Understanding the molecular basis of histologic grade to improve prognosis", Journal of National Cancer Institute, 98:262--272
+#' @keywords data
+#' @md
+NULL
 
+#' @name sig.oncotypedx
+#' @docType data
+#' @title Signature used to compute the OncotypeDX signature as published by Paik et al 2004
+#' @description List of 21 genes included in the OncotypeDX signature. The EntrezGene.ID allows for mapping and the mapping to affy probes is already provided.
+#' @usage data(sig.oncotypedx)
+#' @references S. Paik, S. Shak, G. Tang, C. Kim, J. Bakker, M. Cronin, F. L. Baehner, M. G. Walker, D. Watson, T. Park, W. Hiller, E. R. Fisher, D. L. Wickerham, J. Bryant, and N. Wolmark (2004) "A Multigene Assay to Predict Recurrence of Tamoxifen-Treated, Node-Negative Breast Cancer", New England Journal of Medicine, 351(27):2817--2826.
+#' @keywords data
+#' @md
+NULL
 
+#' @name sig.pik3cags
+#' @docType data
+#' @title Gene expression Grade Index (GGI) as published in Sotiriou et al. 2006
+#' @description List of 278 affymetrix hgu133a probesets representing 236 unique genes included in the PIK3CA-GS signature. The "EntrezGene.ID" column allows for mapping and "coefficient" refers to to the direction of association with PIK3CA mutation.
+#' @usage data(sig.pik3cags)
+#' @format sig.pik3cags is a matrix with 3 columns containing the annotations and information related to the signature itself.
+#' @source [](http://www.pnas.org/content/107/22/10208/suppl/DCSupplemental)
+#' @references Loi S, Haibe-Kains B, Majjaj S, Lallemand F, Durbecq V, Larsimont D, Gonzalez-Angulo AM, Pusztai L, Symmans FW, Bardelli A, Ellis P, Tutt AN, Gillett CE, Hennessy BT., Mills GB, Phillips WA, Piccart MJ, Speed TP, McArthur GA, Sotiriou C (2010) "PIK3CA mutations associated with gene signature of low mTORC1 signaling and better outcomes in estrogen receptor-positive breast cancer", Proceedings of the National Academy of Sciences, 107(22):10208--10213
+#' @keywords data
+#' @md
+NULL
 
+#' @name sig.tamr13
+#' @docType data
+#' @title Tamoxifen Resistance signature composed of 13 gene clusters (TAMR13) as published by Loi et al. 2008.
+#' @description List of 13 clusters of genes (and annotations) and their corresponding coefficient as an additional attribute.
+#' @usage data(sig.tamr13)
+#' @format sig.tamr13 is a list a 13 clusters of genes with their corresponding coefficient.
+#' @references Loi S, Haibe-Kains B, Desmedt C, Wirapati P, Lallemand F, Tutt AM, Gillet C, Ellis P, Ryder K, Reid JF, Daidone MG, Pierotti MA, Berns EMJJ, Jansen MPHM, Foekens JA, Delorenzi M, Bontempi G, Piccart MJ and Sotiriou C (2008) "Predicting prognosis using molecular profiling in estrogen receptor-positive breast cancer treated with tamoxifen", BMC Genomics, 9(1):239
+#' @keywords data
+#' @md
+NULL
 
+#' @name sigOvcAngiogenic
+#' @title sigOvcAngiogenic dataset
+#' @docType data
+#' @source [](http://jnci.oxfordjournals.org/cgi/content/full/98/4/262/DC1)
+#' @references Bentink S, Haibe-Kains B, Risch T, Fan J-B, Hirsch MS, Holton K, Rubio R, April C, Chen J, Wickham-Garcia E, Liu J, Culhane AC, Drapkin R, Quackenbush JF, Matulonis UA (2012) "Angiogenic mRNA and microRNA Gene Expression Signature Predicts a Novel Subtype of Serous Ovarian Cancer", PloS one, 7(2):e30269
+#' @keywords data
+#' @md
+NULL
 
+#' @name sigOvcCrijns
+#' @title sigOvcCrijns dataset
+#' @docType data
+#' @source [](http://jnci.oxfordjournals.org/cgi/content/full/98/4/262/DC1)
+#' @references Crijns APG, Fehrmann RSN, de Jong S, Gerbens F, Meersma G J, Klip HG, Hollema H, Hofstra RMW, te Meerman GJ, de Vries EGE, van der Zee AGJ (2009) "Survival-Related Profile, Pathways, and Transcription Factors in Ovarian Cancer" PLoS Medicine, 6(2):e1000024.
+#' @keywords data
+#' @md
+NULL
 
+#' @name sigOvcSpentzos
+#' @title sigOcvSpentzos dataset
+#' @docType data
+#' @source [](http://jnci.oxfordjournals.org/cgi/content/full/98/4/262/DC1)
+#' @references Spentzos, D., Levine, D. A., Ramoni, M. F., Joseph, M., Gu, X., Boyd, J., et al. (2004). "Gene expression signature with independent prognostic significance in epithelial ovarian cancer". Journal of clinical oncology, 22(23), 4700--4710. doi:10.1200/JCO.2004.04.070
+#' @keywords data
+#' @md
+NULL
 
+#' @name sigOvcTCGA
+#' @title sigOvcTCGA dataset
+#' @docType data
+#' @source [](http://jnci.oxfordjournals.org/cgi/content/full/98/4/262/DC1)
+#' @references Bell D, Berchuck A, Birrer M et al. (2011) "Integrated genomic analyses of ovarian carcinoma", Nature, 474(7353):609--615
+#' @keywords data
+#' @md
+NULL
 
+#' @name sigOvcYoshihara
+#' @title sigOvcYoshihara dataset
+#' @docType data
+#' @source [](http://jnci.oxfordjournals.org/cgi/content/full/98/4/262/DC1)
+#' @references Yoshihara K, Tajima A, Yahata T, Kodama S, Fujiwara H, Suzuki M, Onishi Y, Hatae M, Sueyoshi K, Fujiwara H, Kudo, Yoshiki, Kotera K, Masuzaki H, Tashiro H, Katabuchi H, Inoue I, Tanaka K (2010) "Gene expression profile for predicting survival in advanced-stage serous ovarian cancer across two independent datasets", PloS one, 5(3):e9615.
+#' @keywords data
+#' @md
+NULL
 
+#' @name spp2003
+#' @aliases spp2003.robust spp2003.scale
+#' @title SSP2003 classifier for identification of breast cancer molecular subtypes (Sorlie et al 2003)
+#' @description List of parameters defining the SSP2003 classifier for identification of breast cancer molecular subtypes (Sorlie et al 2003).
+#' @usage
+#' data(spp2003)
+#' data(spp2003.robust)
+#' data(spp2003.scale)
+#' @docType data
+#' @format List of parameters for SSP2003:
+#'   - centroids: Gene expression centroids for each subtype.
+#'   - centroids.map: Mapping for centroids.
+#'   - method.cor: Method of correlation used to compute distance to the centroids.
+#'   - method.centroids: Method used to compute the centroids.
+#'   - std: Method used to compute the centroids.
+#'   - mins: Minimum number of samples within each cluster allowed during the fitting of the model.
+#' @source [](http://www.pnas.org/content/100/14/8418)
+#' @references T. Sorlie and R. Tibshirani and J. Parker and T. Hastie and J. S. Marron and A. Nobel and S. Deng and H. Johnsen and R. Pesich and S. Geister and J. Demeter and C. Perou and P. E. Lonning and P. O. Brown and A. L. Borresen-Dale and D. Botstein (2003) "Repeated Observation of Breast Tumor Subtypes in Independent Gene Expression Data Sets", Proceedings of the National Academy of Sciences, 1(14):8418--8423
+#' @keywords data
+#' @md
+NULL
+
+#' @name spp2006
+#' @aliases spp2006.robust spp2006.scale
+#' @title SSP2006 classifier for identification of breast cancer molecular subtypes (Hu et al 2006)
+#' @description List of parameters defining the SSP2006 classifier for identification of breast cancer molecular subtypes (Hu et al 2006).
+#' @usage
+#' data(spp2006)
+#' data(spp2006.robust)
+#' data(spp2006.scale)
+#' @format List of parameters for SSP2006:
+#'   - centroids: Gene expression centroids for each subtype.
+#'   - centroids.map: Mapping for centroids.
+#'   - method.cor: Method of correlation used to compute distance to the centroids.
+#'   - method.centroids: Method used to compute the centroids.
+#'   - std: Method of standardization for gene expressions.
+#'   - mins: Minimum number of samples within each cluster allowed during the fitting of the model.
+#' @details Three versions of the model are provided, each of ones differs by the gene expressions standardization method since it has an important impact on the subtype classification:
+#'   - spp2006: Use of the official centroids without scaling of the gene expressions.#'   - spp2006.scale: Use of the official centroids with traditional scaling of the gene expressions (see [base::scale()])
+#'   - spp2006.robust: Use of the official centroids with robust scaling of the gene expressions (see [genefu::rescale()])
+#' The model `ssp2006.robust` has been shown to reach the best concordance with the traditional clinical parameters (ER IHC, HER2 IHC/FISH and histological grade). However the use of this model is recommended only when the dataset is representative of a global population of breast cancer patients (no sampling bias, the 5 subtypes should be present).
+#' @docType data
+#' @source [](http://www.biomedcentral.com/1471-2164/7/96)
+#' @references Hu, Zhiyuan and Fan, Cheng and Oh, Daniel and Marron, JS and He, Xiaping and Qaqish, Bahjat and Livasy, Chad and Carey, Lisa and Reynolds, Evangeline and Dressler, Lynn and Nobel, Andrew and Parker, Joel and Ewend, Matthew and Sawyer, Lynda and Wu, Junyuan and Liu, Yudong and Nanda, Rita and Tretiakova, Maria and Orrico, Alejandra and Dreher, Donna and Palazzo, Juan and Perreard, Laurent and Nelson, Edward and Mone, Mary and Hansen, Heidi and Mullins, Michael and Quackenbush, John and Ellis, Matthew and Olopade, Olufunmilayo and Bernard, Philip and Perou, Charles (2006) "The molecular portraits of breast tumors are conserved across microarray platforms", _BMC Genomics_, *7*(96)
+#' @keywords data
+#' @md
+NULL
 
 
 

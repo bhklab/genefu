@@ -7,6 +7,14 @@
 \alias{annot.expos}
 \alias{demo.expos}
 \title{Gene expression, annotations and clinical data from the International Genomics Consortium}
+\format{
+expos is a dataset containing three matrices
+\itemize{
+\item data.expos: Matrix containing gene expressions as measured by Affymetrix hgu133plus2 technology (single-channel, oligonucleotides)
+\item annot.expos: Matrix containing annotations of ffymetrix hgu133plus2 microarray platform
+\item demo.expos: Clinical information of the breast cancer patients whose tumors were hybridized
+}
+}
 \source{
 http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE2109
 }
@@ -15,14 +23,6 @@ data(expos)
 }
 \description{
 This dataset contains (part of) the gene expression, annotations and clinical data from the expO dataset collected by the International Genomics Consortium (\href{http://www.intgen.org/expo/}{}).
-}
-\details{
-expos is a dataset containing three matrices
-\itemize{
-\item data.expos: Matrix containing gene expressions as measured by Affymetrix hgu133plus2 technology (single-channel, oligonucleotides)
-\item annot.expos: Matrix containing annotations of ffymetrix hgu133plus2 microarray platform
-\item demo.expos: Clinical information of the breast cancer patients whose tumors were hybridized
-}
 }
 \references{
 International Genomics Consortium, http://www.intgen.org/research-services/biobanking-experience/expo/

@@ -3,7 +3,7 @@
 \docType{data}
 \name{pam50}
 \alias{pam50}
-\alias{pang50.scale}
+\alias{pam50.scale}
 \alias{pam50.robust}
 \title{PAM50 classifier for identification of breast cancer molecular subtypes (Parker et al 2009)}
 \format{
@@ -32,8 +32,8 @@ List of parameters defining the PAM50 classifier for identification of breast ca
 Three versions of the model are provided, each of ones differs by the gene expressions standardization method since it has an important impact on the subtype classification:
 \itemize{
 \item pam50: Use of the official centroids without scaling of the gene expressions.
-\item pam50.scale: Use of the official centroids with traditional scaling of the gene expressions (see \code{base::scale})
-\item pam50.robust: Use of the official centroids with robust scaling of the gene expressions (see \code{genefu::rescale})
+\item pam50.scale: Use of the official centroids with traditional scaling of the gene expressions (see \code{\link[base:scale]{base::scale}})
+\item pam50.robust: Use of the official centroids with robust scaling of the gene expressions (see \code{\link{rescale}})
 The model `pam50.robust`` has been shown to reach the best concordance with the traditional clinical parameters (ER IHC, HER2 IHC/FISH and histological grade). However the use of this model is recommended only when the dataset is representative of a global population of breast cancer patients (no sampling bias, the 5 subtypes should be present).
 }
 }

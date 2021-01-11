@@ -4,16 +4,7 @@
 \name{claudinLowData}
 \alias{claudinLowData}
 \title{claudinLowData for use in the claudinLow classifier. Data generously provided by Aleix Prat.}
-\source{
-http://jnci.oxfordjournals.org/cgi/content/full/98/4/262/DC1
-}
-\usage{
-data(claudinLowData)
-}
-\description{
-Training and Testing Data for use with the Claudin-Low Classifier
-}
-\details{
+\format{
 \itemize{
 \item xd: Matrix of 807 features and 52 samples
 \item classes: factor to split samples
@@ -22,6 +13,15 @@ Training and Testing Data for use with the Claudin-Low Classifier
 \item fnames: names of features
 \item snames: names of samples
 }
+}
+\source{
+http://jnci.oxfordjournals.org/cgi/content/full/98/4/262/DC1
+}
+\usage{
+data(claudinLowData)
+}
+\description{
+Training and Testing Data for use with the Claudin-Low Classifier
 }
 \references{
 Aleix Prat, Joel S Parker, Olga Karginova, Cheng Fan, Chad Livasy, Jason I Herschkowitz, Xiaping He, and Charles M. Perou (2010) "Phenotypic and molecular characterization of the claudin-low intrinsic subtype of breast cancer", Breast Cancer Research, 12(5):R68
