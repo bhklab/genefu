@@ -39,8 +39,7 @@
 #'   and S. H. Friend (2002) "Gene Expression Profiling Predicts Clinical Outcome of Breast
 #'   Cancer", Nature, 415:530–536.
 #'
-#' @seealso
-#' [genefu::nkis]
+#' @seealso nkis
 #'
 #' @examples
 #' # load GENE70 signature
