@@ -23,6 +23,8 @@ datasets, the mapping is not necessary.}
 to force the mapping such that the probes are not selected based on
 their variance.}
 
+\item{do.scaling}{Should the data be scaled?}
+
 \item{verbose}{TRUE to print informative messages, FALSE otherwise.}
 }
 \value{

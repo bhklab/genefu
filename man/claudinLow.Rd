@@ -4,7 +4,7 @@
 \alias{claudinLow}
 \title{Claudin-low classification for Breast Cancer Data}
 \usage{
-claudinLow(x, classes="", y, nGenes="", priors="equal", 
+claudinLow(x, classes="", y, nGenes="", priors="equal",
   std=FALSE, distm="euclidean", centroids=FALSE)
 }
 \arguments{

@@ -1,5 +1,3 @@
-if (getRversion() >= "2.15.1")  utils::globalVariables("sig.oncotypedx")
-
 #' @title Function to compute the OncotypeDX signature as published by
 #'   Paik et al. in 2004.
 #'
@@ -22,6 +20,7 @@ if (getRversion() >= "2.15.1")  utils::globalVariables("sig.oncotypedx")
 #' @param mapping Matrix with columns "EntrezGene.ID" and "probe" used
 #'   to force the mapping such that the probes are not selected based on
 #'   their variance.
+#' @param do.scaling Should the data be scaled?
 #' @param verbose TRUE to print informative messages, FALSE otherwise.
 #'
 #' @details
