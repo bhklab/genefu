@@ -18,7 +18,7 @@ List of parameters for PAM50:
 }
 }
 \source{
-http://jco.ascopubs.org/cgi/content/short/JCO.2008.18.1370v1
+\url{http://jco.ascopubs.org/cgi/content/short/JCO.2008.18.1370v1}
 }
 \usage{
 data(pam50)
@@ -32,8 +32,8 @@ List of parameters defining the PAM50 classifier for identification of breast ca
 Three versions of the model are provided, each of ones differs by the gene expressions standardization method since it has an important impact on the subtype classification:
 \itemize{
 \item pam50: Use of the official centroids without scaling of the gene expressions.
-\item pam50.scale: Use of the official centroids with traditional scaling of the gene expressions (see \code{\link[base:scale]{base::scale}})
-\item pam50.robust: Use of the official centroids with robust scaling of the gene expressions (see \code{\link{rescale}})
+\item pam50.scale: Use of the official centroids with traditional scaling of the gene expressions (see \code{\link[base:scale]{base::scale()}})
+\item pam50.robust: Use of the official centroids with robust scaling of the gene expressions (see \code{\link[=rescale]{rescale()}})
 The model `pam50.robust`` has been shown to reach the best concordance with the traditional clinical parameters (ER IHC, HER2 IHC/FISH and histological grade). However the use of this model is recommended only when the dataset is representative of a global population of breast cancer patients (no sampling bias, the 5 subtypes should be present).
 }
 }

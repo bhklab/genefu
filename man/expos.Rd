@@ -16,7 +16,7 @@ expos is a dataset containing three matrices
 }
 }
 \source{
-http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE2109
+\url{http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE2109}
 }
 \usage{
 data(expos)

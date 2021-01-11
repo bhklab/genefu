@@ -15,7 +15,7 @@
 }
 }
 \source{
-http://jnci.oxfordjournals.org/cgi/content/full/98/4/262/DC1
+\url{http://jnci.oxfordjournals.org/cgi/content/full/98/4/262/DC1}
 }
 \usage{
 data(claudinLowData)
@@ -27,6 +27,6 @@ Training and Testing Data for use with the Claudin-Low Classifier
 Aleix Prat, Joel S Parker, Olga Karginova, Cheng Fan, Chad Livasy, Jason I Herschkowitz, Xiaping He, and Charles M. Perou (2010) "Phenotypic and molecular characterization of the claudin-low intrinsic subtype of breast cancer", Breast Cancer Research, 12(5):R68
 }
 \seealso{
-\link{claudinLow}
+\code{\link[=claudinLow]{claudinLow()}}
 }
 \keyword{data}

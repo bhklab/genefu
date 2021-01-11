@@ -5,7 +5,8 @@
 \title{Function to compute the OncotypeDX signature as published by
 Paik et al. in 2004.}
 \usage{
-oncotypedx(data, annot, do.mapping = FALSE, mapping, verbose = FALSE)
+oncotypedx(data, annot, do.mapping = FALSE, mapping, do.scaling=TRUE,
+  verbose = FALSE)
 }
 \arguments{
 \item{data}{Matrix of gene expressions with samples in rows and

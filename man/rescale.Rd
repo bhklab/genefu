@@ -7,11 +7,11 @@
 rescale(x, na.rm = FALSE, q = 0)
 }
 \arguments{
-\item{x}{}
+\item{x}{The \code{matrix} or \code{vector} to rescale.}
 
 \item{na.rm}{TRUE if missing values should be removed, FALSE otherwise.}
 
-\item{q}{Quantile (must lie in \link{0,1}).}
+\item{q}{Quantile (must lie in [\link{0,1}]).}
 }
 \value{
 A vector of rescaled values with two attributes q1 and q1 containing
@@ -49,5 +49,5 @@ hist((rescale(x=data.nkis[ ,"NM_000125"], q=0.05) - 0.5) * 2,
 
 }
 \seealso{
-\link[base:scale]{base::scale}
+\code{\link[base:scale]{base::scale()}}
 }

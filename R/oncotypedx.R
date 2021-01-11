@@ -7,7 +7,8 @@
 #'   signature as published by Paik et al. 2004.
 #'
 #' @usage
-#' oncotypedx(data, annot, do.mapping = FALSE, mapping, verbose = FALSE)
+#' oncotypedx(data, annot, do.mapping = FALSE, mapping, do.scaling=TRUE,
+#'   verbose = FALSE)
 #'
 #' @param data Matrix of gene expressions with samples in rows and
 #'   probes in columns, dimnames being properly defined.

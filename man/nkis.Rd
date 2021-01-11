@@ -16,7 +16,7 @@ nkis is a dataset containing three matrices:
 }
 }
 \source{
-http://www.nature.com/nature/journal/v415/n6871/full/415530a.html
+\url{http://www.nature.com/nature/journal/v415/n6871/full/415530a.html}
 }
 \usage{
 data(nkis)

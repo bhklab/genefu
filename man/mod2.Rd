@@ -5,7 +5,7 @@
 \alias{mod2}
 \title{Gene modules published in Wirapati et al. 2008}
 \source{
-\href{http://breast-cancer-research.com/content/10/4/R65}{}
+\url{http://breast-cancer-research.com/content/10/4/R65}
 }
 \usage{
 data(mod2)

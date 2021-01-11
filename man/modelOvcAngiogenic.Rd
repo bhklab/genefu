@@ -5,7 +5,7 @@
 \alias{modelOvcAngiogenic}
 \title{Model used to classify ovarian tumors into Angiogenic and NonAngiogenic subtypes.}
 \source{
-[](http://jnci.oxfordjournals.org/cgi/content/full/98/4/262/DC1)
+[http://jnci.oxfordjournals.org/cgi/content/full/98/4/262/DC1](http://jnci.oxfordjournals.org/cgi/content/full/98/4/262/DC1)
 }
 \usage{
 data(modelOvcAngiogenic)

@@ -34,7 +34,7 @@
 #'   breast cancer", Breast Cancer Research, 12(5):R68
 #'
 #' @seealso
-#' [genefu::medianCtr], [genefu::claudinLowData]
+#' [genefu::medianCtr()], [genefu::claudinLowData]
 #'
 #' @examples
 #' data(claudinLowData)

@@ -13,7 +13,7 @@ List of parameters for SCMGENE:
 }
 }
 \source{
-http://clincancerres.aacrjournals.org/content/14/16/5158.abstract?ck=nck
+\url{http://clincancerres.aacrjournals.org/content/14/16/5158.abstract?ck=nck}
 }
 \usage{
 data(scmgene.robust)

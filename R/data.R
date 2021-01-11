@@ -6,7 +6,7 @@
 #'
 #' @usage data(claudinLowData)
 #'
-#' @source http://jnci.oxfordjournals.org/cgi/content/full/98/4/262/DC1
+#' @source [http://jnci.oxfordjournals.org/cgi/content/full/98/4/262/DC1](http://jnci.oxfordjournals.org/cgi/content/full/98/4/262/DC1)
 #'
 #' @format
 #'  - xd: Matrix of 807 features and 52 samples
@@ -18,7 +18,7 @@
 #'
 #' @references Aleix Prat, Joel S Parker, Olga Karginova, Cheng Fan, Chad Livasy, Jason I Herschkowitz, Xiaping He, and Charles M. Perou (2010) "Phenotypic and molecular characterization of the claudin-low intrinsic subtype of breast cancer", Breast Cancer Research, 12(5):R68
 #'
-#' @seealso [genefu::claudinLow]
+#' @seealso [genefu::claudinLow()]
 #'
 #' @md
 #' @docType data
@@ -38,7 +38,7 @@ NULL
 #'   - annot.expos: Matrix containing annotations of ffymetrix hgu133plus2 microarray platform
 #'   - demo.expos: Clinical information of the breast cancer patients whose tumors were hybridized
 #'
-#' @source http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE2109
+#' @source [http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE2109](http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE2109)
 #'
 #' @references
 #' International Genomics Consortium, http://www.intgen.org/research-services/biobanking-experience/expo/
@@ -69,7 +69,7 @@ NULL
 #' @description List of seven gene modules published in Wirapati et a. 2008, i.e. ESR1 (estrogen receptor pathway), ERBB2 (her2/neu receptor pathway) and AURKA (proliferation).
 #' @usage data(mod2)
 #' @details mod2 is a list of three gene signatures, i.e. matrices with 3 columns containing the annotations and information related to the signatures themselves.
-#' @source [](http://breast-cancer-research.com/content/10/4/R65)
+#' @source [http://breast-cancer-research.com/content/10/4/R65](http://breast-cancer-research.com/content/10/4/R65)
 #' @references Wirapati P, Sotiriou C, Kunkel S, Farmer P, Pradervand S, Haibe-Kains B, Desmedt C, Ignatiadis M, Sengstag T, Schutz F, Goldstein DR, Piccart MJ and Delorenzi M (2008) "Meta-analysis of Gene-Expression Profiles in Breast Cancer: Toward a Unified Understanding of Breast Cancer Sub-typing and Prognosis Signatures", Breast Cancer Research, 10(4):R65.
 #' @keywords data
 NULL
@@ -79,7 +79,7 @@ NULL
 #' @title Model used to classify ovarian tumors into Angiogenic and NonAngiogenic subtypes.
 #' @description Object containing the set of parameters for the mixture of Gaussians used as a model to classify ovarian tumors into Angiogenic and NonAngiogenic subtypes.
 #' @usage data(modelOvcAngiogenic)
-#' @source [](http://jnci.oxfordjournals.org/cgi/content/full/98/4/262/DC1)
+#' @source [http://jnci.oxfordjournals.org/cgi/content/full/98/4/262/DC1](http://jnci.oxfordjournals.org/cgi/content/full/98/4/262/DC1)
 #' @references Bentink S, Haibe-Kains B, Risch T, Fan J-B, Hirsch MS, Holton K, Rubio R, April C, Chen J, Wickham-Garcia E, Liu J, Culhane AC, Drapkin R, Quackenbush JF, Matulonis UA (2012) "Angiogenic mRNA and microRNA Gene Expression Signature Predicts a Novel Subtype of Serous Ovarian Cancer", PloS one, 7(2):e30269
 #' @keywords data
 NULL
@@ -96,7 +96,7 @@ NULL
 #'   - data.nkis: Matrix containing gene expressions as measured by Agilent technology (dual-channel, oligonucleotides)
 #'   - annot.nkis: Matrix containing annotations of Agilent microarray platform
 #'   - demon.nkis: Clinical information of the breast cancer patients whose tumors were hybridized
-#' @source http://www.nature.com/nature/journal/v415/n6871/full/415530a.html
+#' @source [http://www.nature.com/nature/journal/v415/n6871/full/415530a.html](http://www.nature.com/nature/journal/v415/n6871/full/415530a.html)
 #' @references M. J. van de Vijver and Y. D. He and L. van't Veer and H. Dai and A. M. Hart and D. W. Voskuil and G. J. Schreiber and J. L. Peterse and C. Roberts and M. J. Marton and M. Parrish and D. Atsma and A. Witteveen and A. Glas and L. Delahaye and T. van der Velde and H. Bartelink and S. Rodenhuis and E. T. Rutgers and S. H. Friend and R. Bernards (2002) "A Gene Expression Signature as a Predictor of Survival in Breast Cancer", New England Journal of Medicine, 347(25):1999--2009
 #' @keywords data
 NULL
@@ -120,10 +120,10 @@ NULL
 #'  - mins: Minimum number of samples within each cluster allowed during the fitting of the model.
 #' @details Three versions of the model are provided, each of ones differs by the gene expressions standardization method since it has an important impact on the subtype classification:
 #'   - pam50: Use of the official centroids without scaling of the gene expressions.
-#'   - pam50.scale: Use of the official centroids with traditional scaling of the gene expressions (see [`base::scale`])
-#'   - pam50.robust: Use of the official centroids with robust scaling of the gene expressions (see [`genefu::rescale`])
+#'   - pam50.scale: Use of the official centroids with traditional scaling of the gene expressions (see [`base::scale()`])
+#'   - pam50.robust: Use of the official centroids with robust scaling of the gene expressions (see [`genefu::rescale()`])
 #' The model `pam50.robust`` has been shown to reach the best concordance with the traditional clinical parameters (ER IHC, HER2 IHC/FISH and histological grade). However the use of this model is recommended only when the dataset is representative of a global population of breast cancer patients (no sampling bias, the 5 subtypes should be present).
-#' @source http://jco.ascopubs.org/cgi/content/short/JCO.2008.18.1370v1
+#' @source [http://jco.ascopubs.org/cgi/content/short/JCO.2008.18.1370v1](http://jco.ascopubs.org/cgi/content/short/JCO.2008.18.1370v1)
 #' @references Parker, Joel S. and Mullins, Michael and Cheang, Maggie C.U. and Leung, Samuel and Voduc, David and Vickery, Tammi and Davies, Sherri and Fauron, Christiane and He, Xiaping and Hu, Zhiyuan and Quackenbush, John F. and Stijleman, Inge J. and Palazzo, Juan and Marron, J.S. and Nobel, Andrew B. and Mardis, Elaine and Nielsen, Torsten O. and Ellis, Matthew J. and Perou, Charles M. and Bernard, Philip S. (2009) "Supervised Risk Predictor of Breast Cancer Based on Intrinsic Subtypes", Journal of Clinical Oncology, 27(8):1160--1167
 #' @keywords data
 NULL
@@ -137,7 +137,7 @@ NULL
 #'   - parameters: List of parameters for the mixture of three Gaussians (ER-/HER2-, HER2+ and ER+/HER2-) that define the Subtype Clustering Model. The structure is the same than for an [`mclust::Mclust`] object.
 #'   - cutoff.AURKA: Cutoff for AURKA module score in order to identify ER+/HER2- High Proliferation (aka Luminal B) tumors and ER+/HER2- Low Proliferation (aka Luminal A) tumors.
 #'   - mod: ESR1, ERBB2 and AURKA modules.
-#' @source http://clincancerres.aacrjournals.org/content/14/16/5158.abstract?ck=nck
+#' @source [http://clincancerres.aacrjournals.org/content/14/16/5158.abstract?ck=nck](http://clincancerres.aacrjournals.org/content/14/16/5158.abstract?ck=nck)
 #' @references Desmedt C, Haibe-Kains B, Wirapati P, Buyse M, Larsimont D, Bontempi G, Delorenzi M, Piccart M, and Sotiriou C (2008) "Biological processes associated with breast cancer clinical outcome depend on the molecular subtypes", Clinical Cancer Research, 14(16):5158--5165.
 #' @keywords data
 #' @md
@@ -149,11 +149,11 @@ NULL
 #' @description List of parameters defining the Subtype Clustering Model as published in Desmedt et al 2008.
 #' @usage data(scmod1.robust)
 #' @format List of parameters for SCMOD1:
-#'   - parameters: List of parameters for the mixture of three Gaussians (ER-/HER2-, HER2+ and ER+/HER2-) that define the Subtype Clustering Model. The structure is the same than for an [`mclust::Mclust`] object.
+#'   - parameters: List of parameters for the mixture of three Gaussians (ER-/HER2-, HER2+ and ER+/HER2-) that define the Subtype Clustering Model. The structure is the same than for an [`mclust::Mclust()`] object.
 #'   - cutoff.AURKA: Cutoff for AURKA module score in order to identify ER+/HER2- High Proliferation (aka Luminal B) tumors and ER+/HER2- Low Proliferation (aka Luminal A) tumors.
 #'   - mod: ESR1, ERBB2 and AURKA modules.
-#' @source [](http://clincancerres.aacrjournals.org/content/14/16/5158.abstract?ck=nck)
-#' @references Desmedt C, Haibe-Kains B, Wirapati P, Buyse M, Larsimont D, Bontempi G, Delorenzi M, Piccart M, and Sotiriou C (2008) "Biological processes associated with breast cancer clinical outcome depend on the molecular subtypes", Clinical Cancer Research}, 14(16):5158--5165.
+#' @source [http://clincancerres.aacrjournals.org/content/14/16/5158.abstract?ck=nck](http://clincancerres.aacrjournals.org/content/14/16/5158.abstract?ck=nck)
+#' @references Desmedt C, Haibe-Kains B, Wirapati P, Buyse M, Larsimont D, Bontempi G, Delorenzi M, Piccart M, and Sotiriou C (2008) "Biological processes associated with breast cancer clinical outcome depend on the molecular subtypes", _Clinical Cancer Research_, *14*(16):5158--5165.
 #' @keywords data
 #' @md
 NULL
@@ -167,7 +167,7 @@ NULL
 #'   - parameters: List of parameters for the mixture of three Gaussians (ER-/HER2-, HER2+ and ER+/HER2-) that define the Subtype Clustering Model. The structure is the same than for an [`mclust::Mclust`] object.
 #'   - cutoff.AURKA: Cutoff for AURKA module score in order to identify ER+/HER2- High Proliferation (aka Luminal B) tumors and ER+/HER2- Low Proliferation (aka Luminal A) tumors.
 #'   - mod: ESR1, ERBB2 and AURKA modules.
-#' @source [](http://breast-cancer-research.com/content/10/4/R65k)
+#' @source [http://breast-cancer-research.com/content/10/4/R65k](http://breast-cancer-research.com/content/10/4/R65k)
 #' @references Wirapati P, Sotiriou C, Kunkel S, Farmer P, Pradervand S, Haibe-Kains B, Desmedt C, Ignatiadis M, Sengstag T, Schutz F, Goldstein DR, Piccart MJ and Delorenzi M (2008) "Meta-analysis of Gene-Expression Profiles in Breast Cancer: Toward a Unified Understanding of Breast Cancer Sub-typing and Prognosis Signatures", Breast Cancer Research, 10(4):R65.
 #' @md
 NULL
@@ -177,7 +177,7 @@ NULL
 #' @title Signature used to compute the endoPredict signature as published by Filipits et al 2011
 #' @description List of 11 genes included in the endoPredict signature. The EntrezGene.ID allows for mapping and the mapping to affy probes is already provided.
 #' @usage data(sig.endoPredict)
-#' @format sig.endoPredict is a matrix with 5 columns containing the annotations and information related to the signature itself (including a mapping to Affymetrix HGU platform).
+#' @format `sig.endoPredict` is a matrix with 5 columns containing the annotations and information related to the signature itself (including a mapping to Affymetrix HGU platform).
 #' @references Filipits, M., Rudas, M., Jakesz, R., Dubsky, P., Fitzal, F., Singer, C. F., et al. (2011). "A new molecular predictor of distant recurrence in ER-positive, HER2-negative breast cancer adds independent information to conventional clinical risk factors." \emph{Clinical Cancer Research}, \bold{17}(18):6012--6020.
 #' @keywords data
 #' @md
@@ -189,7 +189,7 @@ NULL
 #' @description List of 70 agilent probe ids representing 56 unique genes included in the GENE70 signature. The EntrezGene.ID allows for mapping and the "average.good.prognosis.profile" values allows for signature computation.
 #' @usage data(sig.gene70)
 #' @format sig.gene70 is a matrix with 9 columns containing the annotations and information related to the signature itself.
-#' @source [](http://www.nature.com/nature/journal/v415/n6871/full/415530a.html)
+#' @source [http://www.nature.com/nature/journal/v415/n6871/full/415530a.html](http://www.nature.com/nature/journal/v415/n6871/full/415530a.html)
 #' @references L. J. van't Veer and H. Dai and M. J. van de Vijver and Y. D. He and A. A. Hart and M. Mao and H. L. Peterse and K. van der Kooy and M. J. Marton and A. T. Witteveen and G. J. Schreiber and R. M. Kerkhiven and C. Roberts and P. S. Linsley and R. Bernards and S. H. Friend (2002) "Gene Expression Profiling Predicts Clinical Outcome of Breast Cancer", Nature, 415:530--536.
 #' @keywords data
 #' @md
@@ -200,8 +200,8 @@ NULL
 #' @title Signature used to compute the Relapse Score (GENE76) as published in Wang et al. 2005
 #' @description List of 76 affymetrix hgu133a probesets representing 60 unique genes included in the GENE76 signature. The EntrezGene.ID allows for mapping and the coefficient allows for signature computation.
 #' @usage data(sig.gene76)
-#' @format sig.gene70 is a matrix with 10 columns containing the annotations and information related to the signature itself.
-#' @source [](http://www.thelancet.com/journals/lancet/article/PIIS0140-6736(05)17947-1/abstract)
+#' @format `sig.gene70` is a matrix with 10 columns containing the annotations and information related to the signature itself.
+#' @source [http://www.thelancet.com/journals/lancet/article/PIIS0140-6736(05)17947-1/abstract](http://www.thelancet.com/journals/lancet/article/PIIS0140-6736(05)17947-1/abstract)
 #' @references Y. Wang and J. G. Klijn and Y. Zhang and A. M. Sieuwerts and M. P. Look and F. Yang and D. Talantov and M. Timmermans and M. E. Meijer-van Gelder and J. Yu and T. Jatkoe and E. M. Berns and D. Atkins and J. A. Foekens (2005) "Gene-Expression Profiles to Predict Distant Metastasis of Lymph-Node-Negative Primary Breast Cancer", Lancet, 365(9460):671--679.
 #' @keywords data
 #' @md
@@ -211,7 +211,7 @@ NULL
 #' @docType data
 #' @title Gene Expression progNostic Index Using Subtypes (GENIUS) as published by Haibe-Kains et al. 2010.
 #' @description List of three gene signatures which compose the Gene Expression progNostic Index Using Subtypes (GENIUS) as published by Haibe-Kains et al. 2009. GENIUSM1, GENIUSM2 and GENIUSM3  are the ER-/HER2-, HER2+ and ER+/HER2- subtype signatures respectively.
-#' @format sig.genius is a list a three subtype signatures.
+#' @format `sig.genius` is a list a three subtype signatures.
 #' @references Haibe-Kains B, Desmedt C, Rothe F, Sotiriou C and Bontempi G (2010) "A fuzzy gene expression-based computational approach improves breast cancer prognostication", Genome Biology, 11(2):R18
 #' @keywords data
 #' @md
@@ -223,7 +223,7 @@ NULL
 #' @description List of 128 affymetrix hgu133a probesets representing 97 unique genes included in the GGI signature. The "EntrezGene.ID" column allows for mapping and "grade" defines the up-regulation of the expressions either in histological grade 1 or 3.
 #' @usage data(sig.ggi)
 #' @format sig.ggi is a matrix with 9 columns containing the annotations and information related to the signature itself.
-#' @source [](http://jnci.oxfordjournals.org/cgi/content/full/98/4/262/DC1)
+#' @source [http://jnci.oxfordjournals.org/cgi/content/full/98/4/262/DC1](http://jnci.oxfordjournals.org/cgi/content/full/98/4/262/DC1)
 #' @references Sotiriou C, Wirapati P, Loi S, Harris A, Bergh J, Smeds J, Farmer P, Praz V, Haibe-Kains B, Lallemand F, Buyse M, Piccart MJ and Delorenzi M (2006) "Gene expression profiling in breast cancer: Understanding the molecular basis of histologic grade to improve prognosis", Journal of National Cancer Institute, 98:262--272
 #' @keywords data
 #' @md
@@ -245,7 +245,7 @@ NULL
 #' @description List of 278 affymetrix hgu133a probesets representing 236 unique genes included in the PIK3CA-GS signature. The "EntrezGene.ID" column allows for mapping and "coefficient" refers to to the direction of association with PIK3CA mutation.
 #' @usage data(sig.pik3cags)
 #' @format sig.pik3cags is a matrix with 3 columns containing the annotations and information related to the signature itself.
-#' @source [](http://www.pnas.org/content/107/22/10208/suppl/DCSupplemental)
+#' @source [http://www.pnas.org/content/107/22/10208/suppl/DCSupplemental](http://www.pnas.org/content/107/22/10208/suppl/DCSupplemental)
 #' @references Loi S, Haibe-Kains B, Majjaj S, Lallemand F, Durbecq V, Larsimont D, Gonzalez-Angulo AM, Pusztai L, Symmans FW, Bardelli A, Ellis P, Tutt AN, Gillett CE, Hennessy BT., Mills GB, Phillips WA, Piccart MJ, Speed TP, McArthur GA, Sotiriou C (2010) "PIK3CA mutations associated with gene signature of low mTORC1 signaling and better outcomes in estrogen receptor-positive breast cancer", Proceedings of the National Academy of Sciences, 107(22):10208--10213
 #' @keywords data
 #' @md
@@ -265,7 +265,7 @@ NULL
 #' @name sigOvcAngiogenic
 #' @title sigOvcAngiogenic dataset
 #' @docType data
-#' @source [](http://jnci.oxfordjournals.org/cgi/content/full/98/4/262/DC1)
+#' @source [http://jnci.oxfordjournals.org/cgi/content/full/98/4/262/DC1](http://jnci.oxfordjournals.org/cgi/content/full/98/4/262/DC1)
 #' @references Bentink S, Haibe-Kains B, Risch T, Fan J-B, Hirsch MS, Holton K, Rubio R, April C, Chen J, Wickham-Garcia E, Liu J, Culhane AC, Drapkin R, Quackenbush JF, Matulonis UA (2012) "Angiogenic mRNA and microRNA Gene Expression Signature Predicts a Novel Subtype of Serous Ovarian Cancer", PloS one, 7(2):e30269
 #' @keywords data
 #' @md
@@ -274,7 +274,7 @@ NULL
 #' @name sigOvcCrijns
 #' @title sigOvcCrijns dataset
 #' @docType data
-#' @source [](http://jnci.oxfordjournals.org/cgi/content/full/98/4/262/DC1)
+#' @source [http://jnci.oxfordjournals.org/cgi/content/full/98/4/262/DC1](http://jnci.oxfordjournals.org/cgi/content/full/98/4/262/DC1)
 #' @references Crijns APG, Fehrmann RSN, de Jong S, Gerbens F, Meersma G J, Klip HG, Hollema H, Hofstra RMW, te Meerman GJ, de Vries EGE, van der Zee AGJ (2009) "Survival-Related Profile, Pathways, and Transcription Factors in Ovarian Cancer" PLoS Medicine, 6(2):e1000024.
 #' @keywords data
 #' @md
@@ -283,7 +283,7 @@ NULL
 #' @name sigOvcSpentzos
 #' @title sigOcvSpentzos dataset
 #' @docType data
-#' @source [](http://jnci.oxfordjournals.org/cgi/content/full/98/4/262/DC1)
+#' @source [http://jnci.oxfordjournals.org/cgi/content/full/98/4/262/DC1](http://jnci.oxfordjournals.org/cgi/content/full/98/4/262/DC1)
 #' @references Spentzos, D., Levine, D. A., Ramoni, M. F., Joseph, M., Gu, X., Boyd, J., et al. (2004). "Gene expression signature with independent prognostic significance in epithelial ovarian cancer". Journal of clinical oncology, 22(23), 4700--4710. doi:10.1200/JCO.2004.04.070
 #' @keywords data
 #' @md
@@ -292,7 +292,7 @@ NULL
 #' @name sigOvcTCGA
 #' @title sigOvcTCGA dataset
 #' @docType data
-#' @source [](http://jnci.oxfordjournals.org/cgi/content/full/98/4/262/DC1)
+#' @source [http://jnci.oxfordjournals.org/cgi/content/full/98/4/262/DC1](http://jnci.oxfordjournals.org/cgi/content/full/98/4/262/DC1)
 #' @references Bell D, Berchuck A, Birrer M et al. (2011) "Integrated genomic analyses of ovarian carcinoma", Nature, 474(7353):609--615
 #' @keywords data
 #' @md
@@ -301,20 +301,20 @@ NULL
 #' @name sigOvcYoshihara
 #' @title sigOvcYoshihara dataset
 #' @docType data
-#' @source [](http://jnci.oxfordjournals.org/cgi/content/full/98/4/262/DC1)
+#' @source [http://jnci.oxfordjournals.org/cgi/content/full/98/4/262/DC1](http://jnci.oxfordjournals.org/cgi/content/full/98/4/262/DC1)
 #' @references Yoshihara K, Tajima A, Yahata T, Kodama S, Fujiwara H, Suzuki M, Onishi Y, Hatae M, Sueyoshi K, Fujiwara H, Kudo, Yoshiki, Kotera K, Masuzaki H, Tashiro H, Katabuchi H, Inoue I, Tanaka K (2010) "Gene expression profile for predicting survival in advanced-stage serous ovarian cancer across two independent datasets", PloS one, 5(3):e9615.
 #' @keywords data
 #' @md
 NULL
 
-#' @name spp2003
-#' @aliases spp2003.robust spp2003.scale
+#' @name ssp2003
+#' @aliases ssp2003.robust ssp2003.scale
 #' @title SSP2003 classifier for identification of breast cancer molecular subtypes (Sorlie et al 2003)
 #' @description List of parameters defining the SSP2003 classifier for identification of breast cancer molecular subtypes (Sorlie et al 2003).
 #' @usage
-#' data(spp2003)
-#' data(spp2003.robust)
-#' data(spp2003.scale)
+#' data(ssp2003)
+#' data(ssp2003.robust)
+#' data(ssp2003.scale)
 #' @docType data
 #' @format List of parameters for SSP2003:
 #'   - centroids: Gene expression centroids for each subtype.
@@ -323,20 +323,20 @@ NULL
 #'   - method.centroids: Method used to compute the centroids.
 #'   - std: Method used to compute the centroids.
 #'   - mins: Minimum number of samples within each cluster allowed during the fitting of the model.
-#' @source [](http://www.pnas.org/content/100/14/8418)
+#' @source [http://www.pnas.org/content/100/14/8418](http://www.pnas.org/content/100/14/8418)
 #' @references T. Sorlie and R. Tibshirani and J. Parker and T. Hastie and J. S. Marron and A. Nobel and S. Deng and H. Johnsen and R. Pesich and S. Geister and J. Demeter and C. Perou and P. E. Lonning and P. O. Brown and A. L. Borresen-Dale and D. Botstein (2003) "Repeated Observation of Breast Tumor Subtypes in Independent Gene Expression Data Sets", Proceedings of the National Academy of Sciences, 1(14):8418--8423
 #' @keywords data
 #' @md
 NULL
 
-#' @name spp2006
-#' @aliases spp2006.robust spp2006.scale
+#' @name ssp2006
+#' @aliases ssp2006.robust ssp2006.scale
 #' @title SSP2006 classifier for identification of breast cancer molecular subtypes (Hu et al 2006)
 #' @description List of parameters defining the SSP2006 classifier for identification of breast cancer molecular subtypes (Hu et al 2006).
 #' @usage
-#' data(spp2006)
-#' data(spp2006.robust)
-#' data(spp2006.scale)
+#' data(ssp2006)
+#' data(ssp2006.robust)
+#' data(ssp2006.scale)
 #' @format List of parameters for SSP2006:
 #'   - centroids: Gene expression centroids for each subtype.
 #'   - centroids.map: Mapping for centroids.
@@ -345,11 +345,12 @@ NULL
 #'   - std: Method of standardization for gene expressions.
 #'   - mins: Minimum number of samples within each cluster allowed during the fitting of the model.
 #' @details Three versions of the model are provided, each of ones differs by the gene expressions standardization method since it has an important impact on the subtype classification:
-#'   - spp2006: Use of the official centroids without scaling of the gene expressions.#'   - spp2006.scale: Use of the official centroids with traditional scaling of the gene expressions (see [base::scale()])
-#'   - spp2006.robust: Use of the official centroids with robust scaling of the gene expressions (see [genefu::rescale()])
+#'   - ssp2006: Use of the official centroids without scaling of the gene expressions.
+#'   - ssp2006.scale: Use of the official centroids with traditional scaling of the gene expressions (see [base::scale()])
+#'   - ssp2006.robust: Use of the official centroids with robust scaling of the gene expressions (see [genefu::rescale()])
 #' The model `ssp2006.robust` has been shown to reach the best concordance with the traditional clinical parameters (ER IHC, HER2 IHC/FISH and histological grade). However the use of this model is recommended only when the dataset is representative of a global population of breast cancer patients (no sampling bias, the 5 subtypes should be present).
 #' @docType data
-#' @source [](http://www.biomedcentral.com/1471-2164/7/96)
+#' @source [http://www.biomedcentral.com/1471-2164/7/96](http://www.biomedcentral.com/1471-2164/7/96)
 #' @references Hu, Zhiyuan and Fan, Cheng and Oh, Daniel and Marron, JS and He, Xiaping and Qaqish, Bahjat and Livasy, Chad and Carey, Lisa and Reynolds, Evangeline and Dressler, Lynn and Nobel, Andrew and Parker, Joel and Ewend, Matthew and Sawyer, Lynda and Wu, Junyuan and Liu, Yudong and Nanda, Rita and Tretiakova, Maria and Orrico, Alejandra and Dreher, Donna and Palazzo, Juan and Perreard, Laurent and Nelson, Edward and Mone, Mary and Hansen, Heidi and Mullins, Michael and Quackenbush, John and Ellis, Matthew and Olopade, Olufunmilayo and Bernard, Philip and Perou, Charles (2006) "The molecular portraits of breast tumors are conserved across microarray platforms", _BMC Genomics_, *7*(96)
 #' @keywords data
 #' @md
