@@ -1,10 +1,11 @@
-#' @title Function to compute the IHC4 prognostic score as published by 
+#' @name ihc4
+#' @title Function to compute the IHC4 prognostic score as published by
 #'   Paik et al. in 2004.
 #'
 #' @description
 #' This function computes the prognostic score based on four measured IHC markers
 #'   (ER, PGR, HER2, Ki-67), following the algorithm as published by Cuzick et al. 2011.
-#'   The user has the option to either obtain just the shrinkage-adjusted IHC4 score (IHC4) 
+#'   The user has the option to either obtain just the shrinkage-adjusted IHC4 score (IHC4)
 #'   or the overall score htat also combines the clinical score (IHC4+C)
 #'
 #' @usage
@@ -23,14 +24,14 @@
 #' @param na.rm TRUE if missing values should be removed, FALSE otherwise.
 #'
 #' @return
-#' Shrinkage-adjusted IHC4 score or the Overall Prognostic Score based on IHC4+C 
+#' Shrinkage-adjusted IHC4 score or the Overall Prognostic Score based on IHC4+C
 #'   (IHC4+Clinical Score)
 #'
 #' @references
 #' Jack Cuzick, Mitch Dowsett, Silvia Pineda, Christopher Wale, Janine Salter, Emma Quinn,
-#'   Lila Zabaglo, Elizabeth Mallon, Andrew R. Green, Ian O. Ellis, Anthony Howell, Aman U. 
-#'   Buzdar, and John F. Forbes (2011) "Prognostic Value of a Combined Estrogen Receptor, 
-#'   Progesterone Receptor, Ki-67, and Human Epidermal Growth Factor Receptor 2 
+#'   Lila Zabaglo, Elizabeth Mallon, Andrew R. Green, Ian O. Ellis, Anthony Howell, Aman U.
+#'   Buzdar, and John F. Forbes (2011) "Prognostic Value of a Combined Estrogen Receptor,
+#'   Progesterone Receptor, Ki-67, and Human Epidermal Growth Factor Receptor 2
 #'   Immunohistochemical Score and Comparison with the Genomic Health Recurrence Score
 #'   in Early Breast Cancer", Journal of Clinical Oncologoy, 29(32):4273–4278.
 #'
@@ -51,9 +52,9 @@
 #'
 #' @md
 #' @export
-ihc4 <-
-  function(ER, PGR, HER2, Ki67,age,size,grade,node,ana,scoreWithClinical=FALSE,na.rm=FALSE)
-    {
+ihc4 <- function(ER, PGR, HER2, Ki67,age,size,grade,node,ana,
+                 scoreWithClinical=FALSE,na.rm=FALSE)
+{
     nn <- names(ER)
     if(is.null(nn)) { nn <- paste("PATIENT", 1:length(ER), sep=".") }
     names(ER) <- names(PGR) <- names(HER2) <- names(Ki67) <- nn

@@ -28,8 +28,8 @@
 #' - geneid2 Mapped gene list from geneid2.
 #' - data2 Mapped dataset from data2.
 #'
-#' @Note
-#' It is mandatory that the names of geneid1 and geneid2 must be the probe names 
+#' @note
+#' It is mandatory that the names of geneid1 and geneid2 must be the probe names
 #'   of the microarray platform.
 #'
 #' @examples
@@ -50,7 +50,7 @@
 #' @export
 geneid.map <-
 function(geneid1, data1, geneid2, data2, verbose=FALSE) {
-	
+
 	nn <- names(geneid1)
 	geneid1 <- as.character(geneid1)
 	names(geneid1) <- nn
@@ -71,16 +71,16 @@ function(geneid1, data1, geneid2, data2, verbose=FALSE) {
 		data2 <- data2[ , !na.ix, drop=FALSE]
 		geneid2 <- geneid2[!na.ix]
 	} else { data2 <- NULL }
-	
+
 	gix1 <- !is.na(geneid1)
 	gix2 <- !is.na(geneid2)
-	
+
 	geneid.common <- intersect(geneid1[gix1], geneid2[gix2])
 	if(length(geneid.common) == 0) {
 		warning("no gene ids in common!")
 		return(list("geneid1"=NA, "data1"=NA, "geneid2"=NA, "data2"=NA))
 	}
-	
+
 	## dataset1
 	## probes corresponding to common gene ids
 	gg <- names(geneid1)[is.element(geneid1, geneid.common)]
@@ -109,7 +109,7 @@ function(geneid1, data1, geneid2, data2, verbose=FALSE) {
 	}
 	data1 <- datat
 	geneid1 <- geneid1[dimnames(data1)[[2]]]
-		
+
 	#dataset2
 	if(is.null(data2)) {
 		#keep arbitrarily the first occurence of each duplicated geneid
@@ -144,7 +144,7 @@ function(geneid1, data1, geneid2, data2, verbose=FALSE) {
 		data2 <- datat
 		geneid2 <- geneid2[dimnames(data2)[[2]]]
 	}
-	
+
 	#same order for the two datasets
 	rix <- match(geneid2, geneid1)
 	geneid1 <- geneid1[rix]

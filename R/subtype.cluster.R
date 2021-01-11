@@ -106,10 +106,12 @@
 #' table(scmod1.nkis$subtype2)
 #'
 #' @md
+#' @import mclust
 #' @export
-#' subtype.cluster <-
-function(module.ESR1, module.ERBB2, module.AURKA, data, annot, do.mapping=FALSE, mapping, do.scale=TRUE, rescale.q=0.05, model.name="EEI", do.BIC=FALSE, plot=FALSE, filen, verbose=FALSE) {
-	#require(mclust)
+subtype.cluster <- function(module.ESR1, module.ERBB2, module.AURKA, data,
+	annot, do.mapping=FALSE, mapping, do.scale=TRUE, rescale.q=0.05,
+	model.name="EEI", do.BIC=FALSE, plot=FALSE, filen, verbose=FALSE)
+{
 	if(missing(data) || missing(annot)) { stop("data, and annot parameters must be specified") }
 	
 	sbtn <- c("ER-/HER2-", "HER2+", "ER+/HER2-")
