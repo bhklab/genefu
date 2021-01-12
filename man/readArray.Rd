@@ -4,7 +4,7 @@
 \alias{readArray}
 \title{Overlap two datasets}
 \usage{
-readArray(dataFile,designFile=NA,hr=1,impute=T,method="mean")
+readArray(dataFile,designFile=NA,hr=1,impute=TRUE,method="mean")
 }
 \arguments{
 \item{dataFile}{file with matrix to be read.}

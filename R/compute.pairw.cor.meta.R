@@ -7,14 +7,14 @@
 #' @usage
 #' compute.pairw.cor.meta(datas, method = c("pearson", "spearman"))
 #'
-#' @param datas List of datasets. Each dataset is a matrix of gene expressions with 
-#'   samples in rows and probes in columns, dimnames being properly defined. All the 
+#' @param datas List of datasets. Each dataset is a matrix of gene expressions with
+#'   samples in rows and probes in columns, dimnames being properly defined. All the
 #'   datasets must have the same probes.
 #' @param method Estimator for correlation coefficient, can be either pearson or spearman.
 #'
 #' @return
 #' A list with items:
-#' - cor  Matrix of meta-estimate of correlation coefficients with probes in rows and 
+#' - cor  Matrix of meta-estimate of correlation coefficients with probes in rows and
 #'   prototypes in columns
 #' - cor.n Number of samples used to compute meta-estimate of correlation coefficients.
 #'
@@ -46,6 +46,7 @@
 #' str(pairwcor)
 #'
 #' @md
+#' @importFrom survcomp combine.est fisherz
 #' @export
 compute.pairw.cor.meta <-
 function(datas, method=c("pearson", "spearman")) {
@@ -80,7 +81,7 @@ function(datas, method=c("pearson", "spearman")) {
 				mycor[i, j] <- mycor[j, i] <- fisherz(combine.est(x=mycorz,x.se=mycorz.se,na.rm=TRUE)$estimate, inv=TRUE)
 				mycorn[i, j] <- mycorn[j, i] <- nnt
 			}
-		}	
+		}
 	}
 	return(list("cor"=mycor, "cor.n"=mycorn))
 }

@@ -1,4 +1,4 @@
-#' @title Function to compute correlations to prototypes in a 
+#' @title Function to compute correlations to prototypes in a
 #'   meta-analytical framework
 #'
 #' @description
@@ -49,6 +49,7 @@
 #' str(probecor)
 #'
 #' @md
+#' @importFrom survcomp combine.est fisherz
 #' @export
 compute.proto.cor.meta <-
 function(datas, proto, method=c("pearson", "spearman")) {
@@ -77,7 +78,7 @@ function(datas, proto, method=c("pearson", "spearman")) {
 		rm(datast)
 		nc <- ncol(datas[[1]])
 		ncn <- dimnames(datas[[1]])[[2]]
-		
+
 		mycor <- matrix(NA, nrow=nc, ncol=length(proto), dimnames=list(ncn, proto))
 		mycorn <- matrix(0, nrow=nc, ncol=length(proto), dimnames=list(ncn, proto))
 		for(i in 1:length(proto)) {
@@ -98,7 +99,7 @@ function(datas, proto, method=c("pearson", "spearman")) {
 				mycor[j, i] <- fisherz(combine.est(x=mycorz,x.se=mycorz.se,na.rm=TRUE)$estimate, inv=TRUE)
 				mycorn[j, i] <- nnt
 			}
-		}	
+		}
 	}
 	return(list("cor"=mycor, "cor.n"=mycorn))
 }

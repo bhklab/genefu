@@ -58,7 +58,7 @@ To install the genefu package:
 BiocManager::install("genefu")
 ```
 
-For computing the risk scores, estimates of the performance of the risk scores, combining the estimates and comparing the estimates we have to load the genefu and survcomp packages into the workspace.
+For computing the risk scores, estimates of the performance of the risk scores, combining the estimates and comparing the estimates we have to load the `genefu` and `survcomp` packages into the workspace.
 We also load all the packages we need to conduct the case studies.
 
 ```{r load, eval=TRUE, results='hide', message=FALSE}
@@ -67,6 +67,7 @@ library(xtable)
 library(rmeta)
 library(Biobase)
 library(caret)
+
 ```
 
 # Load Datasets and Packages for Case Studies

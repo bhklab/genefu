@@ -51,12 +51,13 @@
 #'
 #' # Obtain results
 #' results <- cbind(predout$predictions, predout$distances)
-#' #write.table(results,"T.E.9CELL.LINE_results.txt",sep="\t",col=T, row=F)
+#' #write.table(results,"T.E.9CELL.LINE_results.txt",sep="\t",col=T, row=FALSE)
 #'
 #' @md
 #' @import limma stats utils
 #' @export
-claudinLow <- function(x, classes="", y, nGenes="", priors="equal", std=FALSE, distm="euclidean", centroids=FALSE){
+claudinLow <- function(x, classes="", y, nGenes="", priors="equal", std=FALSE,
+    distm="euclidean", centroids=FALSE){
 
   dataMatrix <- x
   features <- dim(x)[1]
@@ -100,8 +101,8 @@ claudinLow <- function(x, classes="", y, nGenes="", priors="equal", std=FALSE, d
       trainscores[j] <- scores[[row.names(dataMatrix)[j]]]$bss / scores[[row.names(dataMatrix)[j]]]$wss
     }
 
-    dataMatrix <- dataMatrix[sort.list(trainscores,decreasing=T),]
-    tdataMatrix <- tdataMatrix[sort.list(trainscores,decreasing=T),]
+    dataMatrix <- dataMatrix[sort.list(trainscores,decreasing=TRUE),]
+    tdataMatrix <- tdataMatrix[sort.list(trainscores,decreasing=TRUE),]
 
     if(nGenes==""){
       nGenes <- dim(dataMatrix)[1]

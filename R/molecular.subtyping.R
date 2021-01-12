@@ -88,6 +88,7 @@ if(getRversion() >= "2.15.1")
 #' ##### without mapping (affy hgu133a or plus2 only)
 #' # load VDX data
 #' data(vdxs)
+#' data(AIMSmodel)
 #'
 #' # Subtype Clustering Model fitted on EXPO and applied on VDX
 #' sbt.vdx.SCMGENE <- molecular.subtyping(sbt.model="scmgene",
@@ -147,13 +148,16 @@ molecular.subtyping <- function(sbt.model=c("scmgene", "scmod1", "scmod2",
   if (sbt.model %in% c("scmgene", "scmod1", "scmod2")) {
     switch(sbt.model,
       "scmgene" = {
-        sbts <- subtype.cluster.predict(sbt.model=scmgene.robust, data=data, annot=annot, do.mapping=do.mapping)[c("subtype2", "subtype.proba2")]
+        sbts <- subtype.cluster.predict(sbt.model=scmgene.robust, data=data,
+          annot=annot, do.mapping=do.mapping)[c("subtype2", "subtype.proba2")]
       },
       "scmod1" = {
-        sbts <- subtype.cluster.predict(sbt.model=scmod1.robust, data=data, annot=annot, do.mapping=do.mapping)[c("subtype2", "subtype.proba2")]
+        sbts <- subtype.cluster.predict(sbt.model=scmod1.robust, data=data,
+          annot=annot, do.mapping=do.mapping)[c("subtype2", "subtype.proba2")]
       },
       "scmod2" = {
-        sbts <- subtype.cluster.predict(sbt.model=scmod2.robust, data=data, annot=annot, do.mapping=do.mapping)[c("subtype2", "subtype.proba2")]
+        sbts <- subtype.cluster.predict(sbt.model=scmod2.robust, data=data,
+          annot=annot, do.mapping=do.mapping)[c("subtype2", "subtype.proba2")]
       }
     )
     names(sbts) <- c("subtype", "subtype.proba")

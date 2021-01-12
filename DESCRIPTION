@@ -3,9 +3,15 @@ Type: Package
 Title: Computation of Gene Expression-Based Signatures in Breast Cancer
 Version: 2.21.0
 Date: 2020-01-31
-Author: Deena M.A. Gendoo, Natchar Ratanasirigulchai, Markus S. Schroeder, 
-  Laia Pare, Joel S. Parker, Aleix Prat, and Benjamin Haibe-Kains
-Maintainer: Benjamin Haibe-Kains <benjamin.haibe.kains@utoronto.ca>
+Authors@R: c(
+  person('Deena M.A. Gendoo', role='aut'), 
+  person('Natchar Ratanasirigulchai', role='aut'), 
+  person('Markus S. Schroeder', role='aut'), 
+  person('Laia Pare', role='aut'), 
+  person('Joel S Parker', role='aut'), 
+  person('Aleix Prat', role='aut'), 
+  person('Benjamin Haibe-Kains', email='benjamin.haibe.kains@utoronto.ca',
+    role=c('aut', 'cre')))
 Description: This package contains functions implementing various tasks usually 
   required by gene expression analysis, especially in breast cancer studies: 
   gene mapping between different microarray platforms, identification of 
@@ -13,11 +19,11 @@ Description: This package contains functions implementing various tasks usually
   selection, and survival analysis.
 biocViews: DifferentialExpression, GeneExpression, Visualization, Clustering, 
   Classification
-Depends: survcomp, mclust, limma, biomaRt, iC10, AIMS, R (>= 2.10)
+Depends:  R (>= 4.1), survcomp, biomaRt, iC10, AIMS
 Suggests: GeneMeta, breastCancerVDX, breastCancerMAINZ, breastCancerTRANSBIG, 
   breastCancerUPP, breastCancerUNT, breastCancerNKI, rmeta, Biobase, xtable, 
   knitr, caret, survival, BiocStyle, magick
-Imports: amap, impute
+Imports: amap, impute, mclust, limma, graphics, stats, utils
 VignetteBuilder: knitr
 License: Artistic-2.0
 Encoding: UTF-8

@@ -55,7 +55,7 @@ predout <- claudinLow(x=train$xd, classes=as.matrix(train$classes$Group,ncol=1),
 
 # Obtain results
 results <- cbind(predout$predictions, predout$distances)
-#write.table(results,"T.E.9CELL.LINE_results.txt",sep="\t",col=T, row=F)
+#write.table(results,"T.E.9CELL.LINE_results.txt",sep="\t",col=T, row=FALSE)
 
 }
 \references{

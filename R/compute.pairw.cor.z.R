@@ -1,14 +1,14 @@
-#' @title Function to compute the Z transformation of the pairwise 
+#' @title Function to compute the Z transformation of the pairwise
 #'   correlations for a list of datasets
 #'
 #' @description
-#' This function computes the Z transformation of the meta-estimate of pairwise correlation 
+#' This function computes the Z transformation of the meta-estimate of pairwise correlation
 #'   coefficients for a set of genes from a list of gene expression datasets.
 #'
 #' @usage
 #' compute.pairw.cor.z(datas, method = c("pearson"))
 #'
-#' @param datas List of datasets. Each dataset is a matrix of gene expressions with samples in 
+#' @param datas List of datasets. Each dataset is a matrix of gene expressions with samples in
 #'   rows and probes in columns, dimnames being properly defined. All the datasets must have
 #'   the same probes.
 #' @param method Estimator for correlation coefficient, can be either pearson or spearman.
@@ -16,7 +16,7 @@
 #' @return
 #' A list with items:
 #' -z Z transformation of the meta-estimate of correlation coefficients.
-#' -se Standard error of the Z transformation of the meta-estimate of 
+#' -se Standard error of the Z transformation of the meta-estimate of
 #'   correlation coefficients.
 #' -nn Number of samples used to compute the meta-estimate of correlation coefficients.
 #'
@@ -24,6 +24,7 @@
 #' [genefu::map.datasets], [genefu::compute.pairw.cor.meta], [genefu::compute.proto.cor.meta]
 #'
 #' @md
+#' @importFrom survcomp fisherz
 #' @export
 compute.pairw.cor.z <-
 function(datas, method=c("pearson")) {

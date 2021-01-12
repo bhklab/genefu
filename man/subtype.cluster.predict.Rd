@@ -69,8 +69,8 @@ Subtype Clustering Model fitted by subtype.cluster.
 # load VDX data
 data(vdxs)
 # Subtype Clustering Model fitted on EXPO and applied on VDX
-sbt.vdxs <- subtype.cluster.predict(sbt.model=scmgene.robust, data=data.vdxs, 
-  annot=annot.vdxs, do.mapping=FALSE, do.prediction.strength=FALSE, 
+sbt.vdxs <- subtype.cluster.predict(sbt.model=scmgene.robust, data=data.vdxs,
+  annot=annot.vdxs, do.mapping=FALSE, do.prediction.strength=FALSE,
   do.BIC=FALSE, plot=TRUE, verbose=TRUE)
 table(sbt.vdxs$subtype)
 table(sbt.vdxs$subtype2)
@@ -79,8 +79,8 @@ table(sbt.vdxs$subtype2)
 # load NKI data
 data(nkis)
 # Subtype Clustering Model fitted on EXPO and applied on NKI
-sbt.nkis <- subtype.cluster.predict(sbt.model=scmgene.robust, data=data.nkis, 
-  annot=annot.nkis, do.mapping=TRUE, do.prediction.strength=FALSE, 
+sbt.nkis <- subtype.cluster.predict(sbt.model=scmgene.robust, data=data.nkis,
+  annot=annot.nkis, do.mapping=TRUE, do.prediction.strength=FALSE,
   do.BIC=FALSE, plot=TRUE, verbose=TRUE)
 table(sbt.nkis$subtype)
 table(sbt.nkis$subtype2)

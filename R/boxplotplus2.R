@@ -39,9 +39,13 @@
 #'   pt.pch=c(0, 9, 17))
 #'
 #' @md
+#' @importFrom survcomp fisherz
+#' @importFrom graphics points
 #' @export
-boxplotplus2 <-
-function(x, .jit = 0.25, .las = 1, .ylim, box.col = "lightgrey", pt.col = "blue", pt.cex=0.5, pt.pch=16, med.line = FALSE, med.col = "goldenrod", ...) {
+boxplotplus2 <- function(x, .jit = 0.25, .las = 1, .ylim,
+    box.col="lightgrey", pt.col="blue", pt.cex=0.5, pt.pch=16,
+    med.line = FALSE, med.col = "goldenrod", ...)
+{
 
     isMAT <- is.matrix(x)
     y <- x

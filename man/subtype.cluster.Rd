@@ -122,7 +122,7 @@ Breast Cancer: Toward a Unified Understanding of Breast Cancer Sub-typing
 and Prognosis Signatures", Breast Cancer Research, 10(4):R65.
 }
 \seealso{
-\code{\link[=subtype.cluster.predict]{subtype.cluster.predict()}}, \code{\link[=intrinsic.cluster]{intrinsic.cluster()}},
-\code{\link[=intrinsic.cluster.predict]{intrinsic.cluster.predict()}}, \link{scmod1.robust},
+\link{subtype.cluster.predict}, \link{intrinsic.cluster},
+\link{intrinsic.cluster.predict}, \link{scmod1.robust},
 \link{scmod2.robust}
 }

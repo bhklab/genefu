@@ -1,8 +1,8 @@
-#' @title Function to identify breast cancer molecular subtypes using 
+#' @title Function to identify breast cancer molecular subtypes using
 #'   the Subtype Clustering Model
 #'
 #' @description
-#' This function identifies the breast cancer molecular subtypes using a 
+#' This function identifies the breast cancer molecular subtypes using a
 #'   Subtype Clustering Model fitted by subtype.cluster.
 #'
 #' @usage
@@ -11,93 +11,95 @@
 #'   do.BIC = FALSE, plot = FALSE, verbose = FALSE)
 #'
 #' @param sbt.model	Subtype Clustering Model as returned by subtype.cluster.
-#' @param data Matrix of gene expressions with samples in rows and probes in 
+#' @param data Matrix of gene expressions with samples in rows and probes in
 #'   columns, dimnames being properly defined.
-#' @param annot	Matrix of annotations with at least one column named 
+#' @param annot	Matrix of annotations with at least one column named
 #'   "EntrezGene.ID", dimnames being properly defined.
-#' @param do.mapping TRUE if the mapping through Entrez Gene ids must be 
-#'   performed (in case of ambiguities, the most variant probe is kept 
+#' @param do.mapping TRUE if the mapping through Entrez Gene ids must be
+#'   performed (in case of ambiguities, the most variant probe is kept
 #'   for each gene), FALSE otherwise.
-#' @param mapping	**DEPRECATED** Matrix with columns "EntrezGene.ID" and 
-#'   "probe" used to force the mapping such that the probes are not selected 
+#' @param mapping	**DEPRECATED** Matrix with columns "EntrezGene.ID" and
+#'   "probe" used to force the mapping such that the probes are not selected
 #'   based on their variance.
-#' @param do.prediction.strength TRUE if the prediction strength must be 
+#' @param do.prediction.strength TRUE if the prediction strength must be
 #'   computed (Tibshirani and Walther 2005), FALSE otherwise.
-#' @param do.BIC TRUE if the Bayesian Information Criterion must be computed 
+#' @param do.BIC TRUE if the Bayesian Information Criterion must be computed
 #'   for number of clusters ranging from 1 to 10, FALSE otherwise.
-#' @param plot TRUE if the patients and their corresponding subtypes must 
+#' @param plot TRUE if the patients and their corresponding subtypes must
 #'   be plotted, FALSE otherwise.
 #' @param verbose	TRUE to print informative messages, FALSE otherwise.
 #'
 #' @return
 #' A list with items:
-#' - subtype: Subtypes identified by the Subtype Clustering Model. 
+#' - subtype: Subtypes identified by the Subtype Clustering Model.
 #'   Subtypes can be either "ER-/HER2-", "HER2+" or "ER+/HER2-".
-#' - subtype.proba: Probabilities to belong to each subtype estimated 
+#' - subtype.proba: Probabilities to belong to each subtype estimated
 #'   by the Subtype Clustering Model.
 #' - prediction.strength: Prediction strength for subtypes.
-#' - BIC: Bayesian Information Criterion for the Subtype Clustering Model 
+#' - BIC: Bayesian Information Criterion for the Subtype Clustering Model
 #'   with number of clusters ranging from 1 to 10.
-#' - subtype2: Subtypes identified by the Subtype Clustering Model using 
-#'   AURKA to discriminate low and high proliferative tumors. Subtypes can be 
-#'   either "ER-/HER2-", "HER2+", "ER+/HER2- High Prolif" or 
+#' - subtype2: Subtypes identified by the Subtype Clustering Model using
+#'   AURKA to discriminate low and high proliferative tumors. Subtypes can be
+#'   either "ER-/HER2-", "HER2+", "ER+/HER2- High Prolif" or
 #'   "ER+/HER2- Low Prolif".
-#' - subtype.proba2: Probabilities to belong to each subtype (including 
-#'   discrimination between lowly and highly proliferative ER+/HER2- tumors, 
+#' - subtype.proba2: Probabilities to belong to each subtype (including
+#'   discrimination between lowly and highly proliferative ER+/HER2- tumors,
 #'   see subtype2) estimated by the Subtype Clustering Model.
 #' - prediction.strength2: Prediction strength for subtypes2.
 #' - module.scores: Matrix containing ESR1, ERBB2 and AURKA module scores.
-#' - mapping: Mapping if necessary (list of matrices with 3 columns: probe, 
+#' - mapping: Mapping if necessary (list of matrices with 3 columns: probe,
 #'   EntrezGene.ID and new.probe).
-#' 
+#'
 #' @references
-#' Desmedt C, Haibe-Kains B, Wirapati P, Buyse M, Larsimont D, Bontempi G, 
-#'   Delorenzi M, Piccart M, and Sotiriou C (2008) "Biological processes 
-#'   associated with breast cancer clinical outcome depend on the molecular 
+#' Desmedt C, Haibe-Kains B, Wirapati P, Buyse M, Larsimont D, Bontempi G,
+#'   Delorenzi M, Piccart M, and Sotiriou C (2008) "Biological processes
+#'   associated with breast cancer clinical outcome depend on the molecular
 #'   subtypes", Clinical Cancer Research, 14(16):5158-5165.
-#' Wirapati P, Sotiriou C, Kunkel S, Farmer P, Pradervand S, Haibe-Kains B, 
-#'   Desmedt C, Ignatiadis M, Sengstag T, Schutz F, Goldstein DR, Piccart MJ 
-#'   and Delorenzi M (2008) "Meta-analysis of Gene-Expression Profiles in 
-#'   Breast Cancer: Toward a Unified Understanding of Breast Cancer Sub-typing 
+#' Wirapati P, Sotiriou C, Kunkel S, Farmer P, Pradervand S, Haibe-Kains B,
+#'   Desmedt C, Ignatiadis M, Sengstag T, Schutz F, Goldstein DR, Piccart MJ
+#'   and Delorenzi M (2008) "Meta-analysis of Gene-Expression Profiles in
+#'   Breast Cancer: Toward a Unified Understanding of Breast Cancer Sub-typing
 #'   and Prognosis Signatures", Breast Cancer Research, 10(4):R65.
-#' Tibshirani R and Walther G (2005) "Cluster Validation by Prediction 
-#'   Strength", Journal of Computational and Graphical Statistics, 
+#' Tibshirani R and Walther G (2005) "Cluster Validation by Prediction
+#'   Strength", Journal of Computational and Graphical Statistics,
 #'   14(3):511-528
 #'
 #' @seealso
 #' [genefu::subtype.cluster], [genefu::scmod1.robust], [genefu::scmod2.robust]
-#' 
+#'
 #' @examples
 #' # without mapping (affy hgu133a or plus2 only)
 #' # load VDX data
 #' data(vdxs)
 #' # Subtype Clustering Model fitted on EXPO and applied on VDX
-#' sbt.vdxs <- subtype.cluster.predict(sbt.model=scmgene.robust, data=data.vdxs, 
-#'   annot=annot.vdxs, do.mapping=FALSE, do.prediction.strength=FALSE, 
+#' sbt.vdxs <- subtype.cluster.predict(sbt.model=scmgene.robust, data=data.vdxs,
+#'   annot=annot.vdxs, do.mapping=FALSE, do.prediction.strength=FALSE,
 #'   do.BIC=FALSE, plot=TRUE, verbose=TRUE)
 #' table(sbt.vdxs$subtype)
 #' table(sbt.vdxs$subtype2)
-#' 
+#'
 #' # with mapping
 #' # load NKI data
 #' data(nkis)
 #' # Subtype Clustering Model fitted on EXPO and applied on NKI
-#' sbt.nkis <- subtype.cluster.predict(sbt.model=scmgene.robust, data=data.nkis, 
-#'   annot=annot.nkis, do.mapping=TRUE, do.prediction.strength=FALSE, 
+#' sbt.nkis <- subtype.cluster.predict(sbt.model=scmgene.robust, data=data.nkis,
+#'   annot=annot.nkis, do.mapping=TRUE, do.prediction.strength=FALSE,
 #'   do.BIC=FALSE, plot=TRUE, verbose=TRUE)
 #' table(sbt.nkis$subtype)
 #' table(sbt.nkis$subtype2)
 #'
 #' @md
+#' @import graphics
 #' @export
 subtype.cluster.predict <-
-function(sbt.model, data, annot, do.mapping=FALSE, mapping, do.prediction.strength=FALSE, do.BIC=FALSE, plot=FALSE, verbose=FALSE) {
-	#require(mclust)
+function(sbt.model, data, annot, do.mapping=FALSE, mapping,
+    do.prediction.strength=FALSE, do.BIC=FALSE, plot=FALSE, verbose=FALSE)
+{
 	if(missing(data) || missing(annot)) { stop("data, and annot parameters must be specified") }
-	
+
 	sbtn <- c("ER-/HER2-", "HER2+", "ER+/HER2-")
 	sbtn2 <- c("ER-/HER2-", "HER2+", "ER+/HER2- High Prolif", "ER+/HER2- Low Prolif")
-	
+
 	if(is.list(sbt.model)) {
 		## retrieve model
 		subtype.c <- sbt.model[!is.element(names(sbt.model), c("cutoff.AURKA", "mod"))]
@@ -137,7 +139,7 @@ function(sbt.model, data, annot, do.mapping=FALSE, mapping, do.prediction.streng
 	sbt <- rep(NA, nrow(data))
 	names(sbt) <- dimnames(data)[[1]]
 	sbt.proba <- matrix(NA, nrow(data), ncol=length(sbtn), dimnames=list(dimnames(data)[[1]], sbtn))
-	
+
 	sigs.esr1 <- sig.score(x=m.mod$ESR1, data=data, annot=annot, do.mapping=do.mapping, mapping=mapping, verbose=FALSE)
 	sigs.erbb2 <- sig.score(x=m.mod$ERBB2, data=data, annot=annot, do.mapping=do.mapping, mapping=mapping, verbose=FALSE)
 	sigs.aurka <- sig.score(x=m.mod$AURKA, data=data, annot=annot, do.mapping=do.mapping, mapping=mapping, verbose=FALSE)
@@ -146,7 +148,7 @@ function(sbt.model, data, annot, do.mapping=FALSE, mapping, do.prediction.streng
 	## mapping
 	mymap <- list("ESR1"=sigs.esr1$probe, "ERBB2"=sigs.erbb2$probe, "AURLA"=sigs.aurka$probe)
 	cln <- dimnames(subtype.c$parameters$mean)[[2]] <- as.character(1:ncol(subtype.c$parameters$mean))
-	
+
 	if(do.scale) {
 		## the rescaling needs a large sample size!!!
 		## necessary if we want to validate the classifier using a different dataset
@@ -155,7 +157,7 @@ function(sbt.model, data, annot, do.mapping=FALSE, mapping, do.prediction.streng
 	}
 	rownames(dd) <- rownames(data)
 	dd2 <- dd
-	
+
 	cc.ix <- complete.cases(dd[ , c("ESR1", "ERBB2"), drop=FALSE])
 	if(all(!cc.ix)) {
 		ps.res <- ps.res2 <- BIC.res <- NULL
@@ -174,14 +176,14 @@ function(sbt.model, data, annot, do.mapping=FALSE, mapping, do.prediction.streng
 		return(list("subtype"=sbt, "subtype.proba"=sbt.proba, "prediction.strength"=ps.res, "BIC"=BIC.res, "subtype2"=sbt, "prediction.strength2"=ps.res2))
 	}
 	dd <- dd[cc.ix, , drop=FALSE]
-	
+
 	emclust.ts <- mclust::estep(modelName=model.name, data=dd[ , c("ESR1", "ERBB2"), drop=FALSE], parameters=subtype.c$parameters)
 	dimnames(emclust.ts$z) <- list(dimnames(dd)[[1]], cln)
 	class.ts <- mclust::map(emclust.ts$z, warn=FALSE)
 	names(class.ts) <- dimnames(dd)[[1]]
 	uclass <- sort(unique(class.ts))
 	uclass <- uclass[!is.na(uclass)]
-	
+
 	ps.res <- ps.res2 <- NULL
 	if(do.prediction.strength) {
 		if(nrow(dd) < 10) {
@@ -278,9 +280,9 @@ function(sbt.model, data, annot, do.mapping=FALSE, mapping, do.prediction.streng
 			}
 		}
 	}
-	
+
 	BIC.res <- NULL
-	if(do.BIC) { 
+	if(do.BIC) {
 		if(nrow(dd) >= 10) { BIC.res <- mclust::mclustBIC(data=dd[ , c("ESR1", "ERBB2"), drop=FALSE], modelNames=c(model.name), G=1:10)[ ,model.name] } else { warning("at least 10 observations are required to compute the BIC!") }
 	}
 
@@ -305,7 +307,7 @@ function(sbt.model, data, annot, do.mapping=FALSE, mapping, do.prediction.streng
 	colnames(tt) <- sbtn2[3:4]
 	sbt.proba2[ , sbtn2[1:2]] <- sbt.proba[ , sbtn[1:2]]
 	sbt.proba2[ , sbtn2[3:4]] <- tt[ , sbtn2[3:4]]
-	
+
 	if(plot) {
 		if(do.scale) {
 			myxlim <- myylim <- c(-2, 2)

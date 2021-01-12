@@ -77,8 +77,8 @@
 #'   and Prognosis Signatures", Breast Cancer Research, 10(4):R65.
 #'
 #' @seealso
-#' [genefu::subtype.cluster.predict()], [genefu::intrinsic.cluster()],
-#' [genefu::intrinsic.cluster.predict()], [genefu::scmod1.robust],
+#' [genefu::subtype.cluster.predict], [genefu::intrinsic.cluster],
+#' [genefu::intrinsic.cluster.predict], [genefu::scmod1.robust],
 #' [genefu::scmod2.robust]
 #'
 #' @examples
@@ -108,6 +108,7 @@
 #'
 #' @md
 #' @import mclust
+#' @import graphics
 #' @export
 subtype.cluster <- function(module.ESR1, module.ERBB2, module.AURKA, data,
 	annot, do.mapping=FALSE, mapping, do.scale=TRUE, rescale.q=0.05,
