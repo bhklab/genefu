@@ -615,7 +615,7 @@ printPV<-t(printPV)
 
 And print the table of P-values:
 ```{r printPvalue,results="asis"}
-xtable(printPV, digits=c(0, -1))
+knitr::kable(printPV, digits=c(0, -1))
 ```
 
 The following figures represent the risk score performances measured
@@ -745,11 +745,11 @@ Table 2 displays the uncorrected p-values for the comparison of the different me
 
 Table 3 displays the corrected p-values using the Holms method, to correct for multiple testing.
 
-```{printCCM,results="asis"}
+```{printCCM}
 #kable(ccmData,format = "latex")
-xtable(ccmData[,1:6], digits=c(0, rep(-1,ncol(ccmData[,1:6]))),
+knitr::kable(ccmData[,1:6], digits=c(0, rep(-1,ncol(ccmData[,1:6]))),
        size="footnotesize")
-xtable(ccmData[,7:12], digits=c(0, rep(-1,ncol(ccmData[,7:12]))),
+knitr::kable(ccmData[,7:12], digits=c(0, rep(-1,ncol(ccmData[,7:12]))),
        size="footnotesize",caption="Uncorrected p-values for the Comparison of Different Methods")
 ```
 
@@ -759,13 +759,12 @@ ccmDataPval <- matrix(p.adjust(data.matrix(ccmData), method="holm"),
                                                             colnames(ccmData)))
 ```
 
-```{printCCMPval,results='asis'}
-xtable(ccmDataPval[,1:6], digits=c(0, rep(-1,ncol(ccmDataPval[,1:6]))),
+```{printCCMPval}
+knitr::kable(ccmDataPval[,1:6], digits=c(0, rep(-1,ncol(ccmDataPval[,1:6]))),
        size="footnotesize")
-xtable(ccmDataPval[,7:12], digits=c(0, rep(-1,ncol(ccmDataPval[,7:12]))),
+knitr::kable(ccmDataPval[,7:12], digits=c(0, rep(-1,ncol(ccmDataPval[,7:12]))),
        size="footnotesize",caption="Corrected p-values Using the Holm Method")
 ```
-
 
 # References
 

@@ -451,7 +451,7 @@ colnames(printPV) <- names(pv)
 printPV<-t(printPV)
 
 ## ----printPvalue,results="asis"-----------------------------------------------
-xtable(printPV, digits=c(0, -1))
+knitr::kable(printPV, digits=c(0, -1))
 
 ## ----forestplotDatasets,echo=TRUE---------------------------------------------
 RiskPList <- c("AURKA","ESR1","ERBB2","NPI", "GGI", "GENIUS",
