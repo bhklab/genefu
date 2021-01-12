@@ -1,3 +1,5 @@
+[BiocCheck on master](https://github.com/<OWNER>/<REPOSITORY>/workflows/<WORKFLOW_FILE_PATH>/badge.svg)
+
 [![codecov](https://codecov.io/gh/bhklab/genefu/branch/master/graph/badge.svg)](https://codecov.io/gh/bhklab/genefu)
 
 
