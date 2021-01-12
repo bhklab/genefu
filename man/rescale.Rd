@@ -11,7 +11,7 @@ rescale(x, na.rm = FALSE, q = 0)
 
 \item{na.rm}{TRUE if missing values should be removed, FALSE otherwise.}
 
-\item{q}{Quantile (must lie in [\link{0,1}]).}
+\item{q}{Quantile (must lie in [0,1]]).}
 }
 \value{
 A vector of rescaled values with two attributes q1 and q1 containing

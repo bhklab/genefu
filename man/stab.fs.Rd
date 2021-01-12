@@ -29,11 +29,11 @@ dataset by generating multiple sets of selected features.
 Stability indices may use different parameters. In this version only the
 Davis index requires an additional parameter that is penalty, a numeric
 value used as penalty term.
-Kuncheva index (kuncheva) lays in \link{-1, 1}, An index of -1 means no
+Kuncheva index (kuncheva) lays in [-1, 1], An index of -1 means no
 intersection between sets of selected features, +1 means that all the
 same features are always selected and 0 is the expected stability of a
 random feature selection.
-Davis index (davis) lays in \link{0,1}, With a pnalty term equal to 0, an
+Davis index (davis) lays in [0,1], With a penalty term equal to 0, an
 index of 0 means no intersection between sets of selected features
 and +1 means that all the same features are always selected. A penalty
 of 1 is usually used so that a feature selection performed with no or

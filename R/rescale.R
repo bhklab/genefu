@@ -10,7 +10,7 @@
 #'
 #' @param x	The `matrix` or `vector` to rescale.
 #' @param na.rm	TRUE if missing values should be removed, FALSE otherwise.
-#' @param q	Quantile (must lie in [[0,1]]).
+#' @param q	Quantile (must lie in \[0,1\]]).
 #'
 #' @details
 #' In order to rescale gene expressions, q = 0.05 yielded comparable scales in

@@ -1,11 +1,11 @@
 #' @title Function to fit the Subtype Clustering Model
 #'
 #' @description
-#' This function fits the Subtype Clustering Model as published in Desmedt 
-#'   et al. 2008 and Wiarapati et al. 2008. This model is actually a mixture 
-#'   of three Gaussians with equal shape, volume and variance (see EEI model 
-#'   in Mclust). This model is adapted to breast cancer and uses ESR1, ERBB2 
-#'   and AURKA dimensions to identify the molecular subtypes, i.e. ER-/HER2-, 
+#' This function fits the Subtype Clustering Model as published in Desmedt
+#'   et al. 2008 and Wiarapati et al. 2008. This model is actually a mixture
+#'   of three Gaussians with equal shape, volume and variance (see EEI model
+#'   in Mclust). This model is adapted to breast cancer and uses ESR1, ERBB2
+#'   and AURKA dimensions to identify the molecular subtypes, i.e. ER-/HER2-,
 #'   HER2+ and ER+/HER2- (Low and High Prolif).
 #'
 #' @usage
@@ -13,73 +13,74 @@
 #'   do.mapping = FALSE, mapping, do.scale = TRUE, rescale.q = 0.05,
 #'   model.name = "EEI", do.BIC = FALSE, plot = FALSE, filen, verbose = FALSE)
 #'
-#' @param module.ESR1	Matrix containing the ESR1-related gene(s) in 
-#'   rows and at least three columns: "probe", "EntrezGene.ID" and 
-#'   "coefficient" standing for the name of the probe, the NCBI Entrez 
-#'   Gene id and the coefficient giving the direction and the strength of 
+#' @param module.ESR1	Matrix containing the ESR1-related gene(s) in
+#'   rows and at least three columns: "probe", "EntrezGene.ID" and
+#'   "coefficient" standing for the name of the probe, the NCBI Entrez
+#'   Gene id and the coefficient giving the direction and the strength of
 #'   the association of each gene in the gene list.
 #' @param module.ERBB2	Idem for ERBB2.
 #' @param module.AURKA	Idem for AURKA.
-#' @param data	Matrix of gene expressions with samples in rows and probes 
+#' @param data	Matrix of gene expressions with samples in rows and probes
 #'   in columns, dimnames being properly defined.
-#' @param annot	Matrix of annotations with at least one column named 
+#' @param annot	Matrix of annotations with at least one column named
 #'   "EntrezGene.ID", dimnames being properly defined.
-#' @param do.mapping	TRUE if the mapping through Entrez Gene ids must 
-#'   be performed (in case of ambiguities, the most variant probe is kept 
+#' @param do.mapping	TRUE if the mapping through Entrez Gene ids must
+#'   be performed (in case of ambiguities, the most variant probe is kept
 #'   for each gene), FALSE otherwise.
-#' @param mapping	**DEPRECATED** Matrix with columns "EntrezGene.ID" and 
-#'   "probe" used to force the mapping such that the probes are not selected 
+#' @param mapping	**DEPRECATED** Matrix with columns "EntrezGene.ID" and
+#'   "probe" used to force the mapping such that the probes are not selected
 #'   based on their variance.
-#' @param do.scale TRUE if the ESR1, ERBB2 and AURKA (module) scores must be 
+#' @param do.scale TRUE if the ESR1, ERBB2 and AURKA (module) scores must be
 #'   rescaled (see rescale), FALSE otherwise.
 #' @param rescale.q	Proportion of expected outliers for rescaling the gene expressions.
-#' @param do.BIC	TRUE if the Bayesian Information Criterion must be computed 
+#' @param do.BIC	TRUE if the Bayesian Information Criterion must be computed
 #'   for number of clusters ranging from 1 to 10, FALSE otherwise.
-#' @param model.name Name of the model used to fit the mixture of Gaussians 
-#'   with the Mclust from the mclust package; default is "EEI" for fitting a 
-#'   mixture of Gaussians with diagonal variance, equal volume, equal shape 
+#' @param model.name Name of the model used to fit the mixture of Gaussians
+#'   with the Mclust from the mclust package; default is "EEI" for fitting a
+#'   mixture of Gaussians with diagonal variance, equal volume, equal shape
 #'   and identical orientation.
-#' @param plot TRUE if the patients and their corresponding subtypes must 
+#' @param plot TRUE if the patients and their corresponding subtypes must
 #'   be plotted, FALSE otherwise.
-#' @param filen Name of the csv file where the subtype clustering model must 
+#' @param filen Name of the csv file where the subtype clustering model must
 #' be stored.
 #' @param verbose TRUE to print informative messages, FALSE otherwise.
 #'
 #' @return
 #' A list with items:
-#' - model: Subtype Clustering Model (mixture of three Gaussians), 
-#'   like scmgene.robust, scmod1.robust and scmod2.robust when this function 
-#'   is used on expO dataset (International Genomics Consortium) with the gene 
+#' - model: Subtype Clustering Model (mixture of three Gaussians),
+#'   like scmgene.robust, scmod1.robust and scmod2.robust when this function
+#'   is used on expO dataset (International Genomics Consortium) with the gene
 #'   modules published in the two references cited below.
-#' - BIC: Bayesian Information Criterion for the Subtype Clustering Model 
+#' - BIC: Bayesian Information Criterion for the Subtype Clustering Model
 #'   with number of clusters ranging from 1 to 10.
-#' - subtype: Subtypes identified by the Subtype Clustering Model. Subtypes 
+#' - subtype: Subtypes identified by the Subtype Clustering Model. Subtypes
 #'   can be either "ER-/HER2-", "HER2+" or "ER+/HER2-".
-#' - subtype.proba: Probabilities to belong to each subtype estimated by 
+#' - subtype.proba: Probabilities to belong to each subtype estimated by
 #'   the Subtype Clustering Model.
-#' - subtype2: Subtypes identified by the Subtype Clustering Model using 
-#'   AURKA to discriminate low and high proliferative tumors. Subtypes can 
+#' - subtype2: Subtypes identified by the Subtype Clustering Model using
+#'   AURKA to discriminate low and high proliferative tumors. Subtypes can
 #'   be either "ER-/HER2-", "HER2+", "ER+/HER2- High Prolif" or "ER+/HER2- Low Prolif".
-#' - subtype.proba2: Probabilities to belong to each subtype (including 
-#'   discrimination between lowly and highly proliferative ER+/HER2- tumors, 
+#' - subtype.proba2: Probabilities to belong to each subtype (including
+#'   discrimination between lowly and highly proliferative ER+/HER2- tumors,
 #'   see subtype2) estimated by the Subtype Clustering Model.
 #' - module.scores: Matrix containing ESR1, ERBB2 and AURKA module scores.
 #'
 #' @references
-#' Desmedt C, Haibe-Kains B, Wirapati P, Buyse M, Larsimont D, Bontempi G, 
-#'   Delorenzi M, Piccart M, and Sotiriou C (2008) "Biological processes 
-#'   associated with breast cancer clinical outcome depend on the molecular 
+#' Desmedt C, Haibe-Kains B, Wirapati P, Buyse M, Larsimont D, Bontempi G,
+#'   Delorenzi M, Piccart M, and Sotiriou C (2008) "Biological processes
+#'   associated with breast cancer clinical outcome depend on the molecular
 #'   subtypes", Clinical Cancer Research, 14(16):5158-5165.
-#' Wirapati P, Sotiriou C, Kunkel S, Farmer P, Pradervand S, Haibe-Kains B, 
-#'   Desmedt C, Ignatiadis M, Sengstag T, Schutz F, Goldstein DR, Piccart MJ 
-#'   and Delorenzi M (2008) "Meta-analysis of Gene-Expression Profiles in 
-#'   Breast Cancer: Toward a Unified Understanding of Breast Cancer Sub-typing 
+#' Wirapati P, Sotiriou C, Kunkel S, Farmer P, Pradervand S, Haibe-Kains B,
+#'   Desmedt C, Ignatiadis M, Sengstag T, Schutz F, Goldstein DR, Piccart MJ
+#'   and Delorenzi M (2008) "Meta-analysis of Gene-Expression Profiles in
+#'   Breast Cancer: Toward a Unified Understanding of Breast Cancer Sub-typing
 #'   and Prognosis Signatures", Breast Cancer Research, 10(4):R65.
 #'
 #' @seealso
-#' [genefu::subtype.cluster.predict], [genefu::intrinsic.cluster], 
-#' [genefu::intrinsic.cluster.predict], [genefu::scmod1.robust, scmod2.robust]
-#' 
+#' [genefu::subtype.cluster.predict()], [genefu::intrinsic.cluster()],
+#' [genefu::intrinsic.cluster.predict()], [genefu::scmod1.robust],
+#' [genefu::scmod2.robust]
+#'
 #' @examples
 #' # example without gene mapping
 #' # load expO data
@@ -92,7 +93,7 @@
 #'   do.scale=TRUE, plot=TRUE, verbose=TRUE)
 #' str(scmod1.expos, max.level=1)
 #' table(scmod1.expos$subtype2)
-#' 
+#'
 #' # example with gene mapping
 #' # load NKI data
 #' data(nkis)
@@ -113,7 +114,7 @@ subtype.cluster <- function(module.ESR1, module.ERBB2, module.AURKA, data,
 	model.name="EEI", do.BIC=FALSE, plot=FALSE, filen, verbose=FALSE)
 {
 	if(missing(data) || missing(annot)) { stop("data, and annot parameters must be specified") }
-	
+
 	sbtn <- c("ER-/HER2-", "HER2+", "ER+/HER2-")
 	sbtn2 <- c("ER-/HER2-", "HER2+", "ER+/HER2- High Prolif", "ER+/HER2- Low Prolif")
 	sig.esr1 <- sig.score(x=module.ESR1, data=data, annot=annot, do.mapping=do.mapping, mapping=mapping, verbose=FALSE)
@@ -131,7 +132,7 @@ subtype.cluster <- function(module.ESR1, module.ERBB2, module.AURKA, data,
 	} else { rescale.q <- NA }
 	rownames(dd) <- rownames(data)
 	dd2 <- dd
-	
+
 	cc.ix <- complete.cases(dd[ , c("ESR1", "ERBB2"), drop=FALSE])
 	dd <- dd[cc.ix, , drop=FALSE]
 	if(all(!cc.ix)) { stop("None of ESR1 and ERBB2 genes are present!") }
@@ -176,18 +177,18 @@ subtype.cluster <- function(module.ESR1, module.ERBB2, module.AURKA, data,
 			myylim <- range(dd[ , "ERBB2"])
 		}
 		## plot the mixture of Gaussians of the model
-		xx <- mclust:::grid1(50, range=myxlim) 
+		xx <- mclust:::grid1(50, range=myxlim)
 		yy <- mclust:::grid1(50, range=myylim)
 		xxyy <- mclust:::grid2(xx,yy)
 		#density
 		xyDens <- mclust::dens(modelName = rr3$modelName, data = xxyy, parameters = rr3$parameters)
 		xyDens <- matrix(xyDens, nrow = length(xx), ncol = length(yy))
-		par(pty = "s") 
+		par(pty = "s")
 		zz <- xyDens
 		#plot
 		persp(x = xx, y = yy, z = zz, xlim=myxlim, ylim=myylim, theta=-25, phi=30, expand=0.5, xlab="ESR1", ylab="ERBB2", zlab="Density", col="darkgrey", ticktype="detailed")
 	}
-	
+
 	## use the previously computed model to fit a new model in a supervised manner
 	myclass <- mclust::unmap(rr3$classification)
 	dimnames(myclass)[[1]] <- dimnames(dd)[[1]]
@@ -225,7 +226,7 @@ subtype.cluster <- function(module.ESR1, module.ERBB2, module.AURKA, data,
 	colnames(tt) <- sbtn2[3:4]
 	sbt.proba2[ , sbtn2[1:2]] <- sbt.proba[ , sbtn[1:2]]
 	sbt.proba2[ , sbtn2[3:4]] <- tt[ , sbtn2[3:4]]
-	
+
 	if(plot) {
 		## plot the clusters
 		mclust::mclust2Dplot(data=dd[ , c("ESR1", "ERBB2"), drop=FALSE], what="classification", classification=class.tr, parameters=mclust.tr$parameters, colors=c("darkred", "darkgreen", "darkblue"), xlim=myxlim, ylim=myylim)
@@ -246,7 +247,7 @@ subtype.cluster <- function(module.ESR1, module.ERBB2, module.AURKA, data,
 		## display the three circles representing the Gaussians
 		for(kk in 1:3) { mclust::mvn2plot(mu=mclust.tr$parameters$mean[ ,kk], sigma=mclust.tr$parameters$variance$sigma[ , , kk]) }
 	}
-	
+
 	if(!missing(filen)) {
 		#save model parameters in a csv file for reuse
 		write(x=sprintf("# Benjamin Haibe-Kains. All rights reserved."), file=paste(filen, "csv", sep="."))
@@ -268,6 +269,6 @@ subtype.cluster <- function(module.ESR1, module.ERBB2, module.AURKA, data,
 		write(paste("\"", c("module", dimnames(m.mod[[1]])[[2]]), "\"", collapse=",", sep=""), sep="", append=TRUE, file=paste(filen, "csv", sep="."))
 		write.m.file(m.mod, file=paste(filen, "csv", sep="."), col.names=FALSE, append=TRUE)
 	}
-	
+
 	return(list("model"=c(mclust.tr["parameters"], list("gaussian.AURKA"=gauss.prolif), list("rescale.q"=rescale.q), list("mod"=m.mod)), "BIC"=cluster.bic, "subtype"=sbt, "subtype.proba"=sbt.proba, "subtype2"=sbt2, "subtype.proba2"=sbt.proba2,  "module.scores"=dd2))
 }

@@ -346,8 +346,8 @@ NULL
 #'   - mins: Minimum number of samples within each cluster allowed during the fitting of the model.
 #' @details Three versions of the model are provided, each of ones differs by the gene expressions standardization method since it has an important impact on the subtype classification:
 #'   - ssp2006: Use of the official centroids without scaling of the gene expressions.
-#'   - ssp2006.scale: Use of the official centroids with traditional scaling of the gene expressions (see [base::scale()])
-#'   - ssp2006.robust: Use of the official centroids with robust scaling of the gene expressions (see [genefu::rescale()])
+#'   - ssp2006.scale: Use of the official centroids with traditional scaling of the gene expressions (see [`base::scale()`])
+#'   - ssp2006.robust: Use of the official centroids with robust scaling of the gene expressions (see [`genefu::rescale()`])
 #' The model `ssp2006.robust` has been shown to reach the best concordance with the traditional clinical parameters (ER IHC, HER2 IHC/FISH and histological grade). However the use of this model is recommended only when the dataset is representative of a global population of breast cancer patients (no sampling bias, the 5 subtypes should be present).
 #' @docType data
 #' @source [http://www.biomedcentral.com/1471-2164/7/96](http://www.biomedcentral.com/1471-2164/7/96)
@@ -356,5 +356,25 @@ NULL
 #' @md
 NULL
 
-
+#' @name vdxs
+#' @aliases data.vdxs annot.vdxs demo.vdxs
+#' @docType data
+#' @title Gene expression, annotations and clinical data from Wang et al. 2005 and Minn et al 2007
+#' @description This dataset contains (part of) the gene expression, annotations and clinical data as published in Wang et al. 2005 and Minn et al 2007.
+#' @format `vdxs` is a dataset containing three matrices:
+#'   - data.vdxs: Matrix containing gene expressions as measured by Affymetrix hgu133a technology (single-channel, oligonucleotides)
+#'   - annot.vdxs: Matrix containing annotations of ffymetrix hgu133a microarray platform
+#'   - demo.vdxs: Clinical information of the breast cancer patients whose tumors were hybridized
+#' @details This dataset represent only partially the one published by Wang et al. 2005 and Minn et al 2007. Indeed only part of the patients (150) and gene expressions (966) are contained in `data.vdxs`.
+#' @source
+#' [http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE2034](http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE2034)
+#'
+#' [http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE5327](http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE5327)
+#' @references
+#' Y. Wang and J. G. Klijn and Y. Zhang and A. M. Sieuwerts and M. P. Look and F. Yang and D. Talantov and M. Timmermans and M. E. Meijer-van Gelder and J. Yu and T. Jatkoe and E. M. Berns and D. Atkins and J. A. Foekens (2005) "Gene-Expression Profiles to Predict Distant Metastasis of Lymph-Node-Negative Primary Breast Cancer", _Lancet_, *365*:671--679
+#'
+#' Minn, Andy J. and Gupta, Gaorav P. and Padua, David and Bos, Paula and Nguyen, Don X. and Nuyten, Dimitry and Kreike, Bas and Zhang, Yi and Wang, Yixin and Ishwaran, Hemant and Foekens, John A. and van de Vijver, Marc and Massague, Joan (2007) "Lung metastasis genes couple breast tumor size and metastatic spread", _Proceedings of the National Academy of Sciences_, *104*(16):6740--6745
+#' @keywords data
+#' @md
+NULL
 

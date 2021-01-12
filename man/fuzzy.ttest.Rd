@@ -5,7 +5,7 @@
 \title{Function to compute the fuzzy Student t test based on weighted
 mean and weighted variance}
 \usage{
-fuzzy.ttest(x, w1, w2, alternative=c("two.sided", "less", "greater"), 
+fuzzy.ttest(x, w1, w2, alternative=c("two.sided", "less", "greater"),
   check.w = TRUE, na.rm = FALSE)
 }
 \arguments{
@@ -20,7 +20,7 @@ use for elements of x in the second class.}
 \item{alternative}{a character string specifying the alternative hypothesis, must be one
 of "two.sided" (default), "greater" or "less". You can specify just the initial letter.}
 
-\item{check.w}{TRUE if weights should be checked such that 0 <= w <= 1 and (w1\link{i} + w2\link{i}) < 1
+\item{check.w}{TRUE if weights should be checked such that \verb{0 <= w <= 1} and \verb{w1[i] + w2[i]) < 1}
 for 1 <= i <= length(x), FALSE otherwise. Beware that weights greater than one
 may inflate over-optimistically resulting p-values, use with caution.}
 
@@ -38,7 +38,7 @@ of a vector of continuous values.
 \details{
 The weights w1 and w2 should represent the likelihood for each observation stored in
 x to belong to the first and second class, respectively. Therefore the values contained
-in w1 and w2 should lay in \link{0,1} and 0 <= (w1\link{i} + w2\link{i}) <= 1 for i in {0,1,...,n} where
+in w1 and w2 should lay in [0,1] and \verb{0 <= (w1[i] + w2[i]) <= 1} for i in {0,1,...,n} where
 n is the length of x.
 The Welch's version of the t test is implemented in this function, therefore assuming
 unequal sample size and unequal variance. The sample size of the first and second class
@@ -54,16 +54,16 @@ ww1[ww1 > 1] <- 1
 ww1 <- c(ww1, 1 - ww1)
 # fuzzy membership to class 2
 ww2 <- 1 - ww1
-# Welch's t test weighted by fuzzy membership to class 1 and 2 
+# Welch's t test weighted by fuzzy membership to class 1 and 2
 wt <- fuzzy.ttest(x=xx, w1=ww1, w2=ww2)
 print(wt)
-# Not run: 
+# Not run:
 # permutation test to compute the null distribution of the weighted t statistic
 wt <- wt[2]
 rands <- t(sapply(1:1000, function(x,y) { return(sample(1:y)) }, y=length(xx)))
-randst <- apply(rands, 1, function(x, xx, ww1, ww2) 
+randst <- apply(rands, 1, function(x, xx, ww1, ww2)
 { return(fuzzy.ttest(x=xx, w1=ww1[x], w2=ww2[x])[2]) }, xx=xx, ww1=ww1, ww2=ww2)
-ifelse(wt < 0, sum(randst <= wt), sum(randst >= wt)) / length(randst) 
+ifelse(wt < 0, sum(randst <= wt), sum(randst >= wt)) / length(randst)
 # End(Not run)
 
 }
