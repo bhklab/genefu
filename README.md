@@ -1,4 +1,4 @@
-[BiocCheck on master](https://github.com/bhklab/genefu/workflows/R-CMD-check.yaml/badge.svg)
+[BiocCheck on master](https://github.com/bhklab/genefu/workflows/.github/workflows/R-CMD-check.yaml/badge.svg)
 
 [![codecov](https://codecov.io/gh/bhklab/genefu/branch/master/graph/badge.svg)](https://codecov.io/gh/bhklab/genefu)
 
