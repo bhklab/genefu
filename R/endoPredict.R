@@ -1,7 +1,56 @@
 if(getRversion() >= "2.15.1")  utils::globalVariables("sig.endoPredict")
 
-`endoPredict` <-
-function(data, annot, do.mapping=FALSE, mapping, verbose=FALSE) {
+#' @name endoPredict
+#' @title Function to compute the endoPredict signature as published by Filipits et al 2011
+#'
+#' @description
+#' This function computes signature scores and risk classifications from gene expression
+#'   values following the algorithm used for the endoPredict signature as published by
+#'   Filipits et al 2011.
+#'
+#' @usage
+#' endoPredict(data, annot, do.mapping = FALSE, mapping, verbose = FALSE)
+#'
+#' @param data	Matrix of gene expressions with samples in rows and probes in columns,
+#'   dimnames being properly defined.
+#' @param annot Matrix of annotations with at least one column named "EntrezGene.ID",
+#'    dimnames being properly defined.
+#' @param do.mapping TRUE if the mapping through Entrez Gene ids must be performed (in
+#'   case ofambiguities, the most variant probe is kept for each gene), FALSE otherwise.
+#'   Note that for Affymetrix HGU datasets, the mapping is not necessary.
+#' @param mapping Matrix with columns "EntrezGene.ID" and "probe" used to force the mapping
+#'   such that the probes are not selected based on their variance.
+#' @param verbose TRUE to print informative messages, FALSE otherwise.
+#'
+#' @details
+#' The function works best if data have been noralized with MAS5. Note that for Affymetrix
+#'   HGU datasets, the mapping is not necessary.
+#'
+#' @return
+#' A list with items:
+#' -score Continuous signature scores
+#' -risk Binary risk classification, 1 being high risk and 0 being low risk.
+#' -mapping Mapping used if necessary.
+#' -probe If mapping is performed, this matrix contains the correspondence between the gene
+#' list (aka signature) and gene expression data.
+#'
+#' @references
+#' Filipits, M., Rudas, M., Jakesz, R., Dubsky, P., Fitzal, F., Singer, C. F., et al. (2011).
+#'   "A new molecular predictor of distant recurrence in ER-positive, HER2-negative
+#'   breast cancer adds independent information to conventional clinical risk factors."
+#'   Clinical Cancer Research, 17(18):6012–6020.
+#'
+#' @examples
+#' # load GENE70 signature
+#' data(sig.endoPredict)
+#' # load NKI dataset
+#' data(vdxs)
+#' # compute relapse score
+#' rs.vdxs <- endoPredict(data=data.vdxs, annot=annot.vdxs, do.mapping=FALSE)
+#'
+#' @md
+#' @export
+endoPredict <- function(data, annot, do.mapping=FALSE, mapping, verbose=FALSE) {
 
 	## the reference genes are not taken into account due to their absence from most platforms
   #sig2 <- sig.endoPredict
@@ -45,17 +94,17 @@ function(data, annot, do.mapping=FALSE, mapping, verbose=FALSE) {
 	}
 	## rename gene names by the gene symbols
 	colnames(data) <- rownames(sig2) <- sig2[ , "symbol"]
-	
+
 	if(do.mapping) {
     ## transform expressions so they match approximately the scale of Affymetrix data
     data <- apply(data, 2, function(x) {
-      xx <- (x - quantile(x, probs=0.025, na.rm=TRUE)) / (quantile(x, probs=0.975, na.rm=TRUE) - quantile(x, probs=0.025, na.rm=TRUE)) 
+      xx <- (x - quantile(x, probs=0.025, na.rm=TRUE)) / (quantile(x, probs=0.975, na.rm=TRUE) - quantile(x, probs=0.025, na.rm=TRUE))
       return((xx * 8) + 6)
     })
     data[!is.na(data) & data < 1] <- 1
     data[!is.na(data) & data > 15] <- 15
   }
-  
+
   data <- (data - apply(data, 1, mean, na.rm=TRUE)) + log2(500)
   ## apply transformation factor and offset
   datat <- t(apply(data, 1, function(x, a, b) {

@@ -1,7 +1,68 @@
-if(getRversion() >= "2.15.1")  utils::globalVariables("sigOvcCrijns")
-
-`ovcCrijns` <-
-function(data, annot, hgs, gmap=c("entrezgene", "ensembl_gene_id", "hgnc_symbol", "unigene"), do.mapping=FALSE, verbose=FALSE) {
+#' @title Function to compute the subtype scores and risk classifications
+#'   for the prognostic signature published by Crinjs et al.
+#'
+#' @description
+#' This function computes subtype scores and risk classifications from gene
+#' expression values using the weights published by Crijns et al.
+#'
+#' @usage
+#' ovcCrijns(data, annot, hgs,
+#'   gmap = c("entrezgene", "ensembl_gene_id", "hgnc_symbol", "unigene"),
+#'   do.mapping = FALSE, verbose = FALSE)
+#'
+#' @param data	Matrix of gene expressions with samples in rows and probes in
+#'   columns, dimnames being properly defined.
+#' @param annot	Matrix of annotations with one column named as gmap, dimnames
+#'   being properly defined.
+#' @param hgs vector of booleans with TRUE represents the ovarian cancer
+#'   patients who have a high grade, late stage, serous tumor, FALSE otherwise.
+#'   This is particularly important for properly rescaling the data. If hgs is
+#'   missing, all the patients will be used to rescale the subtype score.
+#' @param gmap character string containing the biomaRt attribute to use for
+#'   mapping if do.mapping=TRUE
+#' @param do.mapping TRUE if the mapping through Entrez Gene ids must be
+#'   performed (in case of ambiguities, the most variant probe is kept for each
+#'   gene), FALSE otherwise.
+#' @param verbose TRUE to print informative messages, FALSE otherwise.
+#'
+#' @details
+#' Note that the original algorithm has not been implemented as it necessitates
+#'   refitting of the model weights in each new dataset. However the current
+#'   implementation should give similar results.
+#'
+#' @return
+#' A list with items:
+#' - score: Continuous signature scores.
+#' - risk: Binary risk classification, 1 being high risk and 0 being low risk.
+#' - mapping: Mapping used if necessary.
+#' - probe: If mapping is performed, this matrix contains the correspondence.
+#'   between the gene list (aka signature) and gene expression data.
+#'
+#' @references
+#' Crijns APG, Fehrmann RSN, de Jong S, Gerbens F, Meersma G J, Klip HG,
+#'   Hollema H, Hofstra RMW, te Meerman GJ, de Vries EGE, van der Zee AGJ (2009)
+#'   "Survival-Related Profile, Pathways, and Transcription Factors in Ovarian
+#'   Cancer" PLoS Medicine, 6(2):e1000024.
+#'
+#' @seealso
+#' [genefu::sigOvcCrijns]
+#'
+#' @examples
+#' # load the ovsCrijns signature
+#' data(sigOvcCrijns)
+#' # load NKI dataset
+#' data(nkis)
+#' colnames(annot.nkis)[is.element(colnames(annot.nkis), "EntrezGene.ID")] <- "entrezgene"
+#' # compute relapse score
+#' ovcCrijns.nkis <- ovcCrijns(data=data.nkis, annot=annot.nkis, gmap="entrezgene", do.mapping=TRUE)
+#' table(ovcCrijns.nkis$risk)
+#'
+#' @md
+#' @export
+#' @name ovcCrijns
+ovcCrijns <- function(data, annot, hgs, gmap=c("entrezgene", "ensembl_gene_id",
+    "hgnc_symbol", "unigene"), do.mapping=FALSE, verbose=FALSE)
+{
     gmap <- match.arg(gmap)
     if(missing(hgs)) { hgs <- rep(TRUE, nrow(data)) }
     if(do.mapping) {

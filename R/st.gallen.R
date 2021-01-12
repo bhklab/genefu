@@ -1,4 +1,47 @@
-`st.gallen` <-
+#' @title Function to compute the St Gallen consensus criterion for 
+#'   prognostication
+#'
+#' @description
+#' This function computes the updated St Gallen consensus criterions as 
+#'   published by Goldhirsh et al 2003.
+#'
+#' @usage
+#' st.gallen(size, grade, node, her2.neu, age, vascular.inv, na.rm = FALSE)
+#' 
+#' @param size tumor size in cm.
+#' @param grade Histological grade, i.e. low (1), intermediate (2) and 
+#'   high (3) grade.
+#' @param node Nodal status (0 or 1 for no lymph node invasion a,d at 
+#'   least 1 invaded lymph ode respectively).
+#' @param her2.neu Her2/neu status (0 or 1).
+#' @param age Age at diagnosis (in years).
+#' @param vascular.inv Peritumoral vascular invasion (0 or 1).
+#' @param na.rm	TRUE if missing values should be removed, FALSE otherwise.
+#'
+#' @return
+#' Vector of risk predictions: "Good", "Intermediate", and "Poor".
+#'
+#' @references
+#' Goldhirsh A, Wood WC, Gelber RD, Coates AS, Thurlimann B, and Senn HJ 
+#'   (2003) "Meeting highlights: Updated international expert 
+#'   consensus on the primary therapy of early breast cancer", Journal of 
+#'   Clinical Oncology, 21(17):3357-3365.
+#'
+#' @seealso
+#' [genefu::npi]
+#' 
+#' @examples
+#' # load NKI dataset
+#' data(NKI)
+#' # compute St Gallen predictions
+#' st.gallen(size=demo.nkis[ ,"size"], grade=demo.nkis[ ,"grade"],
+#'   node=demo.nkis[ ,"node"], her2.neu=sample(x=0:1, size=nrow(demo.nkis),
+#'   replace=TRUE), age=demo.nkis[ ,"age"], vascular.inv=sample(x=0:1,                                                                                                           
+#'   size=nrow(demo.nkis), replace=TRUE), na.rm=TRUE)
+#'
+#' @md
+#' @export
+st.gallen <-
 function(size, grade, node, her2.neu, age, vascular.inv, na.rm=FALSE) {
 
 	nn <- names(size)

@@ -1,3 +1,25 @@
+#' @title Overlap two datasets
+#'
+#' @description
+#' Utility function called within the claudinLow classifien.
+#'
+#' @usage
+#' overlapSets(x,y)
+#'
+#' @param x	Matrix1
+#' @param y	Matrix2
+#'
+#' @return
+#' A list of overlapped dataset
+#'
+#' @references
+#' citation("claudinLow")
+#'
+#' @seealso
+#' [genefu::claudinLow]
+#'
+#' @md
+#' @export
 overlapSets<-function(x,y){
   
   # subset the two lists to have a commonly ordered gene list

@@ -1,4 +1,49 @@
-`ps.cluster` <-
+#' @title Function to compute the prediction strength of a clustering model
+#'
+#' @description
+#' This function computes the prediction strength of a clustering model as published 
+#'   in R. Tibshirani and G. Walther 2005.
+#'
+#' @usage
+#' ps.cluster(cl.tr, cl.ts, na.rm = FALSE)
+#'
+#' @param cl.tr	Clusters membership as defined by the original clustering model, i.e. 
+#'   the one that was not fitted on the dataset of interest.
+#' @param cl.ts	Clusters membership as defined by the clustering model fitted on the 
+#'   dataset of interest.
+#' @param na.rm	TRUE if missing values should be removed, FALSE otherwise.
+#'
+#' @return
+#' A list with items:
+#' - ps: the overall prediction strength (minimum of the prediction strengths at cluster level).
+#' - ps.cluster: Prediction strength for each cluster
+#' - ps.individual: Prediction strength for each sample.
+#'
+#' @references
+#' R. Tibshirani and G. Walther (2005) "Cluster Validation by Prediction Strength", 
+#'   Journal of Computational and Graphical Statistics, 14(3):511-528.
+#'
+#' @examples
+#' # load SSP signature published in Sorlie et al. 2003
+#' data(ssp2003)
+#' # load NKI data
+#' data(nkis)
+#' # SP2003 fitted on NKI
+#' ssp2003.2nkis <- intrinsic.cluster(data=data.nkis, annot=annot.nkis,
+#'   do.mapping=TRUE, std="robust",
+#'   intrinsicg=ssp2003$centroids.map[ ,c("probe", "EntrezGene.ID")],
+#'   number.cluster=5, mins=5, method.cor="spearman",
+#'   method.centroids="mean", verbose=TRUE)
+#' # SP2003 published in Sorlie et al 2003 and applied in VDX
+#' ssp2003.nkis <- intrinsic.cluster.predict(sbt.model=ssp2003,
+#'   data=data.nkis, annot=annot.nkis, do.mapping=TRUE, verbose=TRUE)
+#' # prediction strength of sp2003 clustering model
+#' ps.cluster(cl.tr=ssp2003.2nkis$subtype, cl.ts=ssp2003.nkis$subtype,
+#'   na.rm = FALSE)
+#'
+#' @md
+#' @export
+ps.cluster <-
 function(cl.tr, cl.ts, na.rm=FALSE) {
 	## consider cl.ts as reference
 	if(length(cl.tr) != length(cl.ts)) { stop("the two clustering must have the same length!") }

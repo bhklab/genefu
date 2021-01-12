@@ -1,4 +1,47 @@
-`npi` <-
+#' @title Function to compute the Nottingham Prognostic Index
+#'
+#' @description
+#' This function computes the Nottingham Prognostic Index (NPI) as published
+#'   in Galeat et al, 1992. NPI is a clinical index shown to be highly prognostic 
+#'   in breast cancer.
+#'
+#' @usage
+#' npi(size, grade, node, na.rm = FALSE)
+#'
+#' @param size tumor size in cm.
+#' @param grade	Histological grade, i.e. low (1), intermediate (2) and high (3) grade.
+#' @param node Nodal status. If only binary nodal status (0/1) is available, 
+#'   map 0 to 1 and 1 to 3.
+#' @param na.rm	TRUE if missing values should be removed, FALSE otherwise.
+#'
+#' @details
+#' The risk prediction is either Good if score < 3.4, Intermediate 
+#'   if 3.4 <= score <- 5.4, or Poor if score > 5.4.
+#'
+#' @return
+#' A list with items:
+#' - score: Continuous signature scores
+#' - risk: Binary risk classification, 1 being high risk and 0 being low risk.
+
+
+#' @references
+#' Galea MH, Blamey RW, Elston CE, and Ellis IO (1992) "The nottingham 
+#'   prognostic index in primary breast cancer", Breast Cancer Reasearch 
+#'   and Treatment, 22(3):207-219.
+#'
+#' @seealso
+#' [genefu::st.gallen]
+#'
+#' @examples
+#' # load NKI dataset
+#' data(nkis)
+#' # compute NPI score and risk classification
+#' npi(size=demo.nkis[ ,"size"], grade=demo.nkis[ ,"grade"],
+#'   node=ifelse(demo.nkis[ ,"node"] == 0, 1, 3), na.rm=TRUE)
+#' 
+#' @md
+#' @export
+npi <-
 function(size, grade, node, na.rm=FALSE) {
 
 	nn <- names(size)

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="RSettings">
+    <option name="interpreterPath" value="/usr/local/bin/R" />
+    <option name="packageBuildSettingsState">
+      <State>
+        <option name="checkArgs">
+          <list>
+            <option value="--compact-vignettes=" />
+          </list>
+        </option>
+        <option name="installArgs">
+          <list>
+            <option value="--compact-vignettes=" />
+          </list>
+        </option>
+      </State>
+    </option>
+  </component>
+</project>
