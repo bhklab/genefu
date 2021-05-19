@@ -43,6 +43,8 @@ published by Parker et al 2009.
 \examples{
 # load NKI dataset
 data(vdxs)
+data(pam50)
+
 # compute relapse score
 rs.vdxs <- rorS(data=data.vdxs, annot=annot.vdxs, do.mapping=TRUE)
 

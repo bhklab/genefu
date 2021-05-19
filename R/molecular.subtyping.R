@@ -89,6 +89,7 @@ if(getRversion() >= "2.15.1")
 #' # load VDX data
 #' data(vdxs)
 #' data(AIMSmodel)
+#' data(scmgene.robust)
 #'
 #' # Subtype Clustering Model fitted on EXPO and applied on VDX
 #' sbt.vdx.SCMGENE <- molecular.subtyping(sbt.model="scmgene",
@@ -118,6 +119,7 @@ if(getRversion() >= "2.15.1")
 #' ##### with mapping
 #' ## load vdxs data
 #' data(vdxs)
+#' data(claudinLowData)
 #'
 #' ## Claudin-Low classification of 150 VDXS samples
 #' sbt.vdxs.CL <- molecular.subtyping(sbt.model="claudinLow", data=data.vdxs,

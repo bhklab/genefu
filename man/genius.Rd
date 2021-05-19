@@ -42,6 +42,9 @@ molecular subtypes.
 \examples{
 # load NKI dataset
 data(nkis)
+data(scmod1.robust)
+data(sig.genius)
+
 # compute GENIUS risk scores based on GENIUS model fitted on VDX dataset
 genius.nkis <- genius(data=data.nkis, annot=annot.nkis, do.mapping=TRUE)
 str(genius.nkis)

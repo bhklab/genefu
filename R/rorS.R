@@ -43,6 +43,8 @@
 #' @examples
 #' # load NKI dataset
 #' data(vdxs)
+#' data(pam50)
+#'
 #' # compute relapse score
 #' rs.vdxs <- rorS(data=data.vdxs, annot=annot.vdxs, do.mapping=TRUE)
 #'
@@ -52,7 +54,7 @@
 rorS <- function(data, annot, do.mapping=FALSE, mapping, verbose=FALSE) {
 
   ## PAM50 classification
-  #data(pam50)
+  data(pam50, envir=environment())
   sbts <- intrinsic.cluster.predict(sbt.model=pam50, data=data, annot=annot, do.mapping=do.mapping, verbose=FALSE)
   mymapping <- c("mapped"=nrow(sbts$centroids.map), "total"=nrow(pam50$centroids.map))
   ## ROR-S

@@ -68,6 +68,8 @@ Subtype Clustering Model fitted by subtype.cluster.
 # without mapping (affy hgu133a or plus2 only)
 # load VDX data
 data(vdxs)
+data(scmgene.robust)
+
 # Subtype Clustering Model fitted on EXPO and applied on VDX
 sbt.vdxs <- subtype.cluster.predict(sbt.model=scmgene.robust, data=data.vdxs,
   annot=annot.vdxs, do.mapping=FALSE, do.prediction.strength=FALSE,

@@ -198,9 +198,19 @@ We now perform molecular subtyping on each of the datasets.
 Here, we perform subtyping using the PAM50 as well as the SCMOD2 subtyping algorithms.
 
 ```{r CalculateMolecularSubtypes}
+# Load the requisite data
+data(scmod2.robust)
+data(pam50.robust)
+data(scmgene.robust)
+data(sig.ggi)
+data(scmod1.robust)
+data(sig.genius)
+
 dn <- c("transbig", "unt", "upp", "mainz", "nki")
 dn.platform <- c("affy", "affy", "affy", "affy", "agilent")
 res <- ddemo.all <- ddemo.coln <- NULL
+
+
 
 for(i in 1:length(dn)) {
 
@@ -407,6 +417,14 @@ We compute the risk scores using the following list of algorithms (and correspon
 - rorS: rorS()
 
 ```{r computeRiskScore}
+# Load gene signature
+data(sig.endoPredict)
+data(sig.oncotypedx)
+data(sig.tamr13)
+data(sig.gene70)
+data(sig.pik3cags)
+data(pam50)
+
 dn <- c("transbig", "unt", "upp", "mainz", "nki")
 dn.platform <- c("affy", "affy", "affy", "affy", "agilent")
 

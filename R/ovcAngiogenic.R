@@ -48,12 +48,16 @@
 #' @examples
 #' # load the ovcAngiogenic signature
 #' data(sigOvcAngiogenic)
+#' data(modelOvcAngiogenic)
+#' 
 #' # load NKI dataset
 #' data(nkis)
-#' colnames(annot.nkis)[is.element(colnames(annot.nkis), "EntrezGene.ID")] <- "entrezgene"
+#' colnames(annot.nkis)[is.element(colnames(annot.nkis), "EntrezGene.ID")] <- 
+#'   "entrezgene"
+#' 
 #' # compute relapse score
 #' ovcAngiogenic.nkis <- ovcAngiogenic(data=data.nkis, annot=annot.nkis,
-#' gmap="entrezgene", do.mapping=TRUE)
+#'   gmap="entrezgene", do.mapping=TRUE)
 #' table(ovcAngiogenic.nkis$risk)
 #'
 #' @md
@@ -92,7 +96,7 @@ ovcAngiogenic <- function(data, annot, hgs, gmap=c("entrezgene",
         sigt <- sigOvcAngiogenic[gix, ,drop=FALSE]
     }
 
-    #data(modelOvcAngiogenic)
+    data(modelOvcAngiogenic, envir=environment())
     ss <- genefu::sig.score(x=data.frame("probe"=colnames(data), "EntrezGene.ID"=annot[ ,gmap], "coefficient"=sigt[ ,"weight"]), data=data, annot=annot, do.mapping=FALSE, signed=TRUE)$score
     ## rescale only with the high grade, late stage, serous (hgs) patients
     rr <- genefu::rescale(ss[hgs], q=0.05, na.rm=TRUE)

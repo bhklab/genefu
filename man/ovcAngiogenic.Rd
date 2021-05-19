@@ -48,12 +48,16 @@ ovarian cancer.
 \examples{
 # load the ovcAngiogenic signature
 data(sigOvcAngiogenic)
+data(modelOvcAngiogenic)
+
 # load NKI dataset
 data(nkis)
-colnames(annot.nkis)[is.element(colnames(annot.nkis), "EntrezGene.ID")] <- "entrezgene"
+colnames(annot.nkis)[is.element(colnames(annot.nkis), "EntrezGene.ID")] <- 
+  "entrezgene"
+
 # compute relapse score
 ovcAngiogenic.nkis <- ovcAngiogenic(data=data.nkis, annot=annot.nkis,
-gmap="entrezgene", do.mapping=TRUE)
+  gmap="entrezgene", do.mapping=TRUE)
 table(ovcAngiogenic.nkis$risk)
 
 }

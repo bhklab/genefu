@@ -31,8 +31,9 @@
 #' [genefu::npi]
 #' 
 #' @examples
-#' # load NKI dataset
-#' data(NKI)
+#' # load nkis dataset
+#' data(nkis)
+#'
 #' # compute St Gallen predictions
 #' st.gallen(size=demo.nkis[ ,"size"], grade=demo.nkis[ ,"grade"],
 #'   node=demo.nkis[ ,"node"], her2.neu=sample(x=0:1, size=nrow(demo.nkis),

@@ -43,6 +43,7 @@ Clustering Model fitted by subtype.cluster.
 # load VDX data
 data(vdxs)
 data(AIMSmodel)
+data(scmgene.robust)
 
 # Subtype Clustering Model fitted on EXPO and applied on VDX
 sbt.vdx.SCMGENE <- molecular.subtyping(sbt.model="scmgene",
@@ -72,6 +73,7 @@ table(sbt.nkis$subtype)
 ##### with mapping
 ## load vdxs data
 data(vdxs)
+data(claudinLowData)
 
 ## Claudin-Low classification of 150 VDXS samples
 sbt.vdxs.CL <- molecular.subtyping(sbt.model="claudinLow", data=data.vdxs,
