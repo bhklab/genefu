@@ -61,6 +61,8 @@ ovcYoshihara <- function(data, annot, hgs, gmap=c("entrezgene",
     "ensembl_gene_id", "hgnc_symbol", "unigene", "refseq_mrna"),
     do.mapping=FALSE, verbose=FALSE)
 {
+    if (!exists('sigOvcYoshihara')) data(sigOvcYoshihara, envir=environment())
+    
     gmap <- match.arg(gmap)
     if(missing(hgs)) { hgs <- rep(TRUE, nrow(data)) }
     if(do.mapping) {

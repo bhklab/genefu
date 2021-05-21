@@ -34,7 +34,7 @@
 #'   breast cancer", Breast Cancer Research, 12(5):R68
 #'
 #' @seealso
-#' [genefu::medianCtr()], [genefu::claudinLowData]
+#' [genefu::medianCtr()], [genefu::q]
 #'
 #' @examples
 #' data(claudinLowData)
@@ -80,8 +80,8 @@ claudinLow <- function(x, classes="", y, nGenes="", priors="equal", std=FALSE,
 
   # standardize both sets
   if(std){
-    dataMatrix <- standardize(dataMatrix)
-    tdataMatrix <- standardize(tdataMatrix)
+    dataMatrix <- scale(dataMatrix)
+    dataMatrix <- scale(tdataMatrix)
   }
 
   if(!centroids){

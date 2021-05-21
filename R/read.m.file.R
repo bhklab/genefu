@@ -31,8 +31,7 @@
 #' 
 #' @md
 #' @export
-read.m.file <-
-function(file, ...) {
+read.m.file <- function(file, ...) {
 	obj.file <- read.csv(file, stringsAsFactors=FALSE, ...)
 	if(sum(!is.na(obj.file[ ,1]) & obj.file[ ,1] != "") > 0) {
 		ix.delim <- c(which(obj.file[ ,1] != "")[-1]-1, nrow(obj.file) + 1)

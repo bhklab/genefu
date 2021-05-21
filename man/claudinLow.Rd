@@ -65,5 +65,5 @@ molecular characterization of the claudin-low intrinsic subtype of
 breast cancer", Breast Cancer Research, 12(5):R68
 }
 \seealso{
-\code{\link[=medianCtr]{medianCtr()}}, \link{claudinLowData}
+\code{\link[=medianCtr]{medianCtr()}}, \link{q}
 }

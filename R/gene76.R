@@ -43,6 +43,8 @@
 #' @name gene76
 gene76 <- function(data, er) {
 
+	if (!exists('sig.gene76')) data(sig.gene76, envir=environment())
+	
 	A <- 313.5
 	B <- 280
 

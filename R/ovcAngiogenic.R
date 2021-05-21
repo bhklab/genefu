@@ -47,8 +47,6 @@
 #'
 #' @examples
 #' # load the ovcAngiogenic signature
-#' data(sigOvcAngiogenic)
-#' data(modelOvcAngiogenic)
 #' 
 #' # load NKI dataset
 #' data(nkis)
@@ -66,12 +64,17 @@ ovcAngiogenic <- function(data, annot, hgs, gmap=c("entrezgene",
     "ensembl_gene_id", "hgnc_symbol", "unigene"), do.mapping=FALSE,
     verbose=FALSE)
 {
+    # load gene signatures if needed
+    if (!exists('modelOvcAngiogenic')) data(modelOvcAngiogenic, envir=environment())
+    if (!exists('sigOvcAngiogenic')) data(sigOvcAngiogenic, envir=environment())
+
     gmap <- match.arg(gmap)
     if(missing(hgs)) { hgs <- rep(TRUE, nrow(data)) }
     if(do.mapping) {
         if(!is.element(gmap, colnames(annot))) { stop("gmap is not a column of annot!") }
         if(verbose) { message("the most variant probe is selected for each gene") }
-        sigt <- sigOvcAngiogenic[order(abs(sigOvcAngiogenic[ ,"weight"]), decreasing=FALSE), ,drop=FALSE]
+        sigt <- sigOvcAngiogenic[order(abs(sigOvcAngiogenic[ ,"weight"]), 
+            decreasing=FALSE), ,drop=FALSE]
         sigt <- sigt[!duplicated(sigt[ ,gmap]), ,drop=FALSE]
         gid2 <- sigt[ ,gmap]
         names(gid2) <- rownames(sigt)
@@ -96,7 +99,6 @@ ovcAngiogenic <- function(data, annot, hgs, gmap=c("entrezgene",
         sigt <- sigOvcAngiogenic[gix, ,drop=FALSE]
     }
 
-    data(modelOvcAngiogenic, envir=environment())
     ss <- genefu::sig.score(x=data.frame("probe"=colnames(data), "EntrezGene.ID"=annot[ ,gmap], "coefficient"=sigt[ ,"weight"]), data=data, annot=annot, do.mapping=FALSE, signed=TRUE)$score
     ## rescale only with the high grade, late stage, serous (hgs) patients
     rr <- genefu::rescale(ss[hgs], q=0.05, na.rm=TRUE)

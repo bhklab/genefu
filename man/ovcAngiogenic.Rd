@@ -47,8 +47,6 @@ ovarian cancer.
 }
 \examples{
 # load the ovcAngiogenic signature
-data(sigOvcAngiogenic)
-data(modelOvcAngiogenic)
 
 # load NKI dataset
 data(nkis)

@@ -64,6 +64,8 @@
 gene70 <- function(data, annot, do.mapping=FALSE, mapping,
                    std=c("none", "scale", "robust"), verbose=FALSE) {
 
+	if (!exists('sig.gene70')) data(sig.gene70, envir=environment())
+	
 	std <- match.arg(std)
 	gt <- nrow(sig.gene70)
 	if(do.mapping) {

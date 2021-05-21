@@ -52,6 +52,8 @@
 ovcTCGA <- function(data, annot, gmap=c("entrezgene", "ensembl_gene_id",
     "hgnc_symbol", "unigene"), do.mapping=FALSE, verbose=FALSE)
 {
+    if (!exists('sigOvcTCGA')) data(sigOvcTCGA, envir=environment())
+    
     gmap <- match.arg(gmap)
     if(do.mapping) {
         if(!is.element(gmap, colnames(annot))) { stop("gmap is not a column of annot!") }
@@ -73,7 +75,7 @@ ovcTCGA <- function(data, annot, gmap=c("entrezgene", "ensembl_gene_id",
         myprobe <- data.frame("probe"=pold, "gene.map"=annot[ ,gmap], "new.probe"=pold2)
     } else {
         gix <- intersect(rownames(sigOvcTCGA), colnames(data))
-        if(length(gix) < 2) { stop("data do not contain enough gene from the ovcTCGA signature!") }
+        if(length(gix) < 2) { stop("data do not contain enough genes from the ovcTCGA signature!") }
         data <- data[ ,gix,drop=FALSE]
         annot <- annot[gix, ,drop=FALSE]
         mymapping <- c("mapped"=length(gix), "total"=nrow(sigOvcTCGA))

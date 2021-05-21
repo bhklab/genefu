@@ -67,7 +67,6 @@ library(xtable)
 library(rmeta)
 library(Biobase)
 library(caret)
-
 ```
 
 # Load Datasets and Packages for Case Studies

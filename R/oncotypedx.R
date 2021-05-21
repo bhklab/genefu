@@ -55,6 +55,8 @@
 #' @export
 oncotypedx <- function(data, annot, do.mapping=FALSE, mapping, do.scaling=TRUE,
                        verbose=FALSE) {
+	
+	if (!exists('sig.oncotypedx')) data(sig.oncotypedx, envir=environment())
 
 	## the reference genes are not taken into account due to their absence from most platforms
 	sig2 <- sig.oncotypedx[sig.oncotypedx[ , "group"] != "reference",  , drop=FALSE]

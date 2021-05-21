@@ -52,9 +52,11 @@
 #' data(sigOvcCrijns)
 #' # load NKI dataset
 #' data(nkis)
-#' colnames(annot.nkis)[is.element(colnames(annot.nkis), "EntrezGene.ID")] <- "entrezgene"
+#' colnames(annot.nkis)[is.element(colnames(annot.nkis), "EntrezGene.ID")] <- 
+#'   "entrezgene"
 #' # compute relapse score
-#' ovcCrijns.nkis <- ovcCrijns(data=data.nkis, annot=annot.nkis, gmap="entrezgene", do.mapping=TRUE)
+#' ovcCrijns.nkis <- ovcCrijns(data=data.nkis, annot=annot.nkis, 
+#'   gmap="entrezgene", do.mapping=TRUE)
 #' table(ovcCrijns.nkis$risk)
 #'
 #' @md
@@ -63,6 +65,8 @@
 ovcCrijns <- function(data, annot, hgs, gmap=c("entrezgene", "ensembl_gene_id",
     "hgnc_symbol", "unigene"), do.mapping=FALSE, verbose=FALSE)
 {
+    if (!exists('sigOvcCrijns')) data(sigOvcCrijns, envir=environment())
+    
     gmap <- match.arg(gmap)
     if(missing(hgs)) { hgs <- rep(TRUE, nrow(data)) }
     if(do.mapping) {
