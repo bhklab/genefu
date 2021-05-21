@@ -1,6 +1,4 @@
-![BiocCheck](https://github.com/bhklab/genefu/workflows/R-CMD-check/badge.svg)
-
-[![codecov](https://codecov.io/gh/bhklab/genefu/branch/master/graph/badge.svg)](https://codecov.io/gh/bhklab/genefu)
+[![R-CMD-check](https://github.com/bhklab/genefu/workflows/R-CMD-check/badge.svg)](https://github.com/bhklab/genefu/actions)
 
 
 **Bioc-Release**: ![Bioconductor RELEASE](http://bioconductor.org/shields/build/release/bioc/genefu.svg) 
