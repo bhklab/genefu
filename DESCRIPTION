@@ -19,10 +19,10 @@ Description: This package contains functions implementing various tasks usually
   selection, and survival analysis.
 biocViews: DifferentialExpression, GeneExpression, Visualization, Clustering, 
   Classification
-Depends:  R (>= 4.1), survcomp, biomaRt, iC10, AIMS
+Depends: R (>= 4.1), survcomp, biomaRt, iC10, AIMS
 Suggests: GeneMeta, breastCancerVDX, breastCancerMAINZ, breastCancerTRANSBIG, 
   breastCancerUPP, breastCancerUNT, breastCancerNKI, rmeta, Biobase, xtable, 
-  knitr, caret, survival, BiocStyle, magick
+  knitr, caret, survival, BiocStyle, magick, rmarkdown
 Imports: amap, impute, mclust, limma, graphics, stats, utils
 VignetteBuilder: knitr
 License: Artistic-2.0
