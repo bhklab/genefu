@@ -1,7 +1,7 @@
 Package: genefu
 Type: Package
 Title: Computation of Gene Expression-Based Signatures in Breast Cancer
-Version: 2.26.0
+Version: 2.27.0
 Date: 2021-05-21
 Authors@R: c(
   person('Deena M.A. Gendoo', role='aut'), 
