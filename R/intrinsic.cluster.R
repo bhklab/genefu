@@ -72,7 +72,7 @@
 #'   Michael and Quackenbush, John and Ellis, Matthew and Olopade, Olufunmilayo and 
 #'   Bernard, Philip and Perou, Charles (2006) "The molecular portraits of breast 
 #'   tumors are conserved across microarray platforms", BMC Genomics, 7(96)
-#' 
+#'
 #' Parker, Joel S. and Mullins, Michael and Cheang, Maggie C.U. and Leung, 
 #'   Samuel and Voduc, David and Vickery, Tammi and Davies, Sherri and Fauron, 
 #'   Christiane and He, Xiaping and Hu, Zhiyuan and Quackenbush, John F. and 
@@ -113,16 +113,17 @@ intrinsic.cluster <- function(data, annot, do.mapping=FALSE,
     std <- match.arg(std)
     method.cor <- match.arg(method.cor)
     method.centroids <- match.arg(method.centroids)
-    #if(method.centroids == "tukey") { require(dplR) }
-    if (!is.matrix(data)) { data <- as.matrix(data) }
-    
+    if (!is.matrix(data)) {
+        data <- as.matrix(data)
+    }
+
     ## mapping
     if (do.mapping) {
         ## mapping through EntrezGene.ID
         if (is.matrix(intrinsicg) || is.data.frame(intrinsicg)) {
             ## matrix of annotations instead of a list of EntrezGene.IDs
-            tt <- as.character(intrinsicg[ , "EntrezGene.ID"])
-            names(tt) <- as.character(intrinsicg[ , "probe"])
+            tt <- as.character(intrinsicg[, "EntrezGene.ID"])
+            names(tt) <- as.character(intrinsicg[, "probe"])
             intrinsicg <- tt
         }
         gt <- length(intrinsicg)
@@ -141,7 +142,7 @@ intrinsic.cluster <- function(data, annot, do.mapping=FALSE,
             intrinsicg <- intrinsicg[nn]
             data <- rr$data1
         } else { # use a predefined mapping
-            nn <- as.character(mapping[ , "EntrezGene.ID"])
+            nn <- as.character(mapping[, "EntrezGene.ID"])
             # keep only intrinsic genes with mapped probes
             myx <- is.element(gid.intrinsic, nn)
             gid.intrinsic <- gid.intrinsic[myx]
@@ -167,7 +168,7 @@ intrinsic.cluster <- function(data, annot, do.mapping=FALSE,
         data <- data[, intrinsicg]
     }
     gm <- length(intrinsicg)
-    if (gm == 0 || (sum(is.na(data)) / length(data)) > 0.9) { 
+    if (gm == 0 || (sum(is.na(data)) / length(data)) > 0.9) {
         stop("none of the instrinsic genes are present or too many missing values!")
     }
     if (!is.null(names(intrinsicg))) {
@@ -183,7 +184,7 @@ intrinsic.cluster <- function(data, annot, do.mapping=FALSE,
     }
     dimnames(centroids.map)[[1]] <- dimnames(data)[[2]]
 
-    if (verbose) { 
+    if (verbose) {
         message(sprintf("%i/%i probes are used for clustering", gm, gt))
     }
 
@@ -207,7 +208,7 @@ intrinsic.cluster <- function(data, annot, do.mapping=FALSE,
     hcl <- amap::hcluster(x=data, method="correlation", link="average")
     mins.ok <- FALSE
     nbc <- number.cluster
-    while(!mins.ok) { ## until each cluster contains at least mins samples
+    while (!mins.ok) { ## until each cluster contains at least mins samples
         cl <- cutree(tree=hcl, k=nbc)
         tt <- table(cl)
         if (sum(tt >= mins) >= number.cluster) {
@@ -238,14 +239,14 @@ intrinsic.cluster <- function(data, annot, do.mapping=FALSE,
     ## minimal pairwise cor of approx 0.3
     cl.centroids <- matrix(NA, nrow=ncol(data), ncol=number.cluster,
         dimnames=list(dimnames(data)[[2]], paste("cluster", 1:number.cluster, sep=".")))
-    for(i in 1:ncol(cl.centroids)) {
-        switch(method.centroids, 
+    for (i in 1:ncol(cl.centroids)) {
+        switch(method.centroids,
         "mean"={ 
             cl.centroids[ ,i] <- apply(X=data[cl == i & !is.na(cl), ,drop=FALSE], 
                 MARGIN=2, FUN=mean, na.rm=TRUE, trim=0.025)
         }, 
         "median"={ 
-            cl.centroids[ ,i] <- apply(X=data[cl == i & !is.na(cl), ,drop=FALSE], 
+            cl.centroids[, i] <- apply(X=data[cl == i & !is.na(cl), ,drop=FALSE], 
                 MARGIN=2, FUN=median, na.rm=TRUE)
         }, 
         "tukey"={ cl.centroids[ ,i] <- apply(X=data[cl == i & !is.na(cl), ,drop=FALSE], 
@@ -287,10 +288,10 @@ intrinsic.cluster <- function(data, annot, do.mapping=FALSE,
         write(paste("\"", dimnames(centroids.map)[[2]], "\"", collapse=",", sep=""), sep="", append=TRUE, file=paste(filen, "csv", sep="."))
         write.table(centroids.map, sep=",", col.names=FALSE, row.names=FALSE, file=paste(filen, "csv", sep="."), append=TRUE)
     }
-    
+
     return(list(
         "model"=list("method.cor"=method.cor, 
-            "method.centroids"=method.centroids, "std"=std, 
+            "method.centroids"=method.centroids, "std"=std,
             "rescale.q"=rescale.q,  "mins"=mins, "centroids"=cl.centroids,
             "centroids.map"=centroids.map),
         "subtype"=ncl,

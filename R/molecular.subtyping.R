@@ -74,8 +74,10 @@ if(getRversion() >= "2.15.1")
 #'   Tavare S, Caldas C, Aparicio S. (2012) "The genomic and transcriptomic
 #'   architecture of 2,000 breast tumours reveals novel subgroups.", Nature,
 #'   486(7403):346-352.
+#' 
 #' Paquet ER, Hallett MT. (2015) "Absolute assignment of breast cancer intrinsic
 #'   molecular subtype.", J Natl Cancer Inst., 107(1):357.
+#' 
 #' Aleix Prat, Joel S Parker, Olga Karginova, Cheng Fan, Chad Livasy, Jason I
 #'   Herschkowitz, Xiaping He, and Charles M. Perou (2010) "Phenotypic and molecular
 #'   characterization of the claudin-low intrinsic subtype of breast cancer", Breast
