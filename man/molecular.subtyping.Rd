@@ -41,6 +41,7 @@ Clustering Model fitted by subtype.cluster.
 \examples{
 ##### without mapping (affy hgu133a or plus2 only)
 # load VDX data
+require(iC10TrainingData)
 data(vdxs)
 data(AIMSmodel)
 data(scmgene.robust)
@@ -79,6 +80,7 @@ data(claudinLowData)
 sbt.vdxs.CL <- molecular.subtyping(sbt.model="claudinLow", data=data.vdxs,
   annot=annot.vdxs, do.mapping=TRUE)
 table(sbt.vdxs.CL$subtype)
+
 
 }
 \references{

@@ -87,6 +87,7 @@ if(getRversion() >= "2.15.1")
 #' @examples
 #' ##### without mapping (affy hgu133a or plus2 only)
 #' # load VDX data
+#' require(iC10TrainingData)
 #' data(vdxs)
 #' data(AIMSmodel)
 #' data(scmgene.robust)
@@ -125,6 +126,7 @@ if(getRversion() >= "2.15.1")
 #' sbt.vdxs.CL <- molecular.subtyping(sbt.model="claudinLow", data=data.vdxs,
 #'   annot=annot.vdxs, do.mapping=TRUE)
 #' table(sbt.vdxs.CL$subtype)
+#'
 #'
 #' @md
 #' @export
