@@ -24,7 +24,7 @@
 spearmanCI <- 
 function (x, n, alpha=0.05) {
     zz <- sqrt((n-3)/1.06) * survcomp::fisherz(x)
-    zz.se <- 1/sqrt(n - 3)
+    zz.se <- 1
     ll <- zz - qnorm(p=alpha / 2, lower.tail=FALSE) * zz.se
     ll <- survcomp::fisherz(ll / sqrt((n-3)/1.06), inv=TRUE)
     uu <- zz + qnorm(p=alpha / 2, lower.tail=FALSE) * zz.se
